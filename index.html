@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDIO DW PORTFOLIO</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap');
+
+        /* ═══ 변수 및 기본 설정 (레퍼런스 4-1 감성 반영) ═══ */
+        :root { 
+            --point: #bada55; 
+            --glow: #dcf073; 
+            --bg: #0d0d0b; 
+            --card: #151512; 
+            --border: #2a2a26;
+            --text: #e8e4de;
+        }
+
+        /* iframe 내부에서 여백 없이 출력되도록 설정 */
+        body { margin: 0; padding: 0; background-color: var(--bg); }
+
+        .dw-root * { box-sizing: border-box; margin: 0; padding: 0; }
+        .dw-root {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg);
+            background-image: radial-gradient(rgba(186, 218, 85, 0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: var(--text);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 120px;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        /* ═══ 1. 상단 안내 (다크 레드 + 느린 점멸) ═══ */
+        .dw-hero { padding: 80px 28px 40px; text-align: center; }
+        .dw-deadline-status {
+            display: inline-flex; align-items: center; gap: 12px;
+            padding: 10px 30px; background: #1a0505; border: 1.5px solid #3d0a0a;
+            border-radius: 100px; margin-bottom: 40px;
+        }
+        .dw-red-dot {
+            width: 8px; height: 8px; background: #cc0000; border-radius: 50%;
+            box-shadow: 0 0 8px #cc0000;
+            animation: dw-slow-blink 2.5s infinite ease-in-out;
+        }
+        @keyframes dw-slow-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .dw-deadline-text { font-size: 16px; font-weight: 700; color: #ff4d4d; letter-spacing: -0.02em; }
+
+        .dw-intro-wrap {
+            width: 100%; max-width: 1100px; margin: 0 auto;
+            border: 1.5px solid var(--border); border-radius: 35px; overflow: hidden; background: var(--card);
+        }
+        .dw-intro-wrap iframe { width: 100%; height: 500px; border: none; display: block; }
+
+        /* ═══ 2. 작업 이력 (중앙 정렬 및 디자인 통일) ═══ */
+        .dw-history-head { text-align: center; margin: 100px 0 40px; }
+        .dw-history-content { padding: 0 40px; }
+        .dw-history-grid { 
+            display: grid; grid-template-columns: 1fr auto; gap: 80px;
+            align-items: center; justify-content: center; max-width: 1100px; margin: 0 auto;
+        }
+        .dw-partner-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 0 100px; }
+        .dw-partner-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .dw-partner-list li { font-size: 14px; font-weight: 700; color: #888; display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+        .dw-partner-list li::before { content: '•'; color: var(--point); font-size: 14px; }
+
+        .dw-stat-text { font-size: 18px; color: #666; font-weight: 700; margin-bottom: 5px; line-height: 1.4; }
+        .dw-stat-number { 
+            font-size: 110px; font-weight: 900; line-height: 0.9; letter-spacing: -0.05em; 
+            background: linear-gradient(to bottom, var(--point) 30%, #5a8c1e 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: dw-glow-fix 3s infinite ease-in-out;
+        }
+        @keyframes dw-glow-fix { 0%, 100% { filter: drop-shadow(0 0 2px rgba(186, 218, 85, 0.1)); } 50% { filter: drop-shadow(0 0 8px rgba(186, 218, 85, 0.4)); } }
+        .dw-stat-unit { font-size: 48px; font-weight: 900; vertical-align: baseline; margin-left: 2px; -webkit-text-fill-color: #e8e4de; }
+        .dw-stat-period { font-family: 'DM Mono', monospace; font-size: 11px; color: #444; margin-top: 15px; letter-spacing: 0.05em; }
+
+        /* ═══ 섹션 라벨 (중앙 정렬 수정) ═══ */
+        .dw-section-lbl {
+            display: flex; align-items: center; gap: 15px; padding: 0 40px; margin: 100px 0 40px;
+            font-family: 'DM Mono', monospace; font-size: 11px; color: var(--point); letter-spacing: 0.3em; opacity: 0.6;
+            justify-content: center;
+        }
+        .dw-section-lbl::before { content: ''; flex: 1; height: 1px; background: var(--border); }
+        .dw-section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+        /* ═══ 포트폴리오 카드 (키워드 배지 복구 및 KRW 크기 조정) ═══ */
+        .dw-pkg-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 35px; overflow: hidden; margin: 0 40px 60px; }
+        .dw-pkg-top { padding: 35px 40px; border-bottom: 1.5px solid var(--border); display: flex; justify-content: space-between; align-items: start; }
+        .dw-pkg-title-area h3 { font-size: 32px; font-weight: 900; color: #fff; letter-spacing: -1.5px; }
+        
+        .dw-pkg-summary-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+        .dw-summary-pill { padding: 5px 16px; background: #1c1c20; border: 1.5px solid #2a2a30; border-radius: 50px; font-size: 12px; font-weight: 700; color: #777; }
+        .dw-summary-pill.highlight { color: var(--point); border-color: rgba(186, 218, 85, 0.3); }
+
+        .dw-pkg-price { font-family: 'DM Mono', monospace; font-size: 30px; font-weight: 500; color: var(--point); }
+        .dw-krw { font-size: 0.6em; margin-left: 4px; }
+
+        .dw-video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 40px; }
+        .dw-video-grid iframe { width: 100%; aspect-ratio: 16/9; border: none; border-radius: 15px; background: #000; }
+
+        /* ═══ 슬라이더 섹션 (Design & Add-on 6칸 전체) ═══ */
+        .dw-slider-section { position: relative; padding: 0 40px; }
+        .dw-slider-outer { overflow: hidden; border-radius: 35px; }
+        .dw-slider-track { display: flex; gap: 15px; transition: transform 0.5s ease; width: max-content; }
+        
+        .dw-design-item { width: 350px; height: 210px; background: var(--card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
+        .dw-design-item iframe { width: 100%; height: 100%; border: none; display: block; pointer-events: none; }
+        
+        .dw-addon-item { width: 340px; background: var(--card); border: 1.5px solid var(--border); border-radius: 20px; overflow: hidden; }
+        .dw-item-preview { width: 100%; aspect-ratio: 16/9; background: #000; border-bottom: 1px solid var(--border); }
+        .dw-item-preview iframe { width: 100%; height: 100%; border: none; display: block; }
+        
+        .dw-item-info { padding: 15px 20px; }
+        .dw-item-title { font-size: 16px; font-weight: 900; color: #fff; margin-bottom: 1px; }
+        .dw-item-price { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--point); margin-bottom: 5px; }
+        .dw-item-desc { font-size: 11px; color: #555; line-height: 1.5; }
+
+        .dw-controls { display: flex; justify-content: center; gap: 10px; margin-top: 25px; }
+        .dw-arrow-btn {
+            width: 32px; height: 32px; background: #fdfdf5; border-radius: 50%; border: none;
+            display: flex; align-items: center; justify-content: center;
+            color: #0d0d0f; font-size: 12px; font-weight: 900; cursor: pointer; transition: 0.2s;
+        }
+        .dw-arrow-btn:hover { background: var(--point); transform: scale(1.1); }
+
+        /* ═══ ORDER & ESTIMATE ═══ */
+        .dw-order-grid { padding: 0 40px; display: grid; grid-template-columns: 1fr 420px; gap: 30px; align-items: start; }
+        .dw-form-box { background: var(--card); border: 1.5px solid var(--border); border-radius: 35px; overflow: hidden; }
+        .dw-form-box iframe { width: 100%; height: 1350px; border: none; display: block; }
+
+        .dw-side-stack { display: flex; flex-direction: column; gap: 20px; }
+        .dw-box-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 25px; padding: 25px; }
+        .dw-box-card h4 { font-size: 15px; font-weight: 900; color: var(--point); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        
+        .dw-list-item { font-size: 12px; color: #777; border-bottom: 1px solid var(--border); padding: 10px 0; display: flex; gap: 10px; }
+        .dw-list-item:last-child { border-bottom: none; }
+        .dw-list-num { color: var(--point); font-family: 'DM Mono'; font-weight: 700; min-width: 15px; }
+
+        .dw-calc-item { 
+            display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); 
+            border: 1.5px solid transparent; border-radius: 12px; padding: 15px; 
+            margin-bottom: 8px; cursor: pointer; transition: 0.2s; 
+        }
+        .dw-calc-item.active { border-color: var(--point); background: rgba(186, 218, 85, 0.05); }
+        .dw-ui-chk { width: 18px; height: 18px; border: 1.5px solid #444; border-radius: 4px; position: relative; flex-shrink: 0; }
+        .dw-calc-item.active .dw-ui-chk { background: var(--point); border-color: var(--point); }
+        .dw-calc-item.active .dw-ui-chk::after { 
+            content:'✔'; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); 
+            color:#1a1a1a; font-size:10px; font-weight:900; 
+        }
+        
+        .dw-total-area { border-top: 1.5px solid var(--border); padding-top: 25px; text-align: right; }
+        .dw-total-price { font-family: 'DM Mono', monospace; font-size: 38px; font-weight: 500; color: var(--point); letter-spacing: -0.02em; }
+        .dw-order-btn { 
+            width: 100%; margin-top: 20px; padding: 20px; background: linear-gradient(to bottom, var(--glow), var(--point)); 
+            border: none; border-radius: 50px; font-size: 18px; font-weight: 900; color: #1a1a1a; cursor: pointer; 
+            box-shadow: 0 4px 0 #6e881c;
+        }
+
+        /* ═══ 이용약관 및 FAQ (최하단 이동) ═══ */
+        .dw-bottom-section { padding: 80px 40px 0; }
+        .dw-terms-box { background: var(--card); border: 1.5px solid var(--border); border-radius: 35px; padding: 40px; margin-bottom: 30px; }
+        .dw-terms-scroll { height: 350px; overflow-y: auto; padding-right: 20px; }
+        .dw-terms-scroll::-webkit-scrollbar { width: 4px; }
+        .dw-terms-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        .dw-terms-content { font-size: 12px; color: #777; line-height: 2; }
+        .dw-terms-content b { color: var(--point); display: block; margin-top: 25px; font-size: 14px; }
+
+        .dw-footer { text-align: center; padding: 100px 0; border-top: 1px solid var(--border); margin-top: 80px; opacity: 0.3; }
+    </style>
+</head>
+<body>
+
+<div class="dw-root">
+    <div class="dw-hero">
+        <div class="dw-deadline-status">
+            <div class="dw-red-dot"></div>
+            <span class="dw-deadline-text">~ 5월 30일 일정 마감 · 신청양식 + 자료 필수</span>
+        </div>
+        <div class="dw-intro-wrap"><iframe src="about:blank"></iframe></div>
+    </div>
+
+    <div class="dw-section-lbl">WORK HISTORY</div>
+    <div class="dw-history-content">
+        <div class="dw-history-grid">
+            <div class="dw-partner-columns">
+                <ul class="dw-partner-list">
+                    <li>NIJISANJI</li>
+                    <li>CHARON UNIVERSE : AESTHER,PJX</li>
+                    <li>3Y CORPORATION : OVER.THE.WALL</li>
+                    <li>PROJECT [i]</li>
+                    <li>SHOPFANPICK : LISTELLA</li>
+                    <li>Re:ACT KR</li>
+                    <li>UNITIVE</li>
+                    <li>VRECORD</li>
+                    <li>ForTheMore</li>
+                    <li>악어크루 : CROA</li>
+                    <li>V-LUP</li>
+                </ul>
+                <ul class="dw-partner-list">
+                    <li>V-NEiN</li>
+                    <li>MELODAZE</li>
+                    <li>VCONN</li>
+                    <li>VSINGER</li>
+                    <li>ARFAUNA</li>
+                    <li>REVOLUTION HEART</li>
+                    <li>LUMINOUS</li>
+                    <li>LIVE NOW</li>
+                    <li>LINK4YOU</li>
+                    <li>V_PIK</li>
+                </ul>
+            </div>
+            <div class="dw-history-stat">
+                <div class="dw-stat-text">외 개인 / 팀 / 기업 대상<br>커버 PV 영상, 로고 디자인,<br>방송 레이아웃 등</div>
+                <div class="dw-stat-number">300<span class="dw-stat-unit">건+</span></div>
+                <div class="dw-stat-period">TOTAL TRACK RECORD (2022 ~ 2026)</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dw-section-lbl">PORTFOLIO · STANDARD</div>
+    <div class="dw-pkg-card">
+        <div class="dw-pkg-top">
+            <div class="dw-pkg-title-area">
+                <h3>Standard</h3>
+                <div class="dw-pkg-summary-row">
+                    <span class="dw-summary-pill highlight">3~5 Days</span>
+                    <span class="dw-summary-pill">무컨펌</span>
+                    <span class="dw-summary-pill">간단한 카메라</span>
+                    <span class="dw-summary-pill">별도 연출 #0~1</span>
+                </div>
+            </div>
+            <div class="dw-pkg-price">65,000 ~ <span class="dw-krw">KRW</span></div>
+        </div>
+        <div class="dw-video-grid">
+            <iframe src="https://www.youtube.com/embed/J1TMWjPzjc8"></iframe>
+            <iframe src="https://www.youtube.com/embed/JD1RENEcRyw"></iframe>
+            <iframe src="https://www.youtube.com/embed/czJKGTYNLes"></iframe>
+            <iframe src="https://www.youtube.com/embed/N3fle_3q5Jw"></iframe>
+            <iframe src="https://www.youtube.com/embed/BbYdVjuBLEs"></iframe>
+            <iframe src="https://www.youtube.com/embed/q2tNb3cFbwk"></iframe>
+            <iframe src="https://www.youtube.com/embed/aQ8aRNwzB7I"></iframe>
+            <iframe src="https://www.youtube.com/embed/SSfPjWnP35E"></iframe>
+            <iframe src="https://www.youtube.com/embed/XTIeLxLQXFk"></iframe>
+            <iframe src="https://www.youtube.com/embed/gDm0Sf8zevs"></iframe>
+            <iframe src="https://www.youtube.com/embed/N8AXSzWv028"></iframe>
+            <iframe src="https://www.youtube.com/embed/qmkLDwF2-x8"></iframe>
+        </div>
+    </div>
+
+    <div class="dw-section-lbl">PORTFOLIO · PREMIUM</div>
+    <div class="dw-pkg-card">
+        <div class="dw-pkg-top">
+            <div class="dw-pkg-title-area">
+                <h3>Premium</h3>
+                <div class="dw-pkg-summary-row">
+                    <span class="dw-summary-pill highlight">8~14 Days</span>
+                    <span class="dw-summary-pill">무료컨펌 1회</span>
+                    <span class="dw-summary-pill">고급 카메라+보정</span>
+                    <span class="dw-summary-pill">별도 연출 #2~3</span>
+                </div>
+            </div>
+            <div class="dw-pkg-price">160,000 ~ <span class="dw-krw">KRW</span></div>
+        </div>
+        <div class="dw-video-grid">
+            <iframe src="https://www.youtube.com/embed/EidWL-y8pWs"></iframe>
+            <iframe src="https://www.youtube.com/embed/Q4DHE_SlFlY"></iframe>
+            <iframe src="https://www.youtube.com/embed/Jx2G0hryYUo"></iframe>
+            <iframe src="https://www.youtube.com/embed/EkCq3DdQF1Q"></iframe>
+            <iframe src="https://www.youtube.com/embed/95GKBgHNv-Y"></iframe>
+            <iframe src="https://www.youtube.com/embed/A7PvuWOwpSA"></iframe>
+            <iframe src="https://www.youtube.com/embed/MdUX_JWxjxo"></iframe>
+            <iframe src="https://www.youtube.com/embed/Uv11Fj7W6Po"></iframe>
+            <iframe src="https://www.youtube.com/embed/OeEHEmglb50"></iframe>
+            <iframe src="https://www.youtube.com/embed/wRJYMTk6oss"></iframe>
+            <iframe src="https://www.youtube.com/embed/DsJaELMgx2M"></iframe>
+            <iframe src="https://www.youtube.com/embed/oHwJRvTL2tY"></iframe>
+        </div>
+    </div>
+
+    <div class="dw-section-lbl">PORTFOLIO · SIGNATURE</div>
+    <div class="dw-pkg-card">
+        <div class="dw-pkg-top">
+            <div class="dw-pkg-title-area">
+                <h3>Signature</h3>
+                <div class="dw-pkg-summary-row">
+                    <span class="dw-summary-pill highlight">25~30 Days</span>
+                    <span class="dw-summary-pill">무료컨펌 1회</span>
+                    <span class="dw-summary-pill">최상위 연출</span>
+                    <span class="dw-summary-pill">풀 커스텀 제작</span>
+                </div>
+            </div>
+            <div class="dw-pkg-price">329,000 ~ <span class="dw-krw">KRW</span></div>
+        </div>
+        <div class="dw-video-grid">
+            <iframe src="https://www.youtube.com/embed/ghegG0iQT9M"></iframe>
+            <iframe src="https://www.youtube.com/embed/zsijqnikASg"></iframe>
+            <iframe src="https://www.youtube.com/embed/P1sl_HJ2Hrs"></iframe>
+            <iframe src="https://www.youtube.com/embed/3Bvt5D0EP3o"></iframe>
+            <iframe src="https://www.youtube.com/embed/HAkBSifpxaI"></iframe>
+            <iframe src="https://www.youtube.com/embed/uw0QC2a0uQU"></iframe>
+            <iframe src="https://www.youtube.com/embed/CIvaJc3mL8Y"></iframe>
+            <iframe src="https://www.youtube.com/embed/tv-lzxejtMU"></iframe>
+            <iframe src="https://www.youtube.com/embed/9eIIk7CyKmI"></iframe>
+        </div>
+    </div>
+
+    <div class="dw-section-lbl">PORTFOLIO · DESIGN</div>
+    <div class="dw-slider-section">
+        <div class="dw-slider-outer">
+            <div class="dw-slider-track" id="design-track">
+                <div class="dw-design-item"><iframe src="about:blank"></iframe></div>
+                <div class="dw-design-item"><iframe src="about:blank"></iframe></div>
+                <div class="dw-design-item"><iframe src="about:blank"></iframe></div>
+                <div class="dw-design-item"><iframe src="about:blank"></iframe></div>
+                <div class="dw-design-item"><iframe src="about:blank"></iframe></div>
+                <div class="dw-design-item"><iframe src="about:blank"></iframe></div>
+            </div>
+        </div>
+        <div class="dw-controls">
+            <button class="dw-arrow-btn" onclick="moveSlide('design-track', -1)"> < </button>
+            <button class="dw-arrow-btn" onclick="moveSlide('design-track', 1)"> > </button>
+        </div>
+    </div>
+
+    <div class="dw-section-lbl">ADD-ON OPTIONS</div>
+    <div class="dw-slider-section">
+        <div class="dw-slider-outer">
+            <div class="dw-slider-track" id="addon-track">
+                <div class="dw-addon-item">
+                    <div class="dw-item-preview"><iframe src="about:blank"></iframe></div>
+                    <div class="dw-item-info"><div class="dw-item-title">배경 디자인 (2D)</div><div class="dw-item-price">별도 견적</div><div class="dw-item-desc">일러스트 기반 고퀄리티 리소스 제작</div></div>
+                </div>
+                <div class="dw-addon-item">
+                    <div class="dw-item-preview"><iframe src="about:blank"></iframe></div>
+                    <div class="dw-item-info"><div class="dw-item-title">배경 디자인 (3D)</div><div class="dw-item-price">별도 견적</div><div class="dw-item-desc">3D 툴을 활용한 공간감 연출</div></div>
+                </div>
+                <div class="dw-addon-item">
+                    <div class="dw-item-preview"><iframe src="about:blank"></iframe></div>
+                    <div class="dw-item-info"><div class="dw-item-title">Live 2D 애니메이션</div><div class="dw-item-price">별도 견적</div><div class="dw-item-desc">리깅 소재를 활용한 캐릭터 모션</div></div>
+                </div>
+                <div class="dw-addon-item">
+                    <div class="dw-item-preview"><iframe src="about:blank"></iframe></div>
+                    <div class="dw-item-info"><div class="dw-item-title">디자인(썸네일)SET</div><div class="dw-item-price">별도 견적</div><div class="dw-item-desc">로고+썸네일+크레딧 패키지</div></div>
+                </div>
+                <div class="dw-addon-item">
+                    <div class="dw-item-preview"><iframe src="about:blank"></iframe></div>
+                    <div class="dw-item-info"><div class="dw-item-title">빠른 마감</div><div class="dw-item-price">별도 견적</div><div class="dw-item-desc">일정 최우선 순위 배정</div></div>
+                </div>
+                <div class="dw-addon-item">
+                    <div class="dw-item-preview"><iframe src="about:blank"></iframe></div>
+                    <div class="dw-item-info"><div class="dw-item-title">SNS/Shorts 폼 추가</div><div class="dw-item-price">별도 견적</div><div class="dw-item-desc">홍보용 숏폼 사이즈 변환</div></div>
+                </div>
+            </div>
+        </div>
+        <div class="dw-controls">
+            <button class="dw-arrow-btn" onclick="moveSlide('addon-track', -1)"> < </button>
+            <button class="dw-arrow-btn" onclick="moveSlide('addon-track', 1)"> > </button>
+        </div>
+    </div>
+
+    <div class="dw-section-lbl">ORDER & ESTIMATE</div>
+    <div class="dw-order-grid">
+        <div class="dw-form-box"><iframe src="https://studiodwofficial-a11y.github.io/order-form/"></iframe></div>
+
+        <div class="dw-side-stack">
+            <div class="dw-box-card">
+                <h4>필독 안내사항</h4>
+                <div class="dw-list-item"><span class="dw-list-num">01</span><span>신청양식 없는 문의는 답변드리지 않습니다.</span></div>
+                <div class="dw-list-item"><span class="dw-list-num">02</span><span>예산 정보를 알려주시면 진행이 훨씬 빠릅니다.</span></div>
+                <div class="dw-list-item"><span class="dw-list-num">03</span><span>커버곡 PV 외 작업은 현재 진행하지 않습니다.</span></div>
+                <div class="dw-list-item"><span class="dw-list-num">04</span><span>예약 시 최소 일러스트 러프는 필수입니다.</span></div>
+            </div>
+
+            <div class="dw-box-card">
+                <h4 style="color:#fff;">임시 견적 계산기</h4>
+                <div id="dw-pkg-sel">
+                    <span style="font-size:10px; color:var(--point); font-weight:700; text-transform:uppercase; margin-bottom:10px; display:block;">패키지 선택</span>
+                    <div class="dw-calc-item active" data-type="std" data-price="65000" data-days="3~5">Standard (65,000 ~ <span class="dw-krw" style="color:inherit">KRW</span>)</div>
+                    <div class="dw-calc-item" data-type="pre" data-price="160000" data-days="8~14">Premium (160,000 ~ <span class="dw-krw" style="color:inherit">KRW</span>)</div>
+                    <div class="dw-calc-item" data-type="sig" data-price="329000" data-days="25~30">Signature (329,000 ~ <span class="dw-krw" style="color:inherit">KRW</span>)</div>
+                </div>
+                
+                <div id="dw-addon-sel" style="margin-top:25px;">
+                    <span style="font-size:10px; color:var(--point); font-weight:700; text-transform:uppercase; margin-bottom:10px; display:block;">옵션 추가</span>
+                    <div class="dw-calc-item var" data-std="30000" data-pre="50000" data-sig="80000"><div class="dw-ui-chk"></div><span style="flex:1;">인원 추가</span></div>
+                    <div class="dw-calc-item var" data-std="20000" data-pre="40000" data-sig="60000"><div class="dw-ui-chk"></div><span style="flex:1;">3분 30초 초과</span></div>
+                    <div class="dw-calc-item var" data-std="30000" data-pre="50000" data-sig="100000"><div class="dw-ui-chk"></div><span style="flex:1;">수익창출 라이센스</span></div>
+                    <div class="dw-calc-item" data-price="50000"><div class="dw-ui-chk"></div><span style="flex:1;">배경디자인 2D</span></div>
+                    <div class="dw-calc-item" data-price="80000"><div class="dw-ui-chk"></div><span style="flex:1;">배경디자인 3D</span></div>
+                    <div class="dw-calc-item" data-price="60000"><div class="dw-ui-chk"></div><span style="flex:1;">Live 2D</span></div>
+                    <div class="dw-calc-item" data-price="40000"><div class="dw-ui-chk"></div><span style="flex:1;">디자인 Set</span></div>
+                    <div class="dw-calc-item" data-price="50000"><div class="dw-ui-chk"></div><span style="flex:1;">빠른마감</span></div>
+                    <div class="dw-calc-item" data-price="20000"><div class="dw-ui-chk"></div><span style="flex:1;">SNS/Shorts폼</span></div>
+                </div>
+
+                <div class="dw-total-area">
+                    <div class="dw-total-price"><span id="final-total">65,000</span> ~ <span class="dw-krw">KRW</span></div>
+                    <div id="final-days" style="font-size:12px; color:#555; margin-top:8px;">예상 납기 : 3~5 DAYS</div>
+                    <button class="dw-order-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">문의 / 주문하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dw-section-lbl">GALLERY PREVIEW</div>
+    <div style="text-align: center; padding: 0 40px;">
+        <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/3/goods_32541/17779727060_Re.jpg" style="width: 100%; border-radius: 35px; margin-bottom: 20px;">
+        <img src="https://artmugfile6.mycafe24.com/image/up_img/detail/3/goods_32541/17779726830_Re.jpg" style="width: 100%; border-radius: 35px;">
+    </div>
+
+    <div class="dw-bottom-section">
+        <div class="dw-section-lbl">TERMS OF SERVICE</div>
+        <div class="dw-terms-box">
+            <h4>이용약관</h4>
+            <div class="dw-terms-scroll">
+                <div class="dw-terms-content">
+                    <b>[용역 제공과 저작권리]</b>
+                    모든 주문 건에 대하여 Studio DW는 작업에 필요한 인력을 제공하는것으로, 모든 작업물에 대한 저작권은 Studio DW에 귀속됩니다. 수령 완료한 작업물의 편집권 및 저작권 양도는 제공되지 않으며, 별도 라이선스 구매 시에만 해당 권리가 이전됩니다.
+                    <b>[표기 의무]</b>
+                    작업물을 온라인에 업로드할 경우, Studio DW를 명시해야 합니다. 이를 이행하지 않을 경우, Studio DW는 사용 중지 요청 및 손해배상 청구(최대 주문 체결 금액의 10배) 등의 법적 조치를 취할 수 있습니다.
+                    <b>[작업물 사용 제한 (방송용)]</b>
+                    Studio DW에서 제공한 방송용 PV 영상은 [수익창출이 되지 않는 형태의 온라인 업로드(X(구 twitter)제외) / 1회성 라이브스트리밍] 용도로만 사용 가능합니다. 그 외 기타용도로 사용하고자 할 경우 사전 협의가 필요합니다.
+                    <b>[수익 창출 라이센스]</b>
+                    수익 창출 목적의 활용 [컨텐츠 또는 리액션 영상 등의 활용 등 2차 소비 / Super Thanks 및 후원 기능 / 지속적 스트리밍 / 오프라인 상영 등] 에는 반드시 수익 창출 라이센스가 필요합니다.
+                    <b>[비허가된 수정 및 사용 금지(공통)]</b>
+                    사전 협의 없이 작업물을 2차 가공, 협의 내용외 사용 적발시 무단 사용 및 저작권리 침해로 간주하며, Studio DW는 사용 중지 요청 및 손해배상 청구(최대 주문 체결 금액의 10배) 등의 법적 조치를 취할 수 있습니다.
+                    <b>[실적 활용 권한]</b>
+                    모든 작업물은 게시물 업로드 및 삭제 여부와 관계없이 Studio DW의 실적 증명 목적으로 사용될 수 있습니다.
+                    <b>[제3자 및 작가 동의 간주]</b>
+                    Studio DW는 영상 작업 시 진행하는 보정 및 완성된 작업물의 실적 증명 자료 활용에 대하여, 작업물에 포함된 자료를 작업한 일러스트/음원 작가의 동의를 받은 것으로 간주합니다.
+                    <b>[수정 및 피드백 조건]</b>
+                    스탠다드/디자인세트 : 오탈자 또는 작업 간 실수로 발생한 문제 외에는 피드백 없이 진행합니다.<br>
+                    프리미엄/시그니처 : 오탈자 또는 작업 간 실수로 발생한 문제 외에 1회 무료 수정이가능하며, 이후 수정 작업은 회당 별도 요금이 부과됩니다.[프리미엄: 30,000KRW / 시그니처: 50,000KRW]<br>
+                    작업물 전달 이후 24시간 이내 피드백 전달, 또는 의사 전달이 진행되지 않으면 '수정사항 없음'으로 간주합니다.
+                    <b>[음원(오디오파일)]</b>
+                    오디오 파일 변경은 보컬 싱크에 변동이 없는 경우에 한해 1회 무료 제공됩니다. 보컬 싱크 변동으로 인한 수정요청은 무료 피드백 횟수에 포함되지 않습니다. Mix 작업이 완료되지 않아 원곡 음원으로 작업을 희망하시는 경우 원곡음원을 전달해주셔야 합니다.
+                    <b>[PV 영상 규정]</b>
+                    커버곡 PV 영상은 보컬 1인을 기준으로 제작되며, 추가 인원이 필요한 경우 별도 옵션 추가가 필요합니다. 기본제공 타임라인은 오디오 파일 기준 3분 30초로, 초과시 별도 옵션추가가 필요합니다. 
+                    <b>[마감 기한]</b>
+                    타입별 마감 기한은 평균 작업 기간 기준이며, 작업 난이도또는일정에따라 1-2일의 지연이 발생할 수 있습니다. 최초 피드백 진행 시 마감 기간이 초과될 수 있으며, 주문 또는피드백 과정에서 전달 누락 또는 작성하지 않은 요청으로 인한 수정 요청은 작업 진행도에 따라 반려될 수 있습니다.
+                    <b>[유사 작업물 구성]</b>
+                    유사한 곡 또는 비슷한 구성의 작업물은 연출 및 디자인이 비슷할 수 있습니다. 음원의 동일 구간에 대한 별도의 연출 작업은 진행하지 않습니다.
+                    <b>[작업물 전달 보관 기한]</b>
+                    모든 작업물의 보관 기한은 수령완료 처리 이후 30일입니다. 납품 당시 생성된 링크는 30일이 지난 후에 삭제되며, 완성된 작업물은 상시 백업해두고 있으나 프로젝트 파일은 삭제 또는 작업 불가 상태일 수 있습니다.
+                    <b>[책임 한계]</b>
+                    모든 주문 건에 대해 본 안내문을 충분히 숙지하고 동의한 것으로 간주되며, 이를 확인하지 않아 발생하는 문제에 대해서는 Studio DW는 일절 책임지지 않습니다.
+                </div>
+            </div>
+        </div>
+
+        <div class="dw-section-lbl">FAQ</div>
+        <div class="dw-box-card" style="border-radius:35px;">
+            <h4>자주 묻는 질문</h4>
+            <div class="dw-list-item"><span class="dw-list-num">Q</span><span>작업물 저작권은 누구에게 있나요?</span></div>
+            <div class="dw-list-item"><span class="dw-list-num">A</span><span>제작자 귀속이며 상업이용 시 별도 라이선스가 필요합니다.</span></div>
+            <div class="dw-list-item"><span class="dw-list-num">Q</span><span>수정 횟수 초과 시 비용이 발생하나요?</span></div>
+            <div class="dw-list-item"><span class="dw-list-num">A</span><span>네, 타입별 규정 횟수 초과 시 별도 수정 비용이 가산됩니다.</span></div>
+        </div>
+    </div>
+
+    <div class="dw-footer">
+        <p style="font-weight:900; letter-spacing:3px; font-size:14px; color:var(--point);">STUDIO DESIGN WORKS</p>
+        <p>© 2026 STUDIO DW. ALL RIGHTS RESERVED.</p>
+    </div>
+</div>
+
+<script>
+(function() {
+    /* 슬라이더 제어 */
+    const sliderIdx = { 'design-track': 0, 'addon-track': 0 };
+    window.moveSlide = function(id, dir) {
+        const track = document.getElementById(id);
+        if(!track) return;
+        const gap = 15;
+        const width = (id === 'design-track' ? 350 : 340) + gap;
+        sliderIdx[id] += dir;
+        if(sliderIdx[id] < 0) sliderIdx[id] = 0;
+        if(sliderIdx[id] > 3) sliderIdx[id] = 3;
+        track.style.transform = `translateX(-${sliderIdx[id] * width}px)`;
+    };
+
+    /* 견적 계산기 (가변/고정 분리) */
+    const pkgs = document.querySelectorAll('#dw-pkg-sel .dw-calc-item');
+    const addons = document.querySelectorAll('#dw-addon-sel .dw-calc-item');
+    const totalDisplay = document.getElementById('final-total');
+    const daysDisplay = document.getElementById('final-days');
+
+    function update() {
+        if(!totalDisplay || !daysDisplay) return;
+        let total = 0, days = "", type = "std";
+        pkgs.forEach(p => { if(p.classList.contains('active')) { total += parseInt(p.dataset.price); days = p.dataset.days; type = p.dataset.type; }});
+        addons.forEach(a => {
+            if(a.classList.contains('active')) {
+                if(a.classList.contains('var')) { total += parseInt(a.getAttribute('data-' + type)); }
+                else { total += parseInt(a.dataset.price); }
+            }
+        });
+        totalDisplay.innerText = total.toLocaleString();
+        daysDisplay.innerText = `예상 납기 : ${days} DAYS`;
+    }
+
+    pkgs.forEach(item => { item.addEventListener('click', () => { pkgs.forEach(i => i.classList.remove('active')); item.classList.add('active'); update(); }); });
+    addons.forEach(item => { item.addEventListener('click', () => { item.classList.toggle('active'); update(); }); });
+    update();
+})();
+</script>
+
+</body>
+</html>
