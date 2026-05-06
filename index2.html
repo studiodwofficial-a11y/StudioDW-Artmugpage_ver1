@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스탠다드 - Index 2</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap');
+
+    /* ═══ 변수 및 기본 설정 ═══ */
+    :root { 
+        --point: #bada55; 
+        --glow: #dcf073; 
+        --bg: #0d0d0b; 
+        --card: #151512; 
+        --border: #2a2a26;
+        --text: #e8e4de;
+    }
+
+    .dw-root * { box-sizing: border-box; margin: 0; padding: 0; }
+    .dw-root {
+        font-family: 'Noto Sans KR', sans-serif;
+        background-color: var(--bg);
+        background-image: radial-gradient(rgba(186, 218, 85, 0.08) 1px, transparent 1px);
+        background-size: 24px 24px;
+        color: var(--text);
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 0; /* 상하 여백 조절 */
+        line-height: 1.7;
+        text-align: left;
+    }
+
+    /* ═══ 섹션 라벨 ═══ */
+    .dw-section-lbl {
+        display: flex; align-items: center; gap: 15px; padding: 0 40px; margin-bottom: 40px;
+        font-family: 'DM Mono', monospace; font-size: 11px; color: var(--point); letter-spacing: 0.3em; opacity: 0.6;
+        justify-content: center;
+    }
+    .dw-section-lbl::before { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .dw-section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ═══ 스탠다드 포트폴리오 카드 ═══ */
+    .dw-pkg-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 35px; overflow: hidden; margin: 0 40px; }
+    .dw-pkg-top { padding: 35px 40px; border-bottom: 1.5px solid var(--border); display: flex; justify-content: space-between; align-items: start; }
+    .dw-pkg-title-area h3 { font-size: 32px; font-weight: 900; color: #fff; letter-spacing: -1.5px; }
+    
+    .dw-pkg-summary-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .dw-summary-pill { padding: 5px 16px; background: #1c1c20; border: 1.5px solid #2a2a30; border-radius: 50px; font-size: 12px; font-weight: 700; color: #777; }
+    .dw-summary-pill.highlight { color: var(--point); border-color: rgba(186, 218, 85, 0.3); }
+
+    .dw-pkg-price { font-family: 'DM Mono', monospace; font-size: 30px; font-weight: 500; color: var(--point); }
+    .dw-krw { font-size: 0.6em; margin-left: 4px; }
+
+    .dw-video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 40px; }
+    .dw-video-grid iframe { width: 100%; aspect-ratio: 16/9; border: none; border-radius: 15px; background: #000; }
+
+    /* 모바일 대응 */
+    @media (max-width: 768px) {
+        .dw-video-grid { grid-template-columns: 1fr; }
+        .dw-pkg-top { flex-direction: column; gap: 20px; }
+    }
+</style>
+</head>
+<body>
+<div class="dw-root">
+    <div class="dw-section-lbl">PORTFOLIO · STANDARD</div>
+    
+    <div class="dw-pkg-card">
+        <div class="dw-pkg-top">
+            <div class="dw-pkg-title-area">
+                <h3>Standard</h3>
+                <div class="dw-pkg-summary-row">
+                    <span class="dw-summary-pill highlight">3~5 Days</span>
+                    <span class="dw-summary-pill">무컨펌</span>
+                    <span class="dw-summary-pill">간단한 카메라</span>
+                    <span class="dw-summary-pill">별도 연출 #0~1</span>
+                </div>
+            </div>
+            <div class="dw-pkg-price">65,000 ~ <span class="dw-krw">KRW</span></div>
+        </div>
+        
+        <div class="dw-video-grid">
+            <iframe src="https://www.youtube.com/embed/J1TMWjPzjc8"></iframe>
+            <iframe src="https://www.youtube.com/embed/JD1RENEcRyw"></iframe>
+            <iframe src="https://www.youtube.com/embed/czJKGTYNLes"></iframe>
+            <iframe src="https://www.youtube.com/embed/N3fle_3q5Jw"></iframe>
+            <iframe src="https://www.youtube.com/embed/BbYdVjuBLEs"></iframe>
+            <iframe src="https://www.youtube.com/embed/q2tNb3cFbwk"></iframe>
+            <iframe src="https://www.youtube.com/embed/aQ8aRNwzB7I"></iframe>
+            <iframe src="https://www.youtube.com/embed/SSfPjWnP35E"></iframe>
+            <iframe src="https://www.youtube.com/embed/XTIeLxLQXFk"></iframe>
+            <iframe src="https://www.youtube.com/embed/gDm0Sf8zevs"></iframe>
+            <iframe src="https://www.youtube.com/embed/N8AXSzWv028"></iframe>
+            <iframe src="https://www.youtube.com/embed/qmkLDwF2-x8"></iframe>
+        </div>
+    </div>
+</div>
+</body>
+</html>

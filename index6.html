@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신청양식 - Studio DW</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap');
+
+    :root { 
+        --point: #bada55; 
+        --bg: #0d0d0b; 
+        --card: #151512; 
+        --border: #2a2a26;
+        --text: #e8e4de;
+    }
+
+    .dw-root * { box-sizing: border-box; margin: 0; padding: 0; }
+    .dw-root {
+        font-family: 'Noto Sans KR', sans-serif;
+        background-color: var(--bg);
+        background-image: radial-gradient(rgba(186, 218, 85, 0.08) 1px, transparent 1px);
+        background-size: 24px 24px;
+        color: var(--text);
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-bottom: 0; /* 하단 여백 완전 제거 */
+        line-height: 1.8;
+    }
+
+    .dw-section-lbl {
+        display: flex; align-items: center; gap: 15px; padding: 0 40px; margin: 60px 0 30px;
+        font-family: 'DM Mono', monospace; font-size: 11px; color: var(--point); letter-spacing: 0.3em; opacity: 0.6;
+        justify-content: center;
+    }
+    .dw-section-lbl::before, .dw-section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .dw-main-grid { 
+        padding: 0 40px 0 40px; /* 하단 패딩 제거 */
+        display: grid; 
+        grid-template-columns: 1fr 380px; 
+        gap: 5px; 
+        align-items: start;
+    }
+    
+    .dw-form-box { background: transparent; border: none; overflow: hidden; line-height: 0; }
+    .dw-form-box iframe { width: 100%; height: 1400px; border: none; display: block; overflow: hidden; }
+
+    .dw-side-stack { 
+        display: flex; 
+        flex-direction: column; 
+        gap: 15px;
+        margin-top: 19px; 
+    }
+    
+    .dw-box-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 25px; padding: 30px; }
+    .dw-box-card h4 { font-size: 18px; font-weight: 900; color: var(--point); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+
+    .dw-group-lbl {
+        font-size: 10.7px; 
+        color: var(--point); 
+        font-weight: 800; 
+        text-transform: uppercase; 
+        margin-bottom: 12px; 
+        display: block;
+        letter-spacing: 0.08em;
+        opacity: 0.9;
+    }
+
+    .dw-tag {
+        font-size: 10px;
+        padding: 3px 8px;
+        border-radius: 4px;
+        margin-left: 8px;
+        font-weight: 700;
+        vertical-align: middle;
+    }
+    .tag-fix { background: #2a2a26; color: #aaa; border: 1px solid #3d3d38; }
+    .tag-var { background: rgba(186, 218, 85, 0.1); color: var(--point); border: 1px solid rgba(186, 218, 85, 0.3); }
+
+    .dw-notice-box { 
+        padding: 25px; 
+        background: var(--card); 
+        border: 1.5px solid var(--border); 
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+    .dw-notice-box h4 { 
+        font-size: 15px; font-weight: 900; color: var(--point); 
+        display: flex; align-items: center; gap: 8px;
+    }
+
+    .dw-notice-grid { display: flex; flex-direction: column; gap: 12px; }
+    .dw-notice-item { font-size: 13px; color: #999; display: flex; gap: 10px; align-items: flex-start; }
+    .dw-notice-num { color: var(--point); font-family: 'DM Mono'; font-weight: 700; font-size: 13px; margin-top: 2px; }
+
+    .dw-pkg-item { 
+        font-weight: 900 !important; 
+        letter-spacing: -0.01em;
+    }
+
+    .dw-calc-item { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.02); border: 1.5px solid transparent; border-radius: 12px; padding: 12px 18px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
+    .dw-calc-item.active { border-color: var(--point); background: rgba(186, 218, 85, 0.05); }
+    
+    .dw-num-ctrl { 
+        display: flex; 
+        align-items: center; 
+        justify-content: space-between;
+        background: #000; 
+        border: 1px solid var(--border); 
+        border-radius: 8px; 
+        padding: 2px;
+        width: 75px; 
+    }
+    .dw-num-ctrl button { 
+        width: 22px; height: 22px; 
+        background: transparent; border: none; color: var(--text); 
+        font-weight: 900; cursor: pointer; font-size: 12px;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .dw-num-ctrl input { 
+        width: 28px; 
+        height: 22px;
+        background: transparent; border: none; color: var(--point); 
+        font-family: 'DM Mono'; font-weight: 700; text-align: center; 
+        outline: none; font-size: 13px; 
+        padding: 0;
+        line-height: 22px;
+    }
+    .dw-num-ctrl input::-webkit-outer-spin-button,
+    .dw-num-ctrl input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+    .dw-total-area { border-top: 1.5px solid var(--border); padding-top: 25px; text-align: right; }
+    .dw-total-price { font-family: 'DM Mono', monospace; font-size: 38px; font-weight: 500; color: var(--point); letter-spacing: -0.02em; }
+    .dw-krw { font-size: 0.55em; margin-left: 5px; }
+    #final-days { font-size: 13px; color: #666; margin-top: 8px; font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="dw-root">
+    <div class="dw-section-lbl">ORDER & ESTIMATE</div>
+    
+    <div class="dw-main-grid">
+        <div class="dw-form-box">
+            <iframe src="https://studiodwofficial-a11y.github.io/order-form/" scrolling="no"></iframe>
+        </div>
+
+        <div class="dw-side-stack">
+            <div class="dw-box-card">
+                <h4 style="color:#fff;">실시간 견적 계산기</h4>
+                <div id="dw-pkg-sel">
+                    <span class="dw-group-lbl">패키지 등급</span>
+                    <div class="dw-calc-item dw-pkg-item active" data-type="std" data-price="65000" data-days="3~5" style="font-size: 14px;">Standard (65,000)</div>
+                    <div class="dw-calc-item dw-pkg-item" data-type="pre" data-price="160000" data-days="8~14" style="font-size: 14px;">Premium (160,000)</div>
+                    <div class="dw-calc-item dw-pkg-item" data-type="sig" data-price="329000" data-days="25~30" style="font-size: 14px;">Signature (329,000)</div>
+                </div>
+                
+                <div id="dw-addon-sel" style="margin-top:25px;">
+                    <span class="dw-group-lbl">옵션 수량 설정</span>
+                    <div class="dw-calc-item var" data-std="30000" data-pre="50000" data-sig="80000">
+                        <span style="flex:1; font-size:14px;">인원 추가 <span class="dw-tag tag-var">변동가격</span></span>
+                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                    </div>
+                    <div class="dw-calc-item var" data-std="20000" data-pre="40000" data-sig="60000">
+                        <span style="flex:1; font-size:14px;">3분 30초 초과 <span class="dw-tag tag-var">변동가격</span></span>
+                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                    </div>
+                    <div class="dw-calc-item var" data-std="30000" data-pre="50000" data-sig="100000">
+                        <span style="flex:1; font-size:14px;">수익창출 라이센스 <span class="dw-tag tag-var">변동가격</span></span>
+                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                    </div>
+                    <div class="dw-calc-item" data-price="50000">
+                        <span style="flex:1; font-size:14px;">배경디자인 2D <span class="dw-tag tag-fix">고정가격</span></span>
+                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                    </div>
+                    <div class="dw-calc-item" data-price="80000">
+                        <span style="flex:1; font-size:14px;">배경디자인 3D <span class="dw-tag tag-fix">고정가격</span></span>
+                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                    </div>
+                    <div class="dw-calc-item" data-price="60000">
+                        <span style="flex:1; font-size:14px;">Live 2D 적용 <span class="dw-tag tag-fix">고정가격</span></span>
+                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                    </div>
+                    <div class="dw-calc-item" data-price="40000">
+                        <span style="flex:1; font-size:14px;">디자인 Set <span class="dw-tag tag-fix">고정가격</span></span>
+                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                    </div>
+                    <div class="dw-calc-item" data-price="50000">
+                        <span style="flex:1; font-size:14px;">빠른 마감 <span class="dw-tag tag-fix">고정가격</span></span>
+                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                    </div>
+                    <div class="dw-calc-item" data-price="20000">
+                        <span style="flex:1; font-size:14px;">SNS/Shorts 폼 <span class="dw-tag tag-fix">고정가격</span></span>
+                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                    </div>
+                </div>
+
+                <div class="dw-total-area">
+                    <div class="dw-total-price"><span id="final-total">65,000</span> <span class="dw-krw">KRW</span></div>
+                    <div id="final-days">예상 납기 : 3~5 DAYS</div>
+                </div>
+            </div>
+
+            <div class="dw-notice-box">
+                <h4>필독 안내사항</h4>
+                <div class="dw-notice-grid">
+                    <div class="dw-notice-item"><span class="dw-notice-num">01</span><span>신청양식 없는 문의는 답변드리지 않습니다.</span></div>
+                    <div class="dw-notice-item"><span class="dw-notice-num">02</span><span>커버곡 PV 외 작업은 현재 진행하지 않습니다.</span></div>
+                    <div class="dw-notice-item"><span class="dw-notice-num">03</span><span>예약 시 최소 일러스트 러프는 필수입니다.</span></div>
+                    <div class="dw-notice-item"><span class="dw-notice-num">04</span><span>실시간 견적 계산기로 계산된 금액은 실제 주문 금액과 다를 수 있습니다.</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    const pkgs = document.querySelectorAll('#dw-pkg-sel .dw-calc-item');
+    const addons = document.querySelectorAll('#dw-addon-sel .dw-calc-item');
+    const totalDisplay = document.getElementById('final-total');
+    const daysDisplay = document.getElementById('final-days');
+    let currentTotal = 65000; 
+
+    function animateValue(start, end, duration) {
+        const startTime = performance.now();
+        function step(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            const value = Math.floor(easeOut * (end - start) + start);
+            totalDisplay.innerText = value.toLocaleString();
+            if (progress < 1) window.requestAnimationFrame(step);
+        }
+        window.requestAnimationFrame(step);
+    }
+
+    function update() {
+        let targetTotal = 0, days = "", type = "std";
+        pkgs.forEach(p => { if(p.classList.contains('active')) { targetTotal += parseInt(p.dataset.price); days = p.dataset.days; type = p.dataset.type; } });
+        addons.forEach(a => {
+            const input = a.querySelector('input');
+            const qty = parseInt(input.value);
+            if(qty > 0) {
+                let unitPrice = a.classList.contains('var') ? parseInt(a.getAttribute('data-' + type)) : parseInt(a.dataset.price);
+                targetTotal += (unitPrice * qty);
+            }
+        });
+        animateValue(currentTotal, targetTotal, 400);
+        currentTotal = targetTotal;
+        daysDisplay.innerText = `예상 납기 : ${days} DAYS`;
+    }
+
+    pkgs.forEach(item => { item.addEventListener('click', () => { pkgs.forEach(i => i.classList.remove('active')); item.classList.add('active'); update(); }); });
+    addons.forEach(item => {
+        const minusBtn = item.querySelector('.minus');
+        const plusBtn = item.querySelector('.plus');
+        const input = item.querySelector('input');
+        minusBtn.addEventListener('click', (e) => { e.stopPropagation(); let val = parseInt(input.value); if(val > 0) { input.value = val - 1; if (val - 1 === 0) item.classList.remove('active'); update(); } });
+        plusBtn.addEventListener('click', (e) => { e.stopPropagation(); let val = parseInt(input.value); input.value = val + 1; item.classList.add('active'); update(); });
+    });
+    update();
+})();
+</script>
+</body>
+</html>

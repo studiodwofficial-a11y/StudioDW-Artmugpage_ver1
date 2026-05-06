@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>작업 이력 - Index 1</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap');
+
+    /* ═══ 변수 및 기본 설정 ═══ */
+    :root { 
+        --point: #bada55; 
+        --glow: #dcf073; 
+        --bg: #0d0d0b; 
+        --card: #151512; 
+        --border: #2a2a26;
+        --text: #e8e4de;
+    }
+
+    .dw-root * { box-sizing: border-box; margin: 0; padding: 0; }
+    .dw-root {
+        font-family: 'Noto Sans KR', sans-serif;
+        background-color: var(--bg);
+        background-image: radial-gradient(rgba(186, 218, 85, 0.08) 1px, transparent 1px);
+        background-size: 24px 24px;
+        color: var(--text);
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-bottom: 120px;
+        line-height: 1.7;
+        text-align: left;
+    }
+
+    /* ═══ 1. 상단 안내 ═══ */
+    .dw-hero { padding: 80px 28px 40px; text-align: center; }
+    .dw-deadline-status {
+        display: inline-flex; align-items: center; gap: 12px;
+        padding: 10px 30px; background: #1a0505; border: 1.5px solid #3d0a0a;
+        border-radius: 100px; margin-bottom: 40px;
+    }
+    .dw-red-dot {
+        width: 8px; height: 8px; background: #cc0000; border-radius: 50%;
+        box-shadow: 0 0 8px #cc0000;
+        animation: dw-slow-blink 2.5s infinite ease-in-out;
+    }
+    @keyframes dw-slow-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .dw-deadline-text { font-size: 16px; font-weight: 700; color: #ff4d4d; letter-spacing: -0.02em; }
+
+    .dw-intro-wrap {
+        width: 100%; max-width: 1100px; margin: 0 auto;
+        border: 1.5px solid var(--border); border-radius: 35px; overflow: hidden; background: var(--card);
+    }
+    .dw-intro-wrap iframe { width: 100%; height: 500px; border: none; display: block; }
+
+    /* ═══ 2. 작업 이력 ═══ */
+    .dw-history-content { padding: 0 40px; }
+    .dw-history-grid { 
+        display: grid; grid-template-columns: 1fr auto; gap: 80px;
+        align-items: center; justify-content: center; max-width: 1100px; margin: 0 auto;
+    }
+    .dw-partner-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 0 100px; }
+    .dw-partner-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .dw-partner-list li { font-size: 14px; font-weight: 700; color: #888; display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+    .dw-partner-list li::before { content: '•'; color: var(--point); font-size: 14px; }
+
+    .dw-stat-text { font-size: 18px; color: #666; font-weight: 700; margin-bottom: 5px; line-height: 1.4; }
+    .dw-stat-number { 
+        font-size: 110px; font-weight: 900; line-height: 0.9; letter-spacing: -0.05em; 
+        background: linear-gradient(to bottom, var(--point) 30%, #5a8c1e 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        animation: dw-glow-fix 3s infinite ease-in-out;
+    }
+    @keyframes dw-glow-fix { 0%, 100% { filter: drop-shadow(0 0 2px rgba(186, 218, 85, 0.1)); } 50% { filter: drop-shadow(0 0 8px rgba(186, 218, 85, 0.4)); } }
+    .dw-stat-unit { font-size: 48px; font-weight: 900; vertical-align: baseline; margin-left: 2px; -webkit-text-fill-color: #e8e4de; }
+    .dw-stat-period { font-family: 'DM Mono', monospace; font-size: 11px; color: #444; margin-top: 15px; letter-spacing: 0.05em; }
+
+    /* 섹션 라벨 */
+    .dw-section-lbl {
+        display: flex; align-items: center; gap: 15px; padding: 0 40px; margin: 100px 0 40px;
+        font-family: 'DM Mono', monospace; font-size: 11px; color: var(--point); letter-spacing: 0.3em; opacity: 0.6;
+        justify-content: center;
+    }
+    .dw-section-lbl::before { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .dw-section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .dw-footer { text-align: center; padding: 100px 0; border-top: 1px solid var(--border); margin-top: 80px; opacity: 0.3; }
+</style>
+</head>
+<body>
+<div class="dw-root">
+    <!-- 1. 상단 안내 섹션 -->
+    <div class="dw-hero">
+        <div class="dw-deadline-status">
+            <div class="dw-red-dot"></div>
+            <span class="dw-deadline-text">~ 5월 30일 일정 마감 · 신청양식 + 자료 필수</span>
+        </div>
+        <div class="dw-intro-wrap"><iframe src="about:blank"></iframe></div>
+    </div>
+
+    <!-- 2. 작업 이력 섹션 -->
+    <div class="dw-section-lbl">WORK HISTORY</div>
+    <div class="dw-history-content">
+        <div class="dw-history-grid">
+            <div class="dw-partner-columns">
+                <ul class="dw-partner-list">
+                    <li>NIJISANJI</li>
+                    <li>CHARON UNIVERSE : AESTHER,PJX</li>
+                    <li>3Y CORPORATION : OVER.THE.WALL</li>
+                    <li>PROJECT [i]</li>
+                    <li>SHOPFANPICK : LISTELLA</li>
+                    <li>Re:ACT KR</li>
+                    <li>UNITIVE</li>
+                    <li>VRECORD</li>
+                    <li>ForTheMore</li>
+                    <li>악어크루 : CROA</li>
+                    <li>V-LUP</li>
+                </ul>
+                <ul class="dw-partner-list">
+                    <li>V-NEiN</li>
+                    <li>MELODAZE</li>
+                    <li>VCONN</li>
+                    <li>VSINGER</li>
+                    <li>ARFAUNA</li>
+                    <li>REVOLUTION HEART</li>
+                    <li>LUMINOUS</li>
+                    <li>LIVE NOW</li>
+                    <li>LINK4YOU</li>
+                    <li>V_PIK</li>
+                </ul>
+            </div>
+            <div class="dw-history-stat">
+                <div class="dw-stat-text">외 개인 / 팀 / 기업 대상<br>커버 PV 영상, 로고 디자인,<br>방송 레이아웃 등</div>
+                <div class="dw-stat-number">300<span class="dw-stat-unit">건+</span></div>
+                <div class="dw-stat-period">TOTAL TRACK RECORD (2022 ~ 2026)</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

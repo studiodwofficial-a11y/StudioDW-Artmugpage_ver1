@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시그니처 - Index 4</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap');
+
+    :root { 
+        --point: #bada55; 
+        --bg: #0d0d0b; 
+        --card: #151512; 
+        --border: #2a2a26;
+        --text: #e8e4de;
+    }
+
+    .dw-root * { box-sizing: border-box; margin: 0; padding: 0; }
+    .dw-root {
+        font-family: 'Noto Sans KR', sans-serif;
+        background-color: var(--bg);
+        background-image: radial-gradient(rgba(186, 218, 85, 0.08) 1px, transparent 1px);
+        background-size: 24px 24px;
+        color: var(--text);
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 0;
+        line-height: 1.7;
+    }
+
+    /* 섹션 라벨 */
+    .dw-section-lbl {
+        display: flex; align-items: center; gap: 15px; padding: 0 40px; margin-bottom: 40px;
+        font-family: 'DM Mono', monospace; font-size: 11px; color: var(--point); letter-spacing: 0.3em; opacity: 0.6;
+        justify-content: center;
+    }
+    .dw-section-lbl::before, .dw-section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* 시그니처 패키지 카드 */
+    .dw-pkg-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 35px; overflow: hidden; margin: 0 40px; }
+    .dw-pkg-top { padding: 35px 40px; border-bottom: 1.5px solid var(--border); display: flex; justify-content: space-between; align-items: start; }
+    .dw-pkg-title-area h3 { font-size: 32px; font-weight: 900; color: #fff; letter-spacing: -1.5px; }
+    
+    .dw-pkg-summary-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .dw-summary-pill { padding: 5px 16px; background: #1c1c20; border: 1.5px solid #2a2a30; border-radius: 50px; font-size: 12px; font-weight: 700; color: #777; }
+    .dw-summary-pill.highlight { color: var(--point); border-color: rgba(186, 218, 85, 0.3); }
+
+    .dw-pkg-price { font-family: 'DM Mono', monospace; font-size: 30px; font-weight: 500; color: var(--point); }
+    .dw-krw { font-size: 0.6em; margin-left: 4px; }
+
+    .dw-video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 40px; }
+    .dw-video-grid iframe { width: 100%; aspect-ratio: 16/9; border: none; border-radius: 15px; background: #000; }
+
+    /* 모바일 대응 */
+    @media (max-width: 768px) {
+        .dw-video-grid { grid-template-columns: 1fr; }
+        .dw-pkg-top { flex-direction: column; gap: 20px; }
+    }
+</style>
+</head>
+<body>
+<div class="dw-root">
+    <div class="dw-section-lbl">PORTFOLIO · SIGNATURE</div>
+     <div class="dw-pkg-card">
+        <div class="dw-pkg-top">
+            <div class="dw-pkg-title-area">
+                <h3>Signature</h3>
+                <div class="dw-pkg-summary-row">
+                    <span class="dw-summary-pill highlight">25~30 Days</span>
+                    <span class="dw-summary-pill">무료컨펌 1회</span>
+                    <span class="dw-summary-pill">최상위 연출</span>
+                    <span class="dw-summary-pill">풀 커스텀 제작</span>
+                </div>
+            </div>
+            <div class="dw-pkg-price">329,000 ~ <span class="dw-krw">KRW</span></div>
+        </div>
+        
+        <div class="dw-video-grid">
+            <iframe src="https://www.youtube.com/embed/ghegG0iQT9M"></iframe>
+            <iframe src="https://www.youtube.com/embed/zsijqnikASg"></iframe>
+            <iframe src="https://www.youtube.com/embed/P1sl_HJ2Hrs"></iframe>
+            <iframe src="https://www.youtube.com/embed/3Bvt5D0EP3o"></iframe>
+            <iframe src="https://www.youtube.com/embed/HAkBSifpxaI"></iframe>
+            <iframe src="https://www.youtube.com/embed/uw0QC2a0uQU"></iframe>
+            <iframe src="https://www.youtube.com/embed/CIvaJc3mL8Y"></iframe>
+            <iframe src="https://www.youtube.com/embed/tv-lzxejtMU"></iframe>
+            <iframe src="https://www.youtube.com/embed/9eIIk7CyKmI"></iframe>
+        </div>
+    </div>
+</div>
+</body>
+</html>
