@@ -28,7 +28,7 @@
         margin: 0 auto;
         padding-bottom: 120px;
         line-height: 1.7;
-        text-align: left;
+        text-align: center; /* 기본 정렬을 중앙으로 설정 */
     }
 
     /* ═══ 1. 상단 안내 ═══ */
@@ -52,17 +52,24 @@
     }
     .dw-intro-wrap iframe { width: 100%; height: 500px; border: none; display: block; }
 
-    /* ═══ 2. 작업 이력 ═══ */
-    .dw-history-content { padding: 0 40px; }
+    /* ═══ 2. 작업 이력 (중앙 정렬 및 왼쪽 밀착 수정) ═══ */
+    .dw-history-content { padding: 0 40px; display: flex; justify-content: center; } /* 부모 박스에서 중앙 배치 */
+    
     .dw-history-grid { 
-        display: grid; grid-template-columns: 1fr auto; gap: 80px;
-        align-items: center; justify-content: center; max-width: 1100px; margin: 0 auto;
+        display: grid; 
+        grid-template-columns: auto auto; /* 필요한 만큼만 공간 차지 */
+        gap: 80px; 
+        align-items: center; 
+        justify-content: center; /* 내부 요소들을 중앙으로 모음 */
+        max-width: 1100px; 
     }
-    .dw-partner-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 0 100px; }
+    
+    .dw-partner-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 0 60px; text-align: left; }
     .dw-partner-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .dw-partner-list li { font-size: 14px; font-weight: 700; color: #888; display: flex; align-items: center; gap: 10px; white-space: nowrap; }
     .dw-partner-list li::before { content: '•'; color: var(--point); font-size: 14px; }
 
+    .dw-history-stat { text-align: left; } /* 통계 텍스트는 왼쪽 정렬 유지 */
     .dw-stat-text { font-size: 18px; color: #666; font-weight: 700; margin-bottom: 5px; line-height: 1.4; }
     .dw-stat-number { 
         font-size: 110px; font-weight: 900; line-height: 0.9; letter-spacing: -0.05em; 
@@ -88,7 +95,6 @@
 </head>
 <body>
 <div class="dw-root">
-    <!-- 1. 상단 안내 섹션 -->
     <div class="dw-hero">
         <div class="dw-deadline-status">
             <div class="dw-red-dot"></div>
@@ -97,7 +103,6 @@
         <div class="dw-intro-wrap"><iframe src="about:blank"></iframe></div>
     </div>
 
-    <!-- 2. 작업 이력 섹션 -->
     <div class="dw-section-lbl">WORK HISTORY</div>
     <div class="dw-history-content">
         <div class="dw-history-grid">
