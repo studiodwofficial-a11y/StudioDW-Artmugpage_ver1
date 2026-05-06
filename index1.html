@@ -28,7 +28,7 @@
         margin: 0 auto;
         padding-bottom: 120px;
         line-height: 1.7;
-        text-align: center; /* 기본 정렬을 중앙으로 설정 */
+        text-align: center;
     }
 
     /* ═══ 1. 상단 안내 ═══ */
@@ -52,15 +52,15 @@
     }
     .dw-intro-wrap iframe { width: 100%; height: 500px; border: none; display: block; }
 
-    /* ═══ 2. 작업 이력 (중앙 정렬 및 왼쪽 밀착 수정) ═══ */
-    .dw-history-content { padding: 0 40px; display: flex; justify-content: center; } /* 부모 박스에서 중앙 배치 */
+    /* ═══ 2. 작업 이력 (중앙 정렬 및 위치 조정) ═══ */
+    .dw-history-content { padding: 0 40px; display: flex; justify-content: center; }
     
     .dw-history-grid { 
         display: grid; 
-        grid-template-columns: auto auto; /* 필요한 만큼만 공간 차지 */
+        grid-template-columns: auto auto; 
         gap: 80px; 
         align-items: center; 
-        justify-content: center; /* 내부 요소들을 중앙으로 모음 */
+        justify-content: center; 
         max-width: 1100px; 
     }
     
@@ -69,8 +69,18 @@
     .dw-partner-list li { font-size: 14px; font-weight: 700; color: #888; display: flex; align-items: center; gap: 10px; white-space: nowrap; }
     .dw-partner-list li::before { content: '•'; color: var(--point); font-size: 14px; }
 
-    .dw-history-stat { text-align: left; } /* 통계 텍스트는 왼쪽 정렬 유지 */
-    .dw-stat-text { font-size: 18px; color: #666; font-weight: 700; margin-bottom: 5px; line-height: 1.4; }
+    .dw-history-stat { 
+        text-align: left; 
+        margin-left: -50px; /* 왼쪽으로 20px 이동 */
+    }
+    .dw-stat-text { 
+        font-size: 18px; 
+        color: #666; 
+        font-weight: 700; 
+        margin-bottom: 5px; 
+        line-height: 1.5;
+        white-space: nowrap; 
+    }
     .dw-stat-number { 
         font-size: 110px; font-weight: 900; line-height: 0.9; letter-spacing: -0.05em; 
         background: linear-gradient(to bottom, var(--point) 30%, #5a8c1e 100%);
@@ -134,8 +144,11 @@
                 </ul>
             </div>
             <div class="dw-history-stat">
-                <div class="dw-stat-text">외 개인 / 팀 / 기업 대상<br>커버 PV 영상, 로고 디자인,<br>방송 레이아웃 등</div>
-                <div class="dw-stat-number">300<span class="dw-stat-unit">건 이상 작업</span></div>
+                <div class="dw-stat-text">
+                    외 개인 / 팀 / 기업 대상<br>
+                    커버 PV 영상, 로고 디자인, 방송 레이아웃 등
+                </div>
+                <div class="dw-stat-number">300<span class="dw-stat-unit">건 이상 작업!</span></div>
                 <div class="dw-stat-period">TOTAL TRACK RECORD (2022 ~ 2026)</div>
             </div>
         </div>
