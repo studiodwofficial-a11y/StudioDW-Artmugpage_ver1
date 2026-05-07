@@ -24,7 +24,7 @@
         color: var(--text);
         max-width: 1200px;
         margin: 0 auto;
-        padding-bottom: 0; /* 하단 여백 완전 제거 */
+        padding-bottom: 0;
         line-height: 1.8;
     }
 
@@ -36,7 +36,7 @@
     .dw-section-lbl::before, .dw-section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
     .dw-main-grid { 
-        padding: 0 40px 0 40px; /* 하단 패딩 제거 */
+        padding: 0 40px 0 40px; 
         display: grid; 
         grid-template-columns: 1fr 380px; 
         gap: 5px; 
@@ -68,15 +68,52 @@
     }
 
     .dw-tag {
-        font-size: 10px;
-        padding: 3px 8px;
+        font-size: 9px;
+        padding: 2px 6px;
         border-radius: 4px;
-        margin-left: 8px;
         font-weight: 700;
-        vertical-align: middle;
+        white-space: nowrap;
     }
     .tag-fix { background: #2a2a26; color: #aaa; border: 1px solid #3d3d38; }
     .tag-var { background: rgba(186, 218, 85, 0.1); color: var(--point); border: 1px solid rgba(186, 218, 85, 0.3); }
+
+    .dw-help-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 14px;
+        height: 14px;
+        border: 1px solid #555;
+        border-radius: 50%;
+        font-size: 9px;
+        color: #888;
+        margin-left: 5px;
+        cursor: help;
+        position: relative;
+        vertical-align: middle;
+        transition: 0.2s;
+    }
+    .dw-help-icon:hover { border-color: var(--point); color: var(--point); background: rgba(186, 218, 85, 0.1); }
+    .dw-help-icon::after {
+        content: attr(data-tip);
+        position: absolute;
+        bottom: 150%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #1e1e1b;
+        color: var(--point);
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-size: 11px;
+        white-space: nowrap;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        border: 1px solid var(--border);
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.2s ease;
+        z-index: 1000;
+    }
+    .dw-help-icon:hover::after { opacity: 1; visibility: visible; }
 
     .dw-notice-box { 
         padding: 25px; 
@@ -87,50 +124,55 @@
         flex-direction: column;
         gap: 18px;
     }
-    .dw-notice-box h4 { 
-        font-size: 15px; font-weight: 900; color: var(--point); 
-        display: flex; align-items: center; gap: 8px;
-    }
-
+    .dw-notice-box h4 { font-size: 15px; font-weight: 900; color: var(--point); display: flex; align-items: center; gap: 8px; }
     .dw-notice-grid { display: flex; flex-direction: column; gap: 12px; }
     .dw-notice-item { font-size: 13px; color: #999; display: flex; gap: 10px; align-items: flex-start; }
     .dw-notice-num { color: var(--point); font-family: 'DM Mono'; font-weight: 700; font-size: 13px; margin-top: 2px; }
 
-    .dw-pkg-item { 
-        font-weight: 900 !important; 
-        letter-spacing: -0.01em;
-    }
-
+    .dw-pkg-item { font-weight: 900 !important; letter-spacing: -0.01em; }
     .dw-calc-item { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.02); border: 1.5px solid transparent; border-radius: 12px; padding: 12px 18px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
     .dw-calc-item.active { border-color: var(--point); background: rgba(186, 218, 85, 0.05); }
     
+    .dw-item-ctrls { display: flex; align-items: center; gap: 10px; }
+
     .dw-num-ctrl { 
         display: flex; 
         align-items: center; 
-        justify-content: space-between;
+        justify-content: center;
         background: #000; 
         border: 1px solid var(--border); 
         border-radius: 8px; 
-        padding: 2px;
-        width: 75px; 
+        width: 60px; 
+        height: 28px;
+        padding: 0 2px;
     }
     .dw-num-ctrl button { 
-        width: 22px; height: 22px; 
+        width: 14px; height: 22px; 
         background: transparent; border: none; color: var(--text); 
-        font-weight: 900; cursor: pointer; font-size: 12px;
+        font-weight: 900; cursor: pointer; font-size: 10px;
         display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
     }
     .dw-num-ctrl input { 
-        width: 28px; 
+        width: 20px; 
         height: 22px;
-        background: transparent; border: none; color: var(--point); 
-        font-family: 'DM Mono'; font-weight: 700; text-align: center; 
-        outline: none; font-size: 13px; 
-        padding: 0;
-        line-height: 22px;
+        background: transparent !important; border: none !important; color: var(--point) !important; 
+        font-family: 'DM Mono' !important; font-weight: 700 !important; text-align: center !important; 
+        outline: none !important; font-size: 13px !important; 
+        padding: 0 !important;
+        line-height: 22px !important;
+        -moz-appearance: textfield;
     }
     .dw-num-ctrl input::-webkit-outer-spin-button,
     .dw-num-ctrl input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+    .dw-multiplier-ctrl { display: flex; gap: 5px; }
+    .dw-m-btn {
+        background: #000; border: 1px solid var(--border); color: #666;
+        padding: 4px 8px; border-radius: 6px; font-family: 'DM Mono';
+        font-size: 11px; font-weight: 700; cursor: pointer; transition: 0.2s;
+    }
+    .dw-m-btn.active { border-color: var(--point); color: var(--point); background: rgba(186, 218, 85, 0.1); }
 
     .dw-total-area { border-top: 1.5px solid var(--border); padding-top: 25px; text-align: right; }
     .dw-total-price { font-family: 'DM Mono', monospace; font-size: 38px; font-weight: 500; color: var(--point); letter-spacing: -0.02em; }
@@ -152,48 +194,79 @@
                 <h4 style="color:#fff;">실시간 견적 계산기</h4>
                 <div id="dw-pkg-sel">
                     <span class="dw-group-lbl">패키지 등급</span>
-                    <div class="dw-calc-item dw-pkg-item active" data-type="std" data-price="65000" data-days="3~5" style="font-size: 14px;">Standard (65,000)</div>
-                    <div class="dw-calc-item dw-pkg-item" data-type="pre" data-price="160000" data-days="8~14" style="font-size: 14px;">Premium (160,000)</div>
-                    <div class="dw-calc-item dw-pkg-item" data-type="sig" data-price="329000" data-days="25~30" style="font-size: 14px;">Signature (329,000)</div>
+                    <div class="dw-calc-item dw-pkg-item active" data-type="std" data-price="65000" data-days="3~5" style="font-size: 14px;">Standard : 65,000</div>
+                    <div class="dw-calc-item dw-pkg-item" data-type="pre" data-price="160000" data-days="8~14" style="font-size: 14px;">Premium : 160,000</div>
+                    <div class="dw-calc-item dw-pkg-item" data-type="sig" data-price="329000" data-days="25~30" style="font-size: 14px;">Signature : 329,000</div>
                 </div>
                 
                 <div id="dw-addon-sel" style="margin-top:25px;">
                     <span class="dw-group-lbl">옵션 수량 설정</span>
-                    <div class="dw-calc-item var" data-std="30000" data-pre="50000" data-sig="80000">
-                        <span style="flex:1; font-size:14px;">인원 추가 <span class="dw-tag tag-var">변동가격</span></span>
-                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                    <div class="dw-calc-item var" data-std="10000" data-pre="18000" data-sig="30000">
+                        <span style="flex:1; font-size:14px;">인원 추가/3매 이상<span class="dw-help-icon" data-tip="기본 인원 외 추가 인원당 비용입니다.">?</span></span>
+                        <div class="dw-item-ctrls">
+                            <span class="dw-tag tag-var">타입별</span>
+                            <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                        </div>
                     </div>
-                    <div class="dw-calc-item var" data-std="20000" data-pre="40000" data-sig="60000">
-                        <span style="flex:1; font-size:14px;">3분 30초 초과 <span class="dw-tag tag-var">변동가격</span></span>
-                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                    <div class="dw-calc-item var" data-std="8000" data-pre="18000" data-sig="30000">
+                        <span style="flex:1; font-size:14px;">3분 30초 초과<span class="dw-help-icon" data-tip="3분 30초 초과 시 1분당 발생하는 비용입니다.">?</span></span>
+                        <div class="dw-item-ctrls">
+                            <span class="dw-tag tag-var">타입별</span>
+                            <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                        </div>
                     </div>
-                    <div class="dw-calc-item var" data-std="30000" data-pre="50000" data-sig="100000">
-                        <span style="flex:1; font-size:14px;">수익창출 라이센스 <span class="dw-tag tag-var">변동가격</span></span>
-                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                    <div class="dw-calc-item var" data-std="50000" data-pre="130000" data-sig="250000">
+                        <span style="flex:1; font-size:14px;">수익창출 라이센스<span class="dw-help-icon" data-tip="수익 창출 채널 업로드 시 필수 항목입니다.">?</span></span>
+                        <div class="dw-item-ctrls">
+                            <span class="dw-tag tag-var">타입별</span>
+                            <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                        </div>
+                    </div>
+                    <div class="dw-calc-item" data-price="25000">
+                        <span style="flex:1; font-size:14px;">배경디자인 2D<span class="dw-help-icon" data-tip="2D 그래픽 배경을 제작합니다.">?</span></span>
+                        <div class="dw-item-ctrls">
+                            <span class="dw-tag tag-fix">고정가격</span>
+                            <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                        </div>
                     </div>
                     <div class="dw-calc-item" data-price="50000">
-                        <span style="flex:1; font-size:14px;">배경디자인 2D <span class="dw-tag tag-fix">고정가격</span></span>
-                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
-                    </div>
-                    <div class="dw-calc-item" data-price="80000">
-                        <span style="flex:1; font-size:14px;">배경디자인 3D <span class="dw-tag tag-fix">고정가격</span></span>
-                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
-                    </div>
-                    <div class="dw-calc-item" data-price="60000">
-                        <span style="flex:1; font-size:14px;">Live 2D 적용 <span class="dw-tag tag-fix">고정가격</span></span>
-                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                        <span style="flex:1; font-size:14px;">배경디자인 3D<span class="dw-help-icon" data-tip="3D 툴을 활용한 고퀄리티 배경을 제작합니다.">?</span></span>
+                        <div class="dw-item-ctrls">
+                            <span class="dw-tag tag-fix">고정가격</span>
+                            <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                        </div>
                     </div>
                     <div class="dw-calc-item" data-price="40000">
-                        <span style="flex:1; font-size:14px;">디자인 Set <span class="dw-tag tag-fix">고정가격</span></span>
-                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                        <span style="flex:1; font-size:14px;">Live 2D 적용<span class="dw-help-icon" data-tip="캐릭터의 움직임을 위한 Live2D 애니메이션입니다.">?</span></span>
+                        <div class="dw-item-ctrls">
+                            <span class="dw-tag tag-fix">고정가격</span>
+                            <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                        </div>
                     </div>
-                    <div class="dw-calc-item" data-price="50000">
-                        <span style="flex:1; font-size:14px;">빠른 마감 <span class="dw-tag tag-fix">고정가격</span></span>
-                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                    <div class="dw-calc-item" data-price="17000">
+                        <span style="flex:1; font-size:14px;">디자인 Set<span class="dw-help-icon" data-tip="로고 및 타이틀 디자인이 포함됩니다.">?</span></span>
+                        <div class="dw-item-ctrls">
+                            <span class="dw-tag tag-fix">고정가격</span>
+                            <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                        </div>
                     </div>
-                    <div class="dw-calc-item" data-price="20000">
-                        <span style="flex:1; font-size:14px;">SNS/Shorts 폼 <span class="dw-tag tag-fix">고정가격</span></span>
-                        <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                    <div class="dw-calc-item" data-price="5000">
+                        <span style="flex:1; font-size:14px;">SNS/Shorts 폼<span class="dw-help-icon" data-tip="세로 비율의 홍보용 영상을 제작합니다.">?</span></span>
+                        <div class="dw-item-ctrls">
+                            <span class="dw-tag tag-fix">고정가격</span>
+                            <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
+                        </div>
+                    </div>
+
+                    <div class="dw-calc-item dw-multiplier-box" data-price="0" style="cursor: default;">
+                        <span style="flex:1; font-size:14px;">빠른 마감<span class="dw-help-icon" data-tip="정해진 기간보다 빠르게 마감합니다.">?</span></span>
+                        <div class="dw-item-ctrls">
+                            <span class="dw-tag tag-fix">배율선택</span>
+                            <div class="dw-multiplier-ctrl">
+                                <button type="button" class="dw-m-btn" data-mul="1.5">x1.5</button>
+                                <button type="button" class="dw-m-btn" data-mul="2.0">x2.0</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -223,6 +296,7 @@
     const totalDisplay = document.getElementById('final-total');
     const daysDisplay = document.getElementById('final-days');
     let currentTotal = 65000; 
+    let activeMultiplier = 1.0;
 
     function animateValue(start, end, duration) {
         const startTime = performance.now();
@@ -238,29 +312,56 @@
     }
 
     function update() {
-        let targetTotal = 0, days = "", type = "std";
-        pkgs.forEach(p => { if(p.classList.contains('active')) { targetTotal += parseInt(p.dataset.price); days = p.dataset.days; type = p.dataset.type; } });
+        let baseTotal = 0, days = "", type = "std";
+        pkgs.forEach(p => { 
+            if(p.classList.contains('active')) { 
+                baseTotal += parseInt(p.dataset.price); 
+                days = p.dataset.days; 
+                type = p.dataset.type; 
+            } 
+        });
         addons.forEach(a => {
             const input = a.querySelector('input');
-            const qty = parseInt(input.value);
-            if(qty > 0) {
-                let unitPrice = a.classList.contains('var') ? parseInt(a.getAttribute('data-' + type)) : parseInt(a.dataset.price);
-                targetTotal += (unitPrice * qty);
+            if(input) {
+                const qty = parseInt(input.value);
+                if(qty > 0) {
+                    let unitPrice = a.classList.contains('var') ? parseInt(a.getAttribute('data-' + type)) : parseInt(a.dataset.price);
+                    baseTotal += (unitPrice * qty);
+                }
             }
         });
+        let targetTotal = Math.floor(baseTotal * activeMultiplier);
         animateValue(currentTotal, targetTotal, 400);
         currentTotal = targetTotal;
         daysDisplay.innerText = `예상 납기 : ${days} DAYS`;
     }
 
     pkgs.forEach(item => { item.addEventListener('click', () => { pkgs.forEach(i => i.classList.remove('active')); item.classList.add('active'); update(); }); });
+    
     addons.forEach(item => {
         const minusBtn = item.querySelector('.minus');
         const plusBtn = item.querySelector('.plus');
         const input = item.querySelector('input');
-        minusBtn.addEventListener('click', (e) => { e.stopPropagation(); let val = parseInt(input.value); if(val > 0) { input.value = val - 1; if (val - 1 === 0) item.classList.remove('active'); update(); } });
-        plusBtn.addEventListener('click', (e) => { e.stopPropagation(); let val = parseInt(input.value); input.value = val + 1; item.classList.add('active'); update(); });
+        if(minusBtn && plusBtn && input) {
+            minusBtn.addEventListener('click', (e) => { e.stopPropagation(); let val = parseInt(input.value); if(val > 0) { input.value = val - 1; if (val - 1 === 0) item.classList.remove('active'); update(); } });
+            plusBtn.addEventListener('click', (e) => { e.stopPropagation(); let val = parseInt(input.value); input.value = val + 1; item.classList.add('active'); update(); });
+        }
     });
+
+    const mBtns = document.querySelectorAll('.dw-m-btn');
+    mBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const parentBox = btn.closest('.dw-calc-item');
+            const val = parseFloat(btn.dataset.mul);
+            if(btn.classList.contains('active')) {
+                btn.classList.remove('active'); activeMultiplier = 1.0; parentBox.classList.remove('active');
+            } else {
+                mBtns.forEach(b => b.classList.remove('active')); btn.classList.add('active'); activeMultiplier = val; parentBox.classList.add('active');
+            }
+            update();
+        });
+    });
+
     update();
 })();
 </script>
