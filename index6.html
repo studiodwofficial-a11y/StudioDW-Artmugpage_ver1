@@ -6,25 +6,28 @@
     <title>신청양식 - Studio DW</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap');
+    @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
     :root { 
         --point: #bada55; 
+        --glow: #dcf073;
         --bg: #0d0d0b; 
         --card: #151512; 
         --border: #2a2a26;
         --text: #e8e4de;
+        --input-bg: #fdfdf9; 
     }
 
     .dw-root * { box-sizing: border-box; margin: 0; padding: 0; }
     .dw-root {
-        font-family: 'Noto Sans KR', sans-serif;
+        font-family: 'Noto Sans KR', 'Pretendard', sans-serif;
         background-color: var(--bg);
         background-image: radial-gradient(rgba(186, 218, 85, 0.08) 1px, transparent 1px);
         background-size: 24px 24px;
         color: var(--text);
         max-width: 1200px;
         margin: 0 auto;
-        padding-bottom: 0;
+        padding-bottom: 60px;
         line-height: 1.8;
     }
 
@@ -36,94 +39,110 @@
     .dw-section-lbl::before, .dw-section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
     .dw-main-grid { 
-        padding: 0 40px 0 40px; 
+        padding: 0 40px; 
         display: grid; 
         grid-template-columns: 1fr 380px; 
-        gap: 5px; 
+        gap: 30px; 
         align-items: start;
     }
     
-    .dw-form-box { background: transparent; border: none; overflow: hidden; line-height: 0; }
-    .dw-form-box iframe { width: 100%; height: 1400px; border: none; display: block; overflow: hidden; }
-
-    .dw-side-stack { 
-        display: flex; 
-        flex-direction: column; 
-        gap: 15px;
-        margin-top: 19px; 
+    .dw-form-container { 
+        background-color: var(--card);
+        padding: 40px; 
+        border: 1.5px solid var(--border);
+        border-radius: 35px;
+        position: relative;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        height: 1340px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
+
+    .header { margin-bottom: 35px; display: flex; align-items: center; gap: 15px; }
+    .header-logo { width: 50px; height: 50px; object-fit: contain; } 
+    .header-text { display: flex; flex-direction: column; }
+    .header h1 { color: #fdfdf9; font-size: 28px; font-weight: 900; line-height: 1.1; letter-spacing: -1px; }
+    .header p { color: #fff; font-size: 14px; font-weight: 500; opacity: 0.7; margin-top: 3px; }
+
+    .form-group { margin-bottom: 20px; }
+    .form-group label.title { display: block; color: var(--point); font-weight: 700; margin-bottom: 12px; font-size: 14px; }
+    .form-group label.title span { color: var(--point); opacity: 0.6; font-weight: 400; font-size: 12px; margin-left: 5px; }
+
+    input[type="text"], input[type="date"], textarea {
+        width: 100%; padding: 14px 20px; background: var(--input-bg); border: 2px solid transparent;
+        border-radius: 50px; font-size: 14px; color: #1a1a1a; outline: none; 
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-family: inherit; /* 폰트 일관성 적용 */
+    }
+    /* textarea 커스텀: 사용 용도(input)의 스타일을 기반으로 재설정 */
+    textarea { 
+        border-radius: 25px; /* input보다는 조금 덜 둥글게 하되 통일감 부여 */
+        min-height: 120px; 
+        resize: vertical; 
+        line-height: 1.6; 
+        padding: 18px 35px; /* 텍스트 시작 지점 조정 */
+    }
+    input:focus, textarea:focus { background: #fff; border-color: var(--glow); box-shadow: 0 0 12px rgba(220, 240, 115, 0.4); transform: translateY(-1px); }
+
+    .dw-form-check-group { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+    .dw-form-check-label {
+        display: flex; align-items: center; justify-content: center;
+        padding: 8px 12px;
+        background: rgba(255,255,255,0.02);
+        border: 1.5px solid var(--border);
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        color: #999;
+        transition: 0.2s;
+        text-align: center;
+    }
+    .dw-form-check-label:hover { border-color: #444; color: var(--text); }
+    .dw-form-check-label input { display: none; }
     
+    .dw-form-check-label:has(input:checked) {
+        border-color: var(--point);
+        background: rgba(186, 218, 85, 0.08);
+        color: var(--point);
+        font-weight: 800;
+    }
+
+    .agree-box { display: flex; align-items: center; cursor: pointer; font-size: 13.5px; color: var(--point); font-weight: bold; }
+    .agree-box input { appearance: none; -webkit-appearance: none; width: 18px; height: 18px; background: #fdfdf9; margin-right: 8px; border-radius: 4px; cursor: pointer; position: relative; }
+    .agree-box input:checked { background-color: var(--point); }
+    .agree-box input:checked::after { content: '✔'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #1a1a1a; font-size: 10px; font-weight: 900; }
+
+    .submit-area { text-align: center; margin-top: 40px; }
+    .submit-btn {
+        background: linear-gradient(to bottom, #dcf073 0%, #a2c629 100%);
+        color: #1a1a1a; border: none; padding: 16px 60px; font-size: 20px; font-weight: 900; border-radius: 60px;
+        cursor: pointer; transition: 0.3s; box-shadow: 0 5px 0 #6e881c;
+    }
+    .submit-btn:hover { filter: brightness(1.1); }
+    .submit-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #6e881c; }
+
+    .copyright-mark {
+        position: absolute; bottom: 20px; left: 30px; 
+        font-size: 9px; font-weight: 900; color: var(--point); 
+        opacity: 0.2; letter-spacing: 1px;
+    }
+
+    .dw-side-stack { display: flex; flex-direction: column; gap: 15px; }
     .dw-box-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 25px; padding: 30px; }
     .dw-box-card h4 { font-size: 18px; font-weight: 900; color: var(--point); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
-
-    .dw-group-lbl {
-        font-size: 10.7px; 
-        color: var(--point); 
-        font-weight: 800; 
-        text-transform: uppercase; 
-        margin-bottom: 12px; 
-        display: block;
-        letter-spacing: 0.08em;
-        opacity: 0.9;
-    }
-
-    .dw-tag {
-        font-size: 9px;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-weight: 700;
-        white-space: nowrap;
-    }
+    .dw-group-lbl { font-size: 10.7px; color: var(--point); font-weight: 800; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 0.08em; opacity: 0.9; }
+    .dw-tag { font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
     .tag-fix { background: #2a2a26; color: #aaa; border: 1px solid #3d3d38; }
     .tag-var { background: rgba(186, 218, 85, 0.1); color: var(--point); border: 1px solid rgba(186, 218, 85, 0.3); }
 
-    .dw-help-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 14px;
-        height: 14px;
-        border: 1px solid #555;
-        border-radius: 50%;
-        font-size: 9px;
-        color: #888;
-        margin-left: 5px;
-        cursor: help;
-        position: relative;
-        vertical-align: middle;
-        transition: 0.2s;
-    }
+    .dw-help-icon { display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; border: 1px solid #555; border-radius: 50%; font-size: 9px; color: #888; margin-left: 5px; cursor: help; position: relative; vertical-align: middle; transition: 0.2s; }
     .dw-help-icon:hover { border-color: var(--point); color: var(--point); background: rgba(186, 218, 85, 0.1); }
-    .dw-help-icon::after {
-        content: attr(data-tip);
-        position: absolute;
-        bottom: 150%;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #1e1e1b;
-        color: var(--point);
-        padding: 8px 14px;
-        border-radius: 8px;
-        font-size: 11px;
-        white-space: nowrap;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-        border: 1px solid var(--border);
-        opacity: 0;
-        visibility: hidden;
-        transition: 0.2s ease;
-        z-index: 1000;
-    }
+    .dw-help-icon::after { content: attr(data-tip); position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%); background: #1e1e1b; color: var(--point); padding: 8px 14px; border-radius: 8px; font-size: 11px; white-space: nowrap; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid var(--border); opacity: 0; visibility: hidden; transition: 0.2s ease; z-index: 1000; }
     .dw-help-icon:hover::after { opacity: 1; visibility: visible; }
 
-    .dw-notice-box { 
-        padding: 25px; 
-        background: var(--card); 
-        border: 1.5px solid var(--border); 
-        border-radius: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-    }
+    .dw-notice-box { padding: 25px; background: var(--card); border: 1.5px solid var(--border); border-radius: 20px; display: flex; flex-direction: column; gap: 18px; }
     .dw-notice-box h4 { font-size: 15px; font-weight: 900; color: var(--point); display: flex; align-items: center; gap: 8px; }
     .dw-notice-grid { display: flex; flex-direction: column; gap: 12px; }
     .dw-notice-item { font-size: 13px; color: #999; display: flex; gap: 10px; align-items: flex-start; }
@@ -132,52 +151,33 @@
     .dw-pkg-item { font-weight: 900 !important; letter-spacing: -0.01em; }
     .dw-calc-item { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.02); border: 1.5px solid transparent; border-radius: 12px; padding: 12px 18px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
     .dw-calc-item.active { border-color: var(--point); background: rgba(186, 218, 85, 0.05); }
-    
     .dw-item-ctrls { display: flex; align-items: center; gap: 10px; }
 
-    .dw-num-ctrl { 
-        display: flex; 
-        align-items: center; 
-        justify-content: center;
-        background: #000; 
-        border: 1px solid var(--border); 
-        border-radius: 8px; 
-        width: 60px; 
-        height: 28px;
-        padding: 0 2px;
-    }
-    .dw-num-ctrl button { 
-        width: 14px; height: 22px; 
-        background: transparent; border: none; color: var(--text); 
-        font-weight: 900; cursor: pointer; font-size: 10px;
-        display: flex; align-items: center; justify-content: center;
-        flex-shrink: 0;
-    }
-    .dw-num-ctrl input { 
-        width: 20px; 
-        height: 22px;
-        background: transparent !important; border: none !important; color: var(--point) !important; 
-        font-family: 'DM Mono' !important; font-weight: 700 !important; text-align: center !important; 
-        outline: none !important; font-size: 13px !important; 
-        padding: 0 !important;
-        line-height: 22px !important;
-        -moz-appearance: textfield;
-    }
-    .dw-num-ctrl input::-webkit-outer-spin-button,
-    .dw-num-ctrl input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .dw-num-ctrl { display: flex; align-items: center; justify-content: center; background: #000; border: 1px solid var(--border); border-radius: 8px; width: 60px; height: 28px; padding: 0 2px; }
+    .dw-num-ctrl button { width: 14px; height: 22px; background: transparent; border: none; color: var(--text); font-weight: 900; cursor: pointer; font-size: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .dw-num-ctrl input { width: 20px; height: 22px; background: transparent !important; border: none !important; color: var(--point) !important; font-family: 'DM Mono' !important; font-weight: 700 !important; text-align: center !important; outline: none !important; font-size: 13px !important; padding: 0 !important; line-height: 22px !important; -moz-appearance: textfield; }
+    .dw-num-ctrl input::-webkit-outer-spin-button, .dw-num-ctrl input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
     .dw-multiplier-ctrl { display: flex; gap: 5px; }
-    .dw-m-btn {
-        background: #000; border: 1px solid var(--border); color: #666;
-        padding: 4px 8px; border-radius: 6px; font-family: 'DM Mono';
-        font-size: 11px; font-weight: 700; cursor: pointer; transition: 0.2s;
-    }
+    .dw-m-btn { background: #000; border: 1px solid var(--border); color: #666; padding: 4px 8px; border-radius: 6px; font-family: 'DM Mono'; font-size: 11px; font-weight: 700; cursor: pointer; transition: 0.2s; }
     .dw-m-btn.active { border-color: var(--point); color: var(--point); background: rgba(186, 218, 85, 0.1); }
 
     .dw-total-area { border-top: 1.5px solid var(--border); padding-top: 25px; text-align: right; }
     .dw-total-price { font-family: 'DM Mono', monospace; font-size: 38px; font-weight: 500; color: var(--point); letter-spacing: -0.02em; }
     .dw-krw { font-size: 0.55em; margin-left: 5px; }
     #final-days { font-size: 13px; color: #666; margin-top: 8px; font-weight: 500; }
+
+    @media (max-width: 1000px) {
+        .dw-main-grid { grid-template-columns: 1fr; }
+        .dw-side-stack { margin-top: 0; }
+        .dw-form-check-group { grid-template-columns: 1fr 1fr; }
+    }
+    #credit {
+        padding-left: 12px !important; 
+        padding-right: 12px !important;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
 </style>
 </head>
 <body>
@@ -185,8 +185,85 @@
     <div class="dw-section-lbl">ORDER & ESTIMATE</div>
     
     <div class="dw-main-grid">
-        <div class="dw-form-box">
-            <iframe src="https://studiodwofficial-a11y.github.io/order-form/" scrolling="no"></iframe>
+        <div class="dw-form-container">
+            <div class="header">
+                <img src="https://raw.githubusercontent.com/studiodwofficial-a11y/order-form/refs/heads/main/Logo%2060px.png" alt="logo" class="header-logo">
+                <div class="header-text">
+                    <h1>Studio DW : Order Form</h1>
+                    <p>“빠르고 쉽게 문의하세요 / PC환경에 최적화 되어있습니다.”</p>
+                </div>
+            </div>
+
+            <form id="orderForm">
+                <div class="form-group">
+                    <label class="title">업로드 채널 <span>(링크)</span></label>
+                    <input type="text" id="channel" placeholder="채널 링크를 입력해주세요">
+                </div>
+
+                <div class="form-group">
+                    <label class="title">원곡 링크 <span>(Youtube 등)</span></label>
+                    <input type="text" id="original_link" placeholder="참고 링크를 입력해주세요">
+                </div>
+
+                <div class="form-group">
+                    <label class="title">사용 용도</label>
+                    <input type="text" id="usage" placeholder="Youtube / 생방송 송출 / 오프라인 등">
+                </div>
+
+                <div class="form-group">
+                    <label class="title">신청 타입</label>
+                    <div class="dw-form-check-group">
+                        <label class="dw-form-check-label"><input type="radio" name="type" value="스탠다드"> 스탠다드</label>
+                        <label class="dw-form-check-label"><input type="radio" name="type" value="프리미엄"> 프리미엄</label>
+                        <label class="dw-form-check-label"><input type="radio" name="type" value="시그니처"> 시그니처</label>
+                        <label class="dw-form-check-label"><input type="radio" name="type" value="상담희망"> 상담희망</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="title">자막 언어</label>
+                    <div class="dw-form-check-group">
+                        <label class="dw-form-check-label"><input type="radio" name="lang" value="한국어"> 한국어</label>
+                        <label class="dw-form-check-label"><input type="radio" name="lang" value="일본어"> 일본어</label>
+                        <label class="dw-form-check-label"><input type="radio" name="lang" value="영어"> 영어</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="title">추가옵션 <span>(중복 가능)</span></label>
+                    <div class="dw-form-check-group">
+                        <label class="dw-form-check-label"><input type="checkbox" name="opt" value="썸네일"> 썸네일</label>
+                        <label class="dw-form-check-label"><input type="checkbox" name="opt" value="Live2D"> Live2D</label>
+                        <label class="dw-form-check-label"><input type="checkbox" name="opt" value="배경2D"> 배경(2D)</label>
+                        <label class="dw-form-check-label"><input type="checkbox" name="opt" value="배경3D"> 배경(3D)</label>
+                        <label class="dw-form-check-label"><input type="checkbox" name="opt" value="수익창출"> 수익창출</label>
+                        <label class="dw-form-check-label"><input type="checkbox" name="opt" value="빠른마감"> 빠른마감</label>
+                        <label class="dw-form-check-label"><input type="checkbox" name="opt" value="숏폼"> SNS/숏폼</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="title">희망 마감일</label>
+                    <input type="date" id="deadline">
+                </div>
+
+                <div class="form-group">
+                    <label class="title">희망 연출 / 크레딧</label>
+                    <textarea id="credit" placeholder="연출 희망 사항이나 크레딧 정보 등 / 곡에 대한 해석이나 준비과정에서 중요하게 생각하신 점을 알려주시면 많은 도움이 됩니다!"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="agree-box">
+                        <input type="checkbox" id="agree"> 안내사항 및 이용약관을 확인하고 이에 동의합니다.
+                    </label>
+                </div>
+
+                <div class="submit-area">
+                    <button type="button" class="submit-btn" onclick="copyResult()">작성완료</button>
+                    <p style="color: #666; font-size: 12px; margin-top: 5px;">※ 버튼 클릭 시 양식이 복사됩니다.</p>
+                </div>
+            </form>
+            <div class="copyright-mark">©by STUDIO DW</div>
         </div>
 
         <div class="dw-side-stack">
@@ -194,64 +271,64 @@
                 <h4 style="color:#fff;">실시간 견적 계산기</h4>
                 <div id="dw-pkg-sel">
                     <span class="dw-group-lbl">패키지 등급</span>
-                    <div class="dw-calc-item dw-pkg-item active" data-type="std" data-price="65000" data-days="3~5" style="font-size: 14px;">Standard : 65,000</div>
-                    <div class="dw-calc-item dw-pkg-item" data-type="pre" data-price="160000" data-days="8~14" style="font-size: 14px;">Premium : 160,000</div>
-                    <div class="dw-calc-item dw-pkg-item" data-type="sig" data-price="329000" data-days="25~30" style="font-size: 14px;">Signature : 329,000</div>
+                    <div class="dw-calc-item dw-pkg-item active" data-type="std" data-price="65000" data-days="3~5">Standard : 65,000</div>
+                    <div class="dw-calc-item dw-pkg-item" data-type="pre" data-price="160000" data-days="8~14">Premium : 160,000</div>
+                    <div class="dw-calc-item dw-pkg-item" data-type="sig" data-price="329000" data-days="25~30">Signature : 329,000</div>
                 </div>
                 
                 <div id="dw-addon-sel" style="margin-top:25px;">
                     <span class="dw-group-lbl">옵션 수량 설정</span>
                     <div class="dw-calc-item var" data-std="10000" data-pre="18000" data-sig="30000">
-                        <span style="flex:1; font-size:14px;">인원 추가/3매 이상<span class="dw-help-icon" data-tip="기본 인원 외 추가 인원당 비용입니다.">?</span></span>
+                        <span style="flex:1; font-size:14px;">인원 추가/3매 이상<span class="dw-help-icon" data-tip="기본 인원(1인) 외 추가 인원당 비용입니다.">?</span></span>
                         <div class="dw-item-ctrls">
                             <span class="dw-tag tag-var">타입별</span>
                             <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
                         </div>
                     </div>
                     <div class="dw-calc-item var" data-std="8000" data-pre="18000" data-sig="30000">
-                        <span style="flex:1; font-size:14px;">3분 30초 초과<span class="dw-help-icon" data-tip="3분 30초 초과 시 1분당 발생하는 비용입니다.">?</span></span>
+                        <span style="flex:1; font-size:14px;">3분 30초 초과<span class="dw-help-icon" data-tip="3분 30초 초과 시 30초당 발생하는 비용입니다.">?</span></span>
                         <div class="dw-item-ctrls">
                             <span class="dw-tag tag-var">타입별</span>
                             <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
                         </div>
                     </div>
                     <div class="dw-calc-item var" data-std="50000" data-pre="130000" data-sig="250000">
-                        <span style="flex:1; font-size:14px;">수익창출 라이센스<span class="dw-help-icon" data-tip="수익 창출 채널 업로드 시 필수 항목입니다.">?</span></span>
+                        <span style="flex:1; font-size:14px;">수익창출 라이센스<span class="dw-help-icon" data-tip="수익 창출 활동에 이용 시 필수 항목입니다.">?</span></span>
                         <div class="dw-item-ctrls">
                             <span class="dw-tag tag-var">타입별</span>
                             <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
                         </div>
                     </div>
-                    <div class="dw-calc-item" data-price="25000">
-                        <span style="flex:1; font-size:14px;">배경디자인 2D<span class="dw-help-icon" data-tip="2D 그래픽 배경을 제작합니다.">?</span></span>
+                                        <div class="dw-calc-item" data-price="25000">
+                        <span style="flex:1; font-size:14px;">배경디자인 2D<span class="dw-help-icon" data-tip="2D 이미지/이펙트/도형패턴 등의 배경을 작업합니다.">?</span></span>
                         <div class="dw-item-ctrls">
                             <span class="dw-tag tag-fix">고정가격</span>
                             <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
                         </div>
                     </div>
                     <div class="dw-calc-item" data-price="50000">
-                        <span style="flex:1; font-size:14px;">배경디자인 3D<span class="dw-help-icon" data-tip="3D 툴을 활용한 고퀄리티 배경을 제작합니다.">?</span></span>
+                        <span style="flex:1; font-size:14px;">배경디자인 3D<span class="dw-help-icon" data-tip="Fake 3D/3D 오브젝트 소스를 활용한 입체적이고 현실적인 하이퀄리티 배경을 작업합니다. (50,000 ~ 100,000KRW)">?</span></span>
                         <div class="dw-item-ctrls">
-                            <span class="dw-tag tag-fix">고정가격</span>
+                            <span class="dw-tag tag-fix">변동가격</span>
                             <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
                         </div>
                     </div>
                     <div class="dw-calc-item" data-price="40000">
-                        <span style="flex:1; font-size:14px;">Live 2D 적용<span class="dw-help-icon" data-tip="캐릭터의 움직임을 위한 Live2D 애니메이션입니다.">?</span></span>
+                        <span style="flex:1; font-size:14px;">Live 2D<span class="dw-help-icon" data-tip="캐릭터의 움직임을 위한 Live2D 애니메이션입니다. (40,000 ~ 80,000KRW)">?</span></span>
                         <div class="dw-item-ctrls">
-                            <span class="dw-tag tag-fix">고정가격</span>
+                            <span class="dw-tag tag-fix">변동가격</span>
                             <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
                         </div>
                     </div>
                     <div class="dw-calc-item" data-price="17000">
-                        <span style="flex:1; font-size:14px;">디자인 Set<span class="dw-help-icon" data-tip="로고 및 타이틀 디자인이 포함됩니다.">?</span></span>
+                        <span style="flex:1; font-size:14px;">디자인 Set<span class="dw-help-icon" data-tip="로고+썸네일+크레딧 디자인을 추가합니다.">?</span></span>
                         <div class="dw-item-ctrls">
                             <span class="dw-tag tag-fix">고정가격</span>
                             <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
                         </div>
                     </div>
                     <div class="dw-calc-item" data-price="5000">
-                        <span style="flex:1; font-size:14px;">SNS/Shorts 폼<span class="dw-help-icon" data-tip="세로 비율의 홍보용 영상을 제작합니다.">?</span></span>
+                        <span style="flex:1; font-size:14px;">SNS/Shorts 폼<span class="dw-help-icon" data-tip="SNS업로드용 30초 영상/Shorts폼 세로형 출력">?</span></span>
                         <div class="dw-item-ctrls">
                             <span class="dw-tag tag-fix">고정가격</span>
                             <div class="dw-num-ctrl"><button type="button" class="minus">-</button><input type="number" value="0" min="0" readonly><button type="button" class="plus">+</button></div>
@@ -259,7 +336,7 @@
                     </div>
 
                     <div class="dw-calc-item dw-multiplier-box" data-price="0" style="cursor: default;">
-                        <span style="flex:1; font-size:14px;">빠른 마감<span class="dw-help-icon" data-tip="정해진 기간보다 빠르게 마감합니다.">?</span></span>
+                        <span style="flex:1; font-size:14px;">빠른 마감<span class="dw-help-icon" data-tip="정해진 기간보다 빠르게 마감합니다. 단축 기간에 따라 배율이 정해집니다.">?</span></span>
                         <div class="dw-item-ctrls">
                             <span class="dw-tag tag-fix">배율선택</span>
                             <div class="dw-multiplier-ctrl">
@@ -280,8 +357,8 @@
                 <h4>필독 안내사항</h4>
                 <div class="dw-notice-grid">
                     <div class="dw-notice-item"><span class="dw-notice-num">01</span><span>신청양식 없는 문의는 답변드리지 않습니다.</span></div>
-                    <div class="dw-notice-item"><span class="dw-notice-num">02</span><span>커버곡 PV 외 작업은 현재 진행하지 않습니다.</span></div>
-                    <div class="dw-notice-item"><span class="dw-notice-num">03</span><span>예약 시 최소 일러스트 러프는 필수입니다.</span></div>
+                    <div class="dw-notice-item"><span class="dw-notice-num">02</span><span>커버곡 PV 외 작업은 이 페이지에서 진행하지 않습니다.</span></div>
+                    <div class="dw-notice-item"><span class="dw-notice-num">03</span><span>예약문의 시 최소 일러스트 러프정도는 준비해주세요.</span></div>
                     <div class="dw-notice-item"><span class="dw-notice-num">04</span><span>실시간 견적 계산기로 계산된 금액은 실제 주문 금액과 다를 수 있습니다.</span></div>
                 </div>
             </div>
@@ -290,6 +367,42 @@
 </div>
 
 <script>
+function copyResult() {
+    if(!document.getElementById('agree').checked) {
+        alert('안내사항 동의에 체크해주세요!'); 
+        return; 
+    }
+
+    var getVal = function(id) { return document.getElementById(id).value || '미입력'; };
+    var getCheck = function(name) {
+        var checked = Array.from(document.querySelectorAll('input[name="' + name + '"]:checked'));
+        return checked.map(function(el) { return el.value; }).join(', ') || '선택안함';
+    };
+
+    var text = "[STUDIO DW 신청서]\n" +
+               "■ 채널: " + getVal('channel') + "\n" +
+               "■ 원곡: " + getVal('original_link') + "\n" +
+               "■ 용도: " + getVal('usage') + "\n" +
+               "■ 타입: " + getCheck('type') + "\n" +
+               "■ 언어: " + getCheck('lang') + "\n" +
+               "■ 옵션: " + getCheck('opt') + "\n" +
+               "■ 마감일: " + getVal('deadline') + "\n" +
+               "■ 연출/크레딧: \n" + getVal('credit') + "\n\n" +
+               "반드시 준비하신 자료(일러스트/음원 등)를 함께 첨부하여 문의해주세요!";
+                   
+    var t = document.createElement("textarea");
+    document.body.appendChild(t);
+    t.value = text;
+    t.select();
+    try {
+        document.execCommand('copy');
+        alert('양식이 복사되었습니다! 아트머그 문의창에 붙여넣어 주세요.\n\n※ 내용 확인 없이 체크박스에 확인하신 경우 생기는 문제에 대한 책임은 의뢰인에게 있습니다.');
+    } catch (err) {
+        alert('복사에 실패했습니다.');
+    }
+    document.body.removeChild(t);
+}
+
 (function() {
     const pkgs = document.querySelectorAll('#dw-pkg-sel .dw-calc-item');
     const addons = document.querySelectorAll('#dw-addon-sel .dw-calc-item');
