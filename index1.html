@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>작업 이력 - Index 1</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap');
 
@@ -31,7 +34,7 @@
         text-align: center;
     }
 
-    /* ═══ 1. 상단 안내 ═══ */
+    /* ═══ 1. 상단 안내 및 슬라이더 ═══ */
     .dw-hero { padding: 80px 28px 40px; text-align: center; }
     .dw-deadline-status {
         display: inline-flex; align-items: center; gap: 12px;
@@ -46,13 +49,36 @@
     @keyframes dw-slow-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     .dw-deadline-text { font-size: 16px; font-weight: 700; color: #ff4d4d; letter-spacing: -0.02em; }
 
+    /* 슬라이더 컨테이너 설정 */
     .dw-intro-wrap {
         width: 100%; max-width: 1100px; margin: 0 auto;
-        border: 1.5px solid var(--border); border-radius: 35px; overflow: hidden; background: var(--card);
+        border: 1.5px solid var(--border); border-radius: 35px; 
+        overflow: hidden; background: var(--card);
+        height: 500px; 
+        position: relative;
     }
-    .dw-intro-wrap iframe { width: 100%; height: 500px; border: none; display: block; }
 
-    /* ═══ 2. 작업 이력 (중앙 정렬 및 위치 조정) ═══ */
+    /* 슬라이더 내 이미지 최적화 */
+    .swiper { width: 100%; height: 100%; }
+    .swiper-slide img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    /* 화살표 크기 축소 및 색상 커스텀 */
+    .swiper-button-next::after, .swiper-button-prev::after { 
+        font-size: 24px !important; /* 화살표 크기 대폭 축소 */
+        font-weight: bold;
+    }
+    .swiper-button-next, .swiper-button-prev { 
+        color: var(--point) !important; 
+        width: 40px; 
+        height: 40px;
+    }
+    .swiper-pagination-bullet-active { background: var(--point) !important; }
+
+    /* ═══ 2. 작업 이력 ═══ */
     .dw-history-content { padding: 0 40px; display: flex; justify-content: center; }
     
     .dw-history-grid { 
@@ -71,7 +97,7 @@
 
     .dw-history-stat { 
         text-align: left; 
-        margin-left: -50px; /* 왼쪽으로 20px 이동 */
+        margin-left: -50px; 
     }
     .dw-stat-text { 
         font-size: 18px; 
@@ -108,9 +134,27 @@
     <div class="dw-hero">
         <div class="dw-deadline-status">
             <div class="dw-red-dot"></div>
-            <span class="dw-deadline-text">~ 5월 30일 일정 마감</span>
+            <span class="dw-deadline-text">~ 5월 30일 일정 마감 · 신청양식 + 자료 필수</span>
         </div>
-        <div class="dw-intro-wrap"><iframe src="about:blank"></iframe></div>
+
+        <div class="dw-intro-wrap">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/top1.png" alt="">
+                    </div>
+                <div class="swiper-slide">
+                        <img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/top2.png" alt="">
+                    </div>
+                <div class="swiper-slide">
+                        <img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/top3.png" alt="">
+                    </div>
+</div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
     </div>
 
     <div class="dw-section-lbl">WORK HISTORY</div>
@@ -154,5 +198,25 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        loop: true,
+        speed: 800,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+</script>
 </body>
 </html>
