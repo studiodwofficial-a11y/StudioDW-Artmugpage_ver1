@@ -446,7 +446,7 @@ function copyResult() {
         let targetTotal = Math.floor(baseTotal * activeMultiplier);
         animateValue(currentTotal, targetTotal, 400);
         currentTotal = targetTotal;
-        daysDisplay.innerText = `예상 납기 : ${days} DAYS`;
+        daysDisplay.innerText = `※견적을 미리 확인할 수 있는 기능입니다.<br/>실제 주문은 페이지 상단에서 진행해주세요.`;
     }
 
     pkgs.forEach(item => { item.addEventListener('click', () => { pkgs.forEach(i => i.classList.remove('active')); item.classList.add('active'); update(); }); });
