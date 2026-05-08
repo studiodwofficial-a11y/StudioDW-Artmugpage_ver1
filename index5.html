@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>썸네일 - Index 5</title>
+    <title>썸네일 - Index 5 (완벽 정렬 버전)</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap');
 
     /* ═══ 변수 및 기본 설정 ═══ */
     :root { 
         --point: #bada55; 
-        --glow: #dcf073; 
         --bg: #0d0d0b; 
         --card: #151512; 
         --border: #2a2a26;
         --text: #e8e4de;
+        --gap: 15px; /* 아이템 간격 공통 */
     }
 
     .dw-root * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +28,6 @@
         margin: 0 auto;
         padding-bottom: 60px;
         line-height: 1.7;
-        text-align: left;
     }
 
     /* ═══ 섹션 라벨 ═══ */
@@ -37,27 +36,43 @@
         font-family: 'DM Mono', monospace; font-size: 11px; color: var(--point); letter-spacing: 0.3em; opacity: 0.6;
         justify-content: center;
     }
-    .dw-section-lbl::before { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .dw-section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .dw-section-lbl::before, .dw-section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
     /* ═══ 슬라이더 공통 ═══ */
-    .dw-slider-section { position: relative; padding: 0 40px; }
-    .dw-slider-outer { overflow: hidden; border-radius: 35px; }
-    .dw-slider-track { display: flex; gap: 15px; transition: transform 0.5s ease; width: max-content; }
+    .dw-slider-section { position: relative; width: 100%; text-align: center; }
+    
+    /* [정렬 핵심] 컨테이너 너비를 아이템 3개 + 간격 2개만큼 딱 맞춤 */
+    .dw-slider-outer { 
+        overflow: hidden; 
+        border-radius: 25px; 
+        margin: 0 auto; /* 수평 중앙 정렬 */
+    }
+    
+    /* 디자인 섹션 너비: (350 * 3) + (15 * 2) = 1080px */
+    .design-outer { width: 1080px; }
+    /* 애드온 섹션 너비: (340 * 3) + (15 * 2) = 1050px */
+    .addon-outer { width: 1050px; }
+
+    .dw-slider-track { 
+        display: flex; 
+        gap: var(--gap); 
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+        width: max-content; 
+    }
     
     /* Design Item */
     .dw-design-item { width: 350px; height: 210px; background: var(--card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
-    .dw-design-item iframe { width: 100%; height: 100%; border: none; display: block; pointer-events: none; }
     
     /* Add-on Item */
-    .dw-addon-item { width: 340px; background: var(--card); border: 1.5px solid var(--border); border-radius: 20px; overflow: hidden; }
-    .dw-item-preview { width: 100%; aspect-ratio: 16/9; background: #000; border-bottom: 1px solid var(--border); }
-    .dw-item-preview iframe { width: 100%; height: 100%; border: none; display: block; }
+    .dw-addon-item { width: 340px; background: var(--card); border: 1.5px solid var(--border); border-radius: 20px; overflow: hidden; text-align: left; }
     
+    /* 이미지 공통 */
+    .dw-design-item img, .dw-item-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .dw-item-preview { width: 100%; aspect-ratio: 16/9; background: #000; border-bottom: 1px solid var(--border); overflow: hidden; }
     .dw-item-info { padding: 15px 20px; }
     .dw-item-title { font-size: 16px; font-weight: 900; color: #fff; margin-bottom: 1px; }
     .dw-item-price { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--point); margin-bottom: 5px; }
-    .dw-item-desc { font-size: 11px; color: #555; line-height: 1.5; }
+    .dw-item-desc { font-size: 13px; color: #aaa; line-height: 1.5; }
 
     /* Controls */
     .dw-controls { display: flex; justify-content: center; gap: 10px; margin-top: 25px; }
@@ -71,17 +86,17 @@
 </head>
 <body>
 <div class="dw-root">
-    <!-- PORTFOLIO · DESIGN 섹션 -->
+    <!-- 디자인 섹션 -->
     <div class="dw-section-lbl">PORTFOLIO · DESIGN</div>
     <div class="dw-slider-section">
-        <div class="dw-slider-outer">
+        <div class="dw-slider-outer design-outer">
             <div class="dw-slider-track" id="design-track">
-                <div class="dw-design-item"><iframe src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t1.png"></iframe></div>
-                <div class="dw-design-item"><iframe src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t2.png"></iframe></div>
-                <div class="dw-design-item"><iframe src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t3.png"></iframe></div>
-                <div class="dw-design-item"><iframe src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t4.png"></iframe></div>
-                <div class="dw-design-item"><iframe src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t5.png"></iframe></div>
-                <div class="dw-design-item"><iframe src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t6.png"></iframe></div>
+                <div class="dw-design-item"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t1.png" alt=""></div>
+                <div class="dw-design-item"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t2.png" alt=""></div>
+                <div class="dw-design-item"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t3.png" alt=""></div>
+                <div class="dw-design-item"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t4.png" alt=""></div>
+                <div class="dw-design-item"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t5.png" alt=""></div>
+                <div class="dw-design-item"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t6.png" alt=""></div>
             </div>
         </div>
         <div class="dw-controls">
@@ -90,34 +105,34 @@
         </div>
     </div>
 
-    <!-- ADD-ON OPTIONS 섹션 -->
+    <!-- 애드온 섹션 -->
     <div class="dw-section-lbl">ADD-ON OPTIONS</div>
     <div class="dw-slider-section">
-        <div class="dw-slider-outer">
+        <div class="dw-slider-outer addon-outer">
             <div class="dw-slider-track" id="addon-track">
                 <div class="dw-addon-item">
-                    <div class="dw-item-preview"><iframe src="about:blank"></iframe></div>
-                    <div class="dw-item-info"><div class="dw-item-title">배경 디자인 (2D)</div><div class="dw-item-price">별도 견적</div><div class="dw-item-desc">일러스트 기반 고퀄리티 리소스 제작</div></div>
+                    <div class="dw-item-preview"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/o2d.png" alt=""></div>
+                    <div class="dw-item-info"><div class="dw-item-title">배경 디자인 (2D)</div><div class="dw-item-price">25,000 KRW</div><div class="dw-item-desc">2D이미지/이펙트/도형패턴 등의 배경을 작업합니다.</div></div>
                 </div>
                 <div class="dw-addon-item">
-                    <div class="dw-item-preview"><iframe src="about:blank"></iframe></div>
-                    <div class="dw-item-info"><div class="dw-item-title">배경 디자인 (3D)</div><div class="dw-item-price">별도 견적</div><div class="dw-item-desc">3D 툴을 활용한 공간감 연출</div></div>
+                    <div class="dw-item-preview"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/o3d.png" alt=""></div>
+                    <div class="dw-item-info"><div class="dw-item-title">배경 디자인 (3D)</div><div class="dw-item-price">50,000~100,000 KRW</div><div class="dw-item-desc">Fake 3D/3D 오브젝트 소스를 활용한 입체적이고<br/>현실적인 하이퀄리티 배경을 작업합니다.</div></div>
                 </div>
                 <div class="dw-addon-item">
-                    <div class="dw-item-preview"><iframe src="about:blank"></iframe></div>
-                    <div class="dw-item-info"><div class="dw-item-title">Live 2D 애니메이션</div><div class="dw-item-price">별도 견적</div><div class="dw-item-desc">리깅 소재를 활용한 캐릭터 모션</div></div>
+                    <div class="dw-item-preview"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/olive.png" alt=""></div>
+                    <div class="dw-item-info"><div class="dw-item-title">Live 2D 애니메이션</div><div class="dw-item-price">40,000~80,000 KRW</div><div class="dw-item-desc">캐릭터의 움직임을 위한 Live2D 애니메이션을<br/>작업합니다.<br/>※레이어가 분리된 PSD/PNG 파일만 작업 가능합니다.</div></div>
                 </div>
                 <div class="dw-addon-item">
-                    <div class="dw-item-preview"><iframe src="about:blank"></iframe></div>
-                    <div class="dw-item-info"><div class="dw-item-title">디자인(썸네일)SET</div><div class="dw-item-price">별도 견적</div><div class="dw-item-desc">로고+썸네일+크레딧 패키지</div></div>
+                    <div class="dw-item-preview"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/othumb.png" alt=""></div>
+                    <div class="dw-item-info"><div class="dw-item-title">디자인(썸네일)SET</div><div class="dw-item-price">17,000 KRW</div><div class="dw-item-desc">로고+썸네일+크레딧 패키지입니다.</div></div>
                 </div>
                 <div class="dw-addon-item">
-                    <div class="dw-item-preview"><iframe src="about:blank"></iframe></div>
-                    <div class="dw-item-info"><div class="dw-item-title">빠른 마감</div><div class="dw-item-price">별도 견적</div><div class="dw-item-desc">일정 최우선 순위 배정</div></div>
+                    <div class="dw-item-preview"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/othumb.png" alt=""></div>
+                    <div class="dw-item-info"><div class="dw-item-title">빠른 마감</div><div class="dw-item-price">기한에 따라 협의</div><div class="dw-item-desc">납기일보다 빠르게 완성된 영상을 작업합니다.</div></div>
                 </div>
                 <div class="dw-addon-item">
-                    <div class="dw-item-preview"><iframe src="about:blank"></iframe></div>
-                    <div class="dw-item-info"><div class="dw-item-title">SNS/Shorts 폼 추가</div><div class="dw-item-price">별도 견적</div><div class="dw-item-desc">홍보용 숏폼 사이즈 변환</div></div>
+                    <div class="dw-item-preview"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/othumb.png" alt=""></div>
+                    <div class="dw-item-info"><div class="dw-item-title">SNS/Shorts 폼 추가</div><div class="dw-item-price">5,000 KRW</div><div class="dw-item-desc">SNS/Shorts 업로드용 30초 내외 영상을 출력합니다.</div></div>
                 </div>
             </div>
         </div>
@@ -127,25 +142,31 @@
         </div>
     </div>
 </div>
-</body>
-</html>
 
 <script>
 (function() {
-    /* 슬라이더 제어 */
     const sliderIdx = { 'design-track': 0, 'addon-track': 0 };
+
     window.moveSlide = function(id, dir) {
         const track = document.getElementById(id);
         const gap = 15;
-        const width = (id === 'design-track' ? 350 : 340) + gap;
-        
+        const moveCount = 3;
+        const maxIdx = 1; 
+
+        let itemWidth = (id === 'design-track') ? 350 : 340;
+
         sliderIdx[id] += dir;
+        if (sliderIdx[id] < 0) sliderIdx[id] = 0;
+        if (sliderIdx[id] > maxIdx) sliderIdx[id] = maxIdx;
+
+        // 이동 공식: (아이템 3개 + 간격 3개)의 너비만큼 이동
+        // 정확한 정렬을 위해 (아이템너비 + 간격) * 이동개수 * 인덱스 사용
+        const moveStep = (itemWidth + gap) * moveCount;
+        const totalMove = sliderIdx[id] * moveStep;
         
-        // 슬라이드 범위 제한 (아이템 개수에 따라 조정 필요)
-        if(sliderIdx[id] < 0) sliderIdx[id] = 0;
-        if(sliderIdx[id] > 3) sliderIdx[id] = 3; 
-        
-        track.style.transform = `translateX(-${sliderIdx[id] * width}px)`;
+        track.style.transform = `translateX(-${totalMove}px)`;
     };
 })();
 </script>
+</body>
+</html>
