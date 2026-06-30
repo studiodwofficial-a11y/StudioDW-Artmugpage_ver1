@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>썸네일 - Index 5 (완벽 정렬 버전)</title>
+    <title>썸네일 - Index 5 (2x3 완벽 정렬 및 슬라이드 버전)</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap');
 
@@ -41,11 +41,11 @@
     /* ═══ 슬라이더 공통 ═══ */
     .dw-slider-section { position: relative; width: 100%; text-align: center; }
     
-    /* [정렬 핵심] 컨테이너 너비를 아이템 3개 + 간격 2개만큼 딱 맞춤 */
+    /* 컨테이너 너비를 아이템 3개 + 간격 2개만큼 유지하여 3열만 노출 */
     .dw-slider-outer { 
         overflow: hidden; 
         border-radius: 25px; 
-        margin: 0 auto; /* 수평 중앙 정렬 */
+        margin: 0 auto; 
     }
     
     /* 디자인 섹션 너비: (350 * 3) + (15 * 2) = 1080px */
@@ -53,8 +53,11 @@
     /* 애드온 섹션 너비: (340 * 3) + (15 * 2) = 1050px */
     .addon-outer { width: 1050px; }
 
+    /* [2x3 배치 핵심] grid를 사용하여 위아래로 2개씩 먼저 배치하고 가로로 확장 */
     .dw-slider-track { 
-        display: flex; 
+        display: grid; 
+        grid-template-rows: repeat(2, auto);
+        grid-auto-flow: column;
         gap: var(--gap); 
         transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
         width: max-content; 
@@ -86,7 +89,6 @@
 </head>
 <body>
 <div class="dw-root">
-    <!-- 디자인 섹션 -->
     <div class="dw-section-lbl">PORTFOLIO · DESIGN</div>
     <div class="dw-slider-section">
         <div class="dw-slider-outer design-outer">
@@ -97,7 +99,7 @@
                 <div class="dw-design-item"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t4.png" alt=""></div>
                 <div class="dw-design-item"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t5.png" alt=""></div>
                 <div class="dw-design-item"><img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/t6.png" alt=""></div>
-            </div>
+                </div>
         </div>
         <div class="dw-controls">
             <button class="dw-arrow-btn" onclick="moveSlide('design-track', -1)"> < </button>
@@ -105,7 +107,6 @@
         </div>
     </div>
 
-    <!-- 애드온 섹션 -->
     <div class="dw-section-lbl">ADD-ON OPTIONS</div>
     <div class="dw-slider-section">
         <div class="dw-slider-outer addon-outer">
@@ -145,23 +146,31 @@
 
 <script>
 (function() {
+    // 트랙별 현재 페이지 인덱스 관리
     const sliderIdx = { 'design-track': 0, 'addon-track': 0 };
 
     window.moveSlide = function(id, dir) {
         const track = document.getElementById(id);
         const gap = 15;
-        const moveCount = 3;
-        const maxIdx = 1; 
+        const columnsPerPage = 3; // 한 페이지에 보일 열(column) 개수
+
+        // 현재 트랙에 존재하는 총 아이템 개수 계산
+        const totalItems = track.children.length;
+        // 2행 구조이므로 총 열(column) 개수는 아이템 개수를 2로 나누고 올림 처리
+        const totalColumns = Math.ceil(totalItems / 2);
+        
+        // 최대 페이지 인덱스 계산 (전체 열 개수에서 현재 보여지는 3열을 뺀 후, 3열 단위로 나눔)
+        const maxIdx = Math.max(0, Math.ceil((totalColumns - columnsPerPage) / columnsPerPage));
 
         let itemWidth = (id === 'design-track') ? 350 : 340;
 
+        // 인덱스 변경 및 한계치 제한
         sliderIdx[id] += dir;
         if (sliderIdx[id] < 0) sliderIdx[id] = 0;
         if (sliderIdx[id] > maxIdx) sliderIdx[id] = maxIdx;
 
-        // 이동 공식: (아이템 3개 + 간격 3개)의 너비만큼 이동
-        // 정확한 정렬을 위해 (아이템너비 + 간격) * 이동개수 * 인덱스 사용
-        const moveStep = (itemWidth + gap) * moveCount;
+        // 이동 단위: (아이템 너비 + 간격) * 한 페이지의 열 개수(3)
+        const moveStep = (itemWidth + gap) * columnsPerPage;
         const totalMove = sliderIdx[id] * moveStep;
         
         track.style.transform = `translateX(-${totalMove}px)`;
