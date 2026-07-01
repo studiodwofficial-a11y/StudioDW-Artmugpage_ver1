@@ -18,6 +18,7 @@
         --card: #151512; 
         --border: #2a2a26;
         --text: #e8e4de;
+        --danger: #ff4d4d; /* 마감 강조 컬러 분리 */
     }
 
     .dw-root * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,18 +37,43 @@
 
     /* ═══ 1. 상단 안내 및 슬라이더 ═══ */
     .dw-hero { padding: 80px 28px 40px; text-align: center; }
+    
+    /* [개선] 확실하게 눈에 띄도록 스태formatting 및 글로우 효과 부여 */
     .dw-deadline-status {
-        display: inline-flex; align-items: center; gap: 12px;
-        padding: 10px 30px; background: #1a0505; border: 1.5px solid #3d0a0a;
+        display: inline-flex; align-items: center; gap: 14px;
+        padding: 10px 64px; 
+        background: rgba(255, 77, 77, 0.07); 
+        border: 2px solid var(--danger);
         border-radius: 100px; margin-bottom: 40px;
+        box-shadow: 0 0 20px rgba(255, 77, 77, 0.25), inset 0 0 10px rgba(255, 77, 77, 0.1);
+        backdrop-filter: blur(4px);
+        transition: transform 0.3s ease;
     }
+    .dw-deadline-status:hover {
+        transform: scale(1.03);
+    }
+    
+    /* [개선] 붉은 점 동적 파동(Ripple) 애니메이션 추가 */
     .dw-red-dot {
-        width: 8px; height: 8px; background: #cc0000; border-radius: 50%;
-        box-shadow: 0 0 8px #cc0000;
-        animation: dw-slow-blink 2.5s infinite ease-in-out;
+        position: relative;
+        width: 10px; height: 10px; background: var(--danger); border-radius: 50%;
+        box-shadow: 0 0 10px var(--danger);
     }
-    @keyframes dw-slow-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    .dw-deadline-text { font-size: 16px; font-weight: 700; color: #ff4d4d; letter-spacing: -0.02em; }
+    .dw-red-dot::after {
+        content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        border-radius: 50%; background: var(--danger);
+        animation: dw-pulse-ring 1.5s infinite ease-out;
+    }
+    @keyframes dw-pulse-ring {
+        0% { transform: scale(1); opacity: 0.8; }
+        100% { transform: scale(2.8); opacity: 0; }
+    }
+    
+    /* [개선] 텍스트 선명도 증가 및 가독성 업그레이드 */
+    .dw-deadline-text { 
+        font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.01em; 
+        text-shadow: 0 0 8px rgba(255, 77, 77, 0.6);
+    }
 
     /* 슬라이더 컨테이너 설정 */
     .dw-intro-wrap {
@@ -68,7 +94,7 @@
 
     /* 화살표 크기 축소 및 색상 커스텀 */
     .swiper-button-next::after, .swiper-button-prev::after { 
-        font-size: 24px !important; /* 화살표 크기 대폭 축소 */
+        font-size: 24px !important; 
         font-weight: bold;
     }
     .swiper-button-next, .swiper-button-prev { 
@@ -92,16 +118,18 @@
     
     .dw-partner-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 0 60px; text-align: left; }
     .dw-partner-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .dw-partner-list li { font-size: 14px; font-weight: 700; color: #888; display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+    /* [개선] 리스트 기본 텍스트 색상 가독성 향상 (#888 -> #aaa) */
+    .dw-partner-list li { font-size: 14px; font-weight: 700; color: #aaa; display: flex; align-items: center; gap: 10px; white-space: nowrap; }
     .dw-partner-list li::before { content: '•'; color: var(--point); font-size: 14px; }
 
     .dw-history-stat { 
         text-align: left; 
-        margin-left: -50px; 
+        margin-left: -20px; /* [개선] 모바일 깨짐 방지를 위해 음수 폭 완화 */
     }
+    /* [개선] 설명 텍스트 색상 가독성 향상 (#666 -> #b5b1aa) */
     .dw-stat-text { 
         font-size: 18px; 
-        color: #666; 
+        color: #b5b1aa; 
         font-weight: 700; 
         margin-bottom: 5px; 
         line-height: 1.5;
@@ -115,7 +143,8 @@
     }
     @keyframes dw-glow-fix { 0%, 100% { filter: drop-shadow(0 0 2px rgba(186, 218, 85, 0.1)); } 50% { filter: drop-shadow(0 0 8px rgba(186, 218, 85, 0.4)); } }
     .dw-stat-unit { font-size: 48px; font-weight: 900; vertical-align: baseline; margin-left: 2px; -webkit-text-fill-color: #e8e4de; }
-    .dw-stat-period { font-family: 'DM Mono', monospace; font-size: 11px; color: #444; margin-top: 15px; letter-spacing: 0.05em; }
+    /* [개선] 하단 기간 텍스트 색상 가독성 향상 (#444 -> #777) */
+    .dw-stat-period { font-family: 'DM Mono', monospace; font-size: 11px; color: #777; margin-top: 15px; letter-spacing: 0.05em; }
 
     /* 섹션 라벨 */
     .dw-section-lbl {
@@ -127,6 +156,35 @@
     .dw-section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
     .dw-footer { text-align: center; padding: 100px 0; border-top: 1px solid var(--border); margin-top: 80px; opacity: 0.3; }
+
+    /* ═══ [신규 추가] 반응형 미디어 쿼리 (모바일 환경 대응) ═══ */
+    @media (max-width: 900px) {
+        .dw-intro-wrap { height: 350px; border-radius: 20px; }
+        .dw-history-grid {
+            grid-template-columns: 1fr;
+            gap: 50px;
+        }
+        .dw-partner-columns {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .dw-partner-list {
+            align-items: center;
+        }
+        .dw-history-stat {
+            margin-left: 0;
+            text-align: center;
+        }
+        .dw-stat-text {
+            white-space: normal;
+        }
+        .dw-stat-number {
+            font-size: 80px;
+        }
+        .dw-stat-unit {
+            font-size: 36px;
+        }
+    }
 </style>
 </head>
 <body>
@@ -134,7 +192,7 @@
     <div class="dw-hero">
         <div class="dw-deadline-status">
             <div class="dw-red-dot"></div>
-            <span class="dw-deadline-text">~8월 1일 일정 마감</span>
+            <span class="dw-deadline-text">~8월 7일 일정 마감! 찾아주셔서 감사합니다.</span>
         </div>
 
         <div class="dw-intro-wrap">
@@ -143,13 +201,13 @@
                     <div class="swiper-slide">
                         <img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/top1.png" alt="">
                     </div>
-                <div class="swiper-slide">
+                    <div class="swiper-slide">
                         <img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/top2.png" alt="">
                     </div>
-                <div class="swiper-slide">
+                    <div class="swiper-slide">
                         <img src="https://studiodwofficial-a11y.github.io/StudioDW-Artmugpage_ver1/top3.png" alt="">
                     </div>
-</div>
+                </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-pagination"></div>
