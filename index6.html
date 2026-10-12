@@ -273,9 +273,9 @@
                 <h4 style="color:#fff;">실시간 견적 계산기</h4>
                 <div id="dw-pkg-sel">
                     <span class="dw-group-lbl">패키지 등급</span>
-                    <div class="dw-calc-item dw-pkg-item active" data-type="std" data-price="65000" data-days="3~5">Standard : 65,000</div>
+                    <div class="dw-calc-item dw-pkg-item active" data-type="std" data-price="50000" data-days="3~5">Standard : 50,000</div>
                     <div class="dw-calc-item dw-pkg-item" data-type="pre" data-price="160000" data-days="8~14">Premium : 160,000</div>
-                    <div class="dw-calc-item dw-pkg-item" data-type="sig" data-price="390000" data-days="25~30">Signature : 390,000</div>
+                    <div class="dw-calc-item dw-pkg-item" data-type="sig" data-price="430000" data-days="25~30">Signature : 430,000</div>
                 </div>
                 
                 <div id="dw-addon-sel" style="margin-top:25px;">
@@ -350,7 +350,7 @@
                 </div>
 
                 <div class="dw-total-area">
-                    <div class="dw-total-price"><span id="final-total">65,000</span> <span class="dw-krw">KRW</span></div>
+                    <div class="dw-total-price"><span id="final-total">50,000</span> <span class="dw-krw">KRW</span></div>
                     <div id="final-days">※견적을 미리 확인할 수 있는 기능입니다.<br/>실제 주문은 페이지 상단에서 진행해주세요.</div>
                 </div>
             </div>
@@ -410,7 +410,7 @@ function copyResult() {
     const addons = document.querySelectorAll('#dw-addon-sel .dw-calc-item');
     const totalDisplay = document.getElementById('final-total');
     const daysDisplay = document.getElementById('final-days');
-    let currentTotal = 65000; 
+    let currentTotal = 50000; 
     let activeMultiplier = 1.0;
 
     function animateValue(start, end, duration) {
