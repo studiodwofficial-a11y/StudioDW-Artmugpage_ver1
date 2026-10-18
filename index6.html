@@ -400,6 +400,15 @@ function copyResult() {
     try {
         document.execCommand('copy');
         alert('양식이 복사되었습니다! 아트머그 문의창에 붙여넣어 주세요.\n\n※ 내용 확인 없이 체크박스에 확인하신 경우 생기는 문제에 대한 책임은 의뢰인에게 있습니다.');
+
+        // sidebar의 '문의하기' 버튼과 동일하게 주문 문의 팝업 열기
+        if (typeof pLightBox !== 'undefined' && typeof pLightBox.show === 'function') {
+            alert('※신청양식과 함께 문의해주세요. 신청양식 없는 문의는 답변드리지 않고 있습니다.');
+            pLightBox.show('php/qna_write.php?cate=108000000000&number=32541', 'iframe_w', '1080', '500', '문의하기', '0');
+            if (typeof qnaAlert === 'function') qnaAlert();
+        } else {
+            alert('문의 팝업을 열 수 없습니다. 주문페이지의 기존 문의하기 버튼을 이용해주세요.');
+        }
     } catch (err) {
         alert('복사에 실패했습니다.');
     }
