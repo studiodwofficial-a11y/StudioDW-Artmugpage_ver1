@@ -397,22 +397,67 @@ function copyResult() {
     document.body.appendChild(t);
     t.value = text;
     t.select();
+    var copied = false;
     try {
-        document.execCommand('copy');
-        alert('양식이 복사되었습니다! 아트머그 문의창에 붙여넣어 주세요.\n\n※ 내용 확인 없이 체크박스에 확인하신 경우 생기는 문제에 대한 책임은 의뢰인에게 있습니다.');
-
-        // sidebar의 '문의하기' 버튼과 동일하게 주문 문의 팝업 열기
-        if (typeof pLightBox !== 'undefined' && typeof pLightBox.show === 'function') {
-            alert('※신청양식과 함께 문의해주세요. 신청양식 없는 문의는 답변드리지 않고 있습니다.');
-            pLightBox.show('php/qna_write.php?cate=108000000000&number=32541', 'iframe_w', '1080', '500', '문의하기', '0');
-            if (typeof qnaAlert === 'function') qnaAlert();
-        } else {
-            alert('문의 팝업을 열 수 없습니다. 주문페이지의 기존 문의하기 버튼을 이용해주세요.');
-        }
+        copied = document.execCommand('copy');
     } catch (err) {
-        alert('복사에 실패했습니다.');
+        copied = false;
     }
     document.body.removeChild(t);
+
+    if (!copied) {
+        alert('양식 복사에 실패했습니다. 브라우저에서 클립보드 권한을 확인해주세요.');
+        return;
+    }
+
+    alert('양식이 복사되었습니다! 아트머그 문의창에 붙여넣어 주세요.\n\n※ 내용 확인 없이 체크박스에 확인하신 경우 생기는 문제에 대한 책임은 의뢰인에게 있습니다.');
+
+    // 실제 sidebar의 '문의하기' 링크를 찾아 클릭합니다.
+    // index6이 iframe 안에 삽입된 경우를 고려해 부모/최상위 문서도 확인합니다.
+    var docs = [document];
+    try {
+        if (window.parent && window.parent !== window) docs.push(window.parent.document);
+    } catch (err) {}
+    try {
+        if (window.top && window.top !== window && window.top !== window.parent) docs.push(window.top.document);
+    } catch (err) {}
+
+    var opened = false;
+    for (var i = 0; i < docs.length && !opened; i++) {
+        try {
+            var links = docs[i].querySelectorAll('.dw-sidebar a');
+            for (var j = 0; j < links.length; j++) {
+                if (links[j].textContent.trim() === '문의하기') {
+                    links[j].click();
+                    opened = true;
+                    break;
+                }
+            }
+        } catch (err) {}
+    }
+
+    // sidebar 링크를 찾을 수 없으면 현재/부모 창의 pLightBox를 직접 호출합니다.
+    if (!opened) {
+        var wins = [window];
+        try { if (window.parent && window.parent !== window) wins.push(window.parent); } catch (err) {}
+        try { if (window.top && window.top !== window && window.top !== window.parent) wins.push(window.top); } catch (err) {}
+
+        for (var k = 0; k < wins.length && !opened; k++) {
+            try {
+                var lightbox = wins[k].pLightBox;
+                if (lightbox && typeof lightbox.show === 'function') {
+                    alert('※신청양식과 함께 문의해주세요. 신청양식 없는 문의는 답변드리지 않고 있습니다.');
+                    lightbox.show('php/qna_write.php?cate=108000000000&number=32541', 'iframe_w', '1080', '500', '문의하기', '0');
+                    if (typeof wins[k].qnaAlert === 'function') wins[k].qnaAlert();
+                    opened = true;
+                }
+            } catch (err) {}
+        }
+    }
+
+    if (!opened) {
+        alert('신청서는 복사되었지만 문의 팝업을 자동으로 열지 못했습니다. 주문페이지의 기존 「문의하기」 버튼을 눌러주세요.');
+    }
 }
 
 (function() {
