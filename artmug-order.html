@@ -967,6 +967,7 @@ body, body.light { --header-height:0px; }
 .pf-controls { display:flex; gap:8px; align-items:center; }
 .pf-count,.design-samples output { font:500 13px "DM Mono",monospace; color:var(--muted); white-space:nowrap; }
 .pf-controls button,.design-controls button { border:1px solid var(--line); border-radius:50%; width:40px; height:40px; font-size:18px; line-height:1; }
+.pf-controls button { background:var(--accent); border-color:var(--accent); color:#0e0f0b; font-size:14px; }
 .pf-controls button:disabled,.design-controls button:disabled { opacity:.35; cursor:default; }
 .pf-empty { display:grid; place-content:center; justify-items:center; text-align:center; color:var(--muted); padding:14px; }
 .pf-empty button { border:1px solid var(--line); border-radius:10px; padding:7px 12px; color:#fff; }
@@ -1014,7 +1015,7 @@ body, body.light { --header-height:0px; }
   <div class="pf-empty" hidden><p></p><button type="button">전체 보기</button></div>
   <div class="container pf-foot">
     <div><p class="pf-caption" aria-live="polite"></p><a class="pf-external" target="_blank" rel="noopener">YouTube에서 보기 ↗</a></div>
-    <div class="pf-controls"><output class="pf-count" aria-label="현재 작품과 전체 편수"></output><button type="button" class="pf-prev" aria-label="스탠다드 이전 작품">←</button><button type="button" class="pf-next" aria-label="스탠다드 다음 작품">→</button></div>
+    <div class="pf-controls"><output class="pf-count" aria-label="현재 작품과 전체 편수"></output><button type="button" class="pf-prev" aria-label="스탠다드 이전 작품">◀</button><button type="button" class="pf-next" aria-label="스탠다드 다음 작품">▶</button></div>
   </div>
 </section>
 </template>
@@ -1029,7 +1030,7 @@ body, body.light { --header-height:0px; }
   <div class="pf-empty" hidden><p></p><button type="button">전체 보기</button></div>
   <div class="container pf-foot">
     <div><p class="pf-caption" aria-live="polite"></p><a class="pf-external" target="_blank" rel="noopener">YouTube에서 보기 ↗</a></div>
-    <div class="pf-controls"><output class="pf-count" aria-label="현재 작품과 전체 편수"></output><button type="button" class="pf-prev" aria-label="시그니처 이전 작품">←</button><button type="button" class="pf-next" aria-label="시그니처 다음 작품">→</button></div>
+    <div class="pf-controls"><output class="pf-count" aria-label="현재 작품과 전체 편수"></output><button type="button" class="pf-prev" aria-label="시그니처 이전 작품">◀</button><button type="button" class="pf-next" aria-label="시그니처 다음 작품">▶</button></div>
   </div>
 </section>
 </template>
@@ -1044,7 +1045,7 @@ body, body.light { --header-height:0px; }
   <div class="pf-empty" hidden><p></p><button type="button">전체 보기</button></div>
   <div class="container pf-foot">
     <div><p class="pf-caption" aria-live="polite"></p><a class="pf-external" target="_blank" rel="noopener">YouTube에서 보기 ↗</a></div>
-    <div class="pf-controls"><output class="pf-count" aria-label="현재 작품과 전체 편수"></output><button type="button" class="pf-prev" aria-label="오리지널 이전 작품">←</button><button type="button" class="pf-next" aria-label="오리지널 다음 작품">→</button></div>
+    <div class="pf-controls"><output class="pf-count" aria-label="현재 작품과 전체 편수"></output><button type="button" class="pf-prev" aria-label="오리지널 이전 작품">◀</button><button type="button" class="pf-next" aria-label="오리지널 다음 작품">▶</button></div>
   </div>
 </section>
 </template>
@@ -1442,6 +1443,7 @@ function mountPrice(container) {
 }
 
 const portfolioWorks = [
+  {"id":"AjfUkRrRGIg","tier":"standard","title":"Yume de Kiss me! (夢でKiss me!) - Miyawaki Sakura (AKB48) ｜ Cover by Shinonome Kone","moods":["귀여운"]},
   {"id":"d8gpvOLW9cw","tier":"signature","title":"Starry Sea (Aqu3ra) | Cover by Haru","moods":["귀여운","감성적"]},
   {"id":"RGPOxUEhzpQ","tier":"signature","title":"【8人合唱】Bad ∞ End ∞ Night｜Cover","moods":["신나는"]},
   {"id":"PNCAguZHw4s","tier":"standard","title":"극장판 치이카와: 인어 섬의 비밀 OST 커버 메들리","moods":["귀여운","신나는"]},
@@ -1509,7 +1511,7 @@ function mountPortfolio(section) {
     title.textContent = work.title;
     counter.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(list.length).padStart(2, '0');
     watch.href = 'https://www.youtube.com/watch?v=' + work.id;
-    watch.setAttribute('aria-label', work.title + ' · YouTube에서 보기');
+    watch.setAttribute('aria-label', work.title ? work.title + ' · YouTube에서 보기' : 'YouTube에서 보기');
     previous.disabled = current === 0;
     next.disabled = current >= list.length - 1;
     for (const [i, child] of [...track.children].entries()) {
@@ -1533,7 +1535,7 @@ function mountPortfolio(section) {
     const button = document.createElement('button');
     button.className = 'pf-poster';
     button.type = 'button';
-    button.setAttribute('aria-label', work.title + ' 재생');
+    button.setAttribute('aria-label', work.title ? work.title + ' 재생' : '동영상 재생');
     const image = document.createElement('img');
     image.alt = '';
     image.width = 1280;
@@ -1550,7 +1552,7 @@ function mountPortfolio(section) {
       select(index);
       requestImage(slide);
       const video = document.createElement('iframe');
-      video.title = work.title;
+      video.title = work.title || 'YouTube 동영상';
       video.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
       video.allowFullscreen = true;
       video.referrerPolicy = 'strict-origin-when-cross-origin';
