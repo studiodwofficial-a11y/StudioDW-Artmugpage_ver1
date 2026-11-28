@@ -997,6 +997,84 @@ body, body.light { --header-height:0px; }
   .pf-controls button,.design-controls button { width:36px; height:36px; }
 }
 [hidden] { display:none !important; }
+
+/* Inquiry option toggles and completion dialog */
+.inquiry-option-grid{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.inquiry-option{border:1px solid var(--estimate-border);background:var(--estimate-elevated);border-radius:12px;padding:10px 13px;font-size:13px;min-height:42px;text-align:left}
+.inquiry-option[aria-pressed="true"]{background:var(--accent);color:#0e0f0b;border-color:var(--accent);font-weight:700}
+.inquiry-option:disabled{opacity:.35;cursor:not-allowed}
+#inquiry-complete-dialog{width:min(620px,calc(100% - 32px));max-height:calc(100svh - 32px);overflow:auto}
+#inquiry-complete-dialog h2{padding-inline:30px}
+#inquiry-complete-dialog .inquiry-close-form{position:absolute;top:10px;right:12px;margin:0}
+.inquiry-close{border:0;background:transparent;font-size:28px;line-height:1;width:40px;height:40px;border-radius:10px}
+.inquiry-close:hover{background:var(--estimate-elevated)}
+#inquiry-message{min-height:180px;max-height:none;overflow:hidden;resize:none;line-height:1.65;box-sizing:border-box}
+#inquiry-complete-dialog .inquiry-dialog-actions{display:block;width:100%;margin-top:12px}
+#inquiry-copy-draft{display:flex;width:100%;justify-content:center;border-radius:14px;background:var(--accent);color:#0e0f0b;border-color:var(--accent)}
+
+
+.price-panel .price-panel-link { display:inline-flex; align-items:center; min-height:44px; padding:8px 14px; border-radius:8px; border:1px solid #f2f2ed; background:#f2f2ed; color:#181915; text-decoration:none; font:inherit; font-weight:700; }
+.price-panel .price-panel-link { position:static; inset:auto; z-index:auto; align-self:start; margin-top:12px; }
+.price-panel .price-panel-link::after { content:""; position:absolute; inset:0; z-index:2; cursor:pointer; }
+.price-panel .price-panel-link:focus-visible { outline:2px solid #181915; outline-offset:-5px; }
+.dw-price-details { list-style:none; margin:12px 0 0; padding:0; font-size:13px; line-height:1.65; }
+
+.pf-browse { display:none; }
+@media(min-width:901px) {
+  .pf-gallery {
+    box-sizing:border-box; width:92%; margin-inline:auto; padding:20px;
+    border:1px solid #34382c; border-radius:16px; background:#191b15;
+    display:grid; grid-template-columns:minmax(0,1fr); gap:12px;
+  }
+  .pf-gallery .pf-track,.pf-gallery .pf-empty { border-radius:8px; }
+  .pf-gallery .pf-foot { width:100%; margin:0; grid-template-columns:minmax(0,1fr); }
+  .pf-gallery .pf-controls { display:none; }
+  .pf-gallery .pf-slide { scroll-snap-stop:normal; }
+  .pf-browse:not([hidden]) { display:block; min-width:0; }
+  .pf-dots { display:flex; justify-content:center; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .pf-dot { width:7px; height:7px; border:1px solid var(--muted); border-radius:50%; }
+  .pf-dot.is-current { border-color:var(--accent); background:var(--accent); }
+  .pf-thumbnails {
+    display:grid; grid-auto-flow:column; grid-auto-columns:calc((100% - 24px) / 4);
+    gap:8px; overflow-x:auto; padding:3px 0 9px; scroll-snap-type:x proximity;
+    overscroll-behavior-x:contain; scrollbar-color:var(--accent) #2c3024; scrollbar-width:thin;
+  }
+  .pf-thumbnail {
+    display:block; min-width:0; padding:0; border:2px solid transparent; border-radius:8px;
+    overflow:hidden; background:#22261d; scroll-snap-align:start; cursor:pointer;
+  }
+  .pf-thumbnail[aria-pressed="true"] { border-color:var(--accent); }
+  .pf-thumbnail:focus-visible { outline:2px solid #fff; outline-offset:-4px; }
+  .pf-thumbnail img { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#151711; }
+}
+
+.quote-compact { display:none; }
+.quote-summary:focus { outline:2px solid var(--accent); outline-offset:4px; }
+.quote-summary { scroll-margin-block:20px; }
+.quote-original-note { margin:0; color:var(--estimate-muted); font-size:13px; }
+.inquiry-steps { margin:0 0 18px; padding-inline-start:1.4em; color:var(--estimate-muted); line-height:1.7; font-size:13px; }
+#contact-page .inquiry-section-heading { margin:0; font-size:16px; }
+.inquiry-required-note { margin:0; color:var(--estimate-muted); font-size:12px; }
+.inquiry-section-heading small { color:var(--estimate-muted); font-size:12px; font-weight:400; }
+#contact-page .inquiry-form [aria-invalid="true"] { border-color:#ff9b91; scroll-margin-block:16px; }
+.inquiry-field-error { color:#ffb6ae; font-size:12px; line-height:1.5; }
+#inquiry-message { max-height:min(32svh,260px); overflow:auto; }
+@media(max-width:760px) {
+  .quote-compact {
+    display:flex; justify-content:space-between; flex-wrap:wrap; align-items:center; gap:8px 16px;
+    padding:12px 14px; margin-bottom:14px; border:1px solid var(--estimate-border); border-radius:12px;
+  }
+  .quote-compact a { color:var(--accent); min-height:44px; display:inline-flex; align-items:center; }
+  .quote-compact strong { display:block; font-variant-numeric:tabular-nums; }
+}
+
+#inquiry-copy-draft { cursor:pointer; transition:transform 120ms ease, background-color 180ms ease; }
+#inquiry-copy-draft:active { transform:scale(.97); }
+#inquiry-copy-draft[data-copied] { background:#f2f2ed; border-color:#f2f2ed; }
+@media(prefers-reduced-motion:reduce) {
+  #inquiry-copy-draft { transition:none; }
+  #inquiry-copy-draft:active { transform:none; }
+}
 </style>
 </head><body>
 <main id="dw-content"></main>
@@ -1011,11 +1089,17 @@ body, body.light { --header-height:0px; }
     <div class="pf-heading"><h2 id="pf-standard-title">스탠다드</h2><span class="pf-price">50,000 KRW</span></div>
     <div class="portfolio-filters" role="group" aria-label="스탠다드 분위기 선택"><button type="button" data-mood="전체" aria-pressed="true">전체</button><button type="button" data-mood="귀여운" aria-pressed="false">귀여운</button><button type="button" data-mood="신나는" aria-pressed="false">신나는</button><button type="button" data-mood="감성적" aria-pressed="false">감성적</button></div>
   </div>
+  <div class="pf-gallery">
   <div class="pf-track" role="region" aria-roledescription="캐러셀" aria-label="스탠다드 작품 슬라이드" tabindex="0"></div>
   <div class="pf-empty" hidden><p></p><button type="button">전체 보기</button></div>
   <div class="container pf-foot">
     <div><p class="pf-caption" aria-live="polite"></p><a class="pf-external" target="_blank" rel="noopener">YouTube에서 보기 ↗</a></div>
     <div class="pf-controls"><output class="pf-count" aria-label="현재 작품과 전체 편수"></output><button type="button" class="pf-prev" aria-label="스탠다드 이전 작품">◀</button><button type="button" class="pf-next" aria-label="스탠다드 다음 작품">▶</button></div>
+  </div>
+    <div class="pf-browse" hidden>
+      <div class="pf-thumbnails" role="group" aria-label="작품 미리보기"></div>
+      <div class="pf-dots" aria-hidden="true"></div>
+    </div>
   </div>
 </section>
 </template>
@@ -1026,11 +1110,17 @@ body, body.light { --header-height:0px; }
     <div class="pf-heading"><h2 id="pf-signature-title">시그니처</h2><span class="pf-price">430,000 KRW</span></div>
     <div class="portfolio-filters" role="group" aria-label="시그니처 분위기 선택"><button type="button" data-mood="전체" aria-pressed="true">전체</button><button type="button" data-mood="귀여운" aria-pressed="false">귀여운</button><button type="button" data-mood="신나는" aria-pressed="false">신나는</button><button type="button" data-mood="감성적" aria-pressed="false">감성적</button></div>
   </div>
+  <div class="pf-gallery">
   <div class="pf-track" role="region" aria-roledescription="캐러셀" aria-label="시그니처 작품 슬라이드" tabindex="0"></div>
   <div class="pf-empty" hidden><p></p><button type="button">전체 보기</button></div>
   <div class="container pf-foot">
     <div><p class="pf-caption" aria-live="polite"></p><a class="pf-external" target="_blank" rel="noopener">YouTube에서 보기 ↗</a></div>
     <div class="pf-controls"><output class="pf-count" aria-label="현재 작품과 전체 편수"></output><button type="button" class="pf-prev" aria-label="시그니처 이전 작품">◀</button><button type="button" class="pf-next" aria-label="시그니처 다음 작품">▶</button></div>
+  </div>
+    <div class="pf-browse" hidden>
+      <div class="pf-thumbnails" role="group" aria-label="작품 미리보기"></div>
+      <div class="pf-dots" aria-hidden="true"></div>
+    </div>
   </div>
 </section>
 </template>
@@ -1041,11 +1131,17 @@ body, body.light { --header-height:0px; }
     <div class="pf-heading"><h2 id="pf-original-title">오리지널</h2><span class="pf-price">600,000 KRW</span></div>
     <div class="portfolio-filters" role="group" aria-label="오리지널 분위기 선택"><button type="button" data-mood="전체" aria-pressed="true">전체</button><button type="button" data-mood="귀여운" aria-pressed="false">귀여운</button><button type="button" data-mood="신나는" aria-pressed="false">신나는</button><button type="button" data-mood="감성적" aria-pressed="false">감성적</button></div>
   </div>
+  <div class="pf-gallery">
   <div class="pf-track" role="region" aria-roledescription="캐러셀" aria-label="오리지널 작품 슬라이드" tabindex="0"></div>
   <div class="pf-empty" hidden><p></p><button type="button">전체 보기</button></div>
   <div class="container pf-foot">
     <div><p class="pf-caption" aria-live="polite"></p><a class="pf-external" target="_blank" rel="noopener">YouTube에서 보기 ↗</a></div>
     <div class="pf-controls"><output class="pf-count" aria-label="현재 작품과 전체 편수"></output><button type="button" class="pf-prev" aria-label="오리지널 이전 작품">◀</button><button type="button" class="pf-next" aria-label="오리지널 다음 작품">▶</button></div>
+  </div>
+    <div class="pf-browse" hidden>
+      <div class="pf-thumbnails" role="group" aria-label="작품 미리보기"></div>
+      <div class="pf-dots" aria-hidden="true"></div>
+    </div>
   </div>
 </section>
 </template>
@@ -1064,8 +1160,9 @@ body, body.light { --header-height:0px; }
       <p class="price-panel-description" data-page-copy="standardBody">준비된 일러스트와 음원으로 만드는 기본 PV.</p>
       <p class="price-amount"><span data-package-price="standard"></span> <small>KRW</small></p>
       <p class="price-panel-note" data-page-copy="standardPrice">기본 구성에서 조정 가능한 단가</p>
+      <ul class="dw-price-details"><li>오탈자·작업 오류 수정</li><li>수익화 라이선스 별도</li></ul>
+      <a class="price-panel-link" href="#section-calculator">Standard 견적 보기</a>
     </div>
-  <a class="price-panel-link" href="#section-calculator" aria-labelledby="price-standard-title"></a>
   </article>
 
   <article class="price-panel" data-tier="signature">
@@ -1078,8 +1175,9 @@ body, body.light { --header-height:0px; }
       <p class="price-panel-description" data-page-copy="signatureBody">곡에 맞춘 콘셉트, 장면 구성과 맞춤 모션.</p>
       <p class="price-amount"><span data-package-price="signature"></span> <small>KRW</small></p>
       <p class="price-panel-note" data-page-copy="signaturePrice">기본 단가 · 제작 범위에 따라 별도 견적</p>
+      <ul class="dw-price-details"><li>오류 수정 외 무료 수정 1회</li><li>수익화 라이선스 별도</li></ul>
+      <a class="price-panel-link" href="#section-calculator">Signature 견적 보기</a>
     </div>
-  <a class="price-panel-link" href="#section-calculator" aria-labelledby="price-signature-title"></a>
   </article>
 
   <article class="price-panel" data-tier="original">
@@ -1090,10 +1188,11 @@ body, body.light { --header-height:0px; }
       <h2 id="price-original-title">ORIGINAL</h2>
       <p class="price-panel-description" data-page-copy="originalBody">오리지널 곡의 세계관과 이야기를 영상으로 구성합니다.</p>
       
-      <p class="price-amount"><span data-package-price="original"></span> <small>KRW</small></p>
-      <p class="price-panel-note" data-page-copy="originalPrice">시작 단가 · 프로젝트별 견적</p>
+      <p class="price-amount">협의사항</p>
+      <p class="price-panel-note" data-page-copy="originalPrice">프로젝트별 견적</p>
+      <ul class="dw-price-details"><li>수정 범위 상담 확인</li><li>수익화 조건 상담 확인</li></ul>
+      <a class="price-panel-link" href="#section-calculator">Original 견적 보기</a>
     </div>
-  <a class="price-panel-link" href="#section-calculator" aria-labelledby="price-original-title"></a>
   </article>
   </div></section>
 </template>
@@ -1104,20 +1203,24 @@ body, body.light { --header-height:0px; }
 <div id="section-form"><section id="contact-page" class="container commerce-page">
   <p class="eyebrow">CONTACT</p>
   <h1 data-page-copy="formTitle">신청양식 작성기</h1>
-  <p class="contact-intro" data-page-copy="contactIntro">프로젝트 정보를 적고 완성한 양식을 복사해 아트머그 문의로 보내 주세요.</p>
+  <p class="contact-intro" data-page-copy="contactIntro">견적을 가져왔으면 아래에서 선택한 구성을 확인할 수 있습니다.</p>
+  <ol class="inquiry-steps"><li>필수 정보를 입력해 문의 양식을 만듭니다.</li><li>양식을 복사합니다.</li><li>아트머그 문의에 붙여넣고 전송합니다.</li></ol>
   <div class="contact-layout">
   <form id="inquiry-form" class="inquiry-form" novalidate>
+    <h2 class="inquiry-wide inquiry-section-heading">필수 정보</h2>
+    <p class="inquiry-wide inquiry-required-note">* 표시가 있는 항목은 필수입니다.</p>
 
     <label><span class="inquiry-label"><span data-page-copy="name">신청자명</span><span class="required-mark" aria-hidden="true">*</span></span><input name="name" autocomplete="nickname" data-page-placeholder="nameHint" placeholder="신청자명 또는 활동명을 입력해주세요." required></label>
     <label><span class="inquiry-label"><span data-page-copy="channel">업로드 채널 또는 채널명</span><span class="required-mark" aria-hidden="true">*</span></span><input name="channel" type="text" inputmode="text" spellcheck="false" placeholder="채널명, @아이디 또는 채널 주소" required></label>
     <label class="inquiry-wide"><span class="inquiry-label"><span data-page-copy="song">원곡 링크 또는 곡명</span><span class="required-mark" aria-hidden="true">*</span></span><input name="song" type="text" inputmode="text" spellcheck="false" placeholder="곡명 또는 youtu.be/…" required></label>
     <label><span class="inquiry-label"><span data-page-copy="service">신청 타입</span><span class="required-mark" aria-hidden="true">*</span></span><select id="inquiry-service" name="service" required><option value="" data-page-copy="selectOption">선택</option><option value="undecided" data-page-copy="undecided">상담 후 결정</option><option value="Standard">Standard</option><option value="Signature">Signature</option><option value="Original">Original</option></select></label>
     <label><span class="inquiry-label"><span data-page-copy="subtitle">자막 언어</span><span class="required-mark" aria-hidden="true">*</span></span><select name="subtitle" required><option value="" data-page-copy="selectOption">선택</option><option value="ko" data-page-copy="subtitleKo">한국어</option><option value="ja" data-page-copy="subtitleJa">일본어</option><option value="en" data-page-copy="subtitleEn">영어</option></select></label>
+    <label class="inquiry-wide"><span class="inquiry-label"><span data-page-copy="assets">자료 링크 또는 준비 상태</span><span class="required-mark" aria-hidden="true">*</span></span><input name="assets" type="text" inputmode="text" spellcheck="false" placeholder="자료 주소 또는 ‘준비 중’" required></label>
     <section class="inquiry-wide inquiry-quote" aria-labelledby="inquiry-quote-title">
-      <h3 id="inquiry-quote-title">PRICE에서 가져온 추가 옵션</h3>
+      <h3 id="inquiry-quote-title">견적 구성 확인</h3>
       <div id="inquiry-quote-details" aria-live="polite"></div>
     </section>
-    <label class="inquiry-wide"><span class="inquiry-label"><span data-page-copy="assets">자료 링크 또는 준비 상태</span><span class="required-mark" aria-hidden="true">*</span></span><input name="assets" type="text" inputmode="text" spellcheck="false" placeholder="자료 주소 또는 ‘준비 중’" required></label>
+    <h2 class="inquiry-wide inquiry-section-heading">일정·참고 자료·연출 요청 <small>(선택)</small></h2>
     <label><span data-page-copy="date">희망 마감일</span><input name="date" type="date"></label>
     <label class="inquiry-wide"><span data-page-copy="reference">참고 자료 링크</span><input name="reference" inputmode="url"></label>
     <label class="inquiry-wide"><span data-page-copy="details">희망 연출 사항</span><textarea name="details" rows="5" data-page-placeholder="detailsHint" placeholder="원하는 분위기, 장면, 영상 사용처 등을 적어 주세요."></textarea></label>
@@ -1131,8 +1234,8 @@ body, body.light { --header-height:0px; }
     </label>
     <label class="inquiry-wide" id="credit-text-row" hidden><span data-page-copy="creditText">영상에 표시할 크레딧 문구</span><input type="text" name="creditText" data-page-placeholder="creditHint" placeholder="표기할 이름과 역할을 입력해 주세요." disabled></label>
     <div class="inquiry-wide inquiry-actions">
-      <button type="submit" class="commerce-action inquiry-complete" aria-disabled="true" aria-describedby="inquiry-validation" data-page-copy="complete">작성완료</button>
-      <div class="inquiry-validation" id="inquiry-validation" aria-live="polite"></div>
+      <button type="submit" class="commerce-action inquiry-complete" data-page-copy="complete">문의 양식 만들기</button>
+      <p class="inquiry-validation" id="inquiry-validation" role="status" hidden></p>
     </div>
   </form>
   <aside class="contact-faq" aria-labelledby="contact-faq-title">
@@ -1140,26 +1243,34 @@ body, body.light { --header-height:0px; }
     <div id="contact-faq-items"><details><summary>자료 준비중인데 예약 가능한가요?</summary><p>자료 준비중에도 주문 및 입금절차가 완료되면 예약은 가능합니다. 단, 협의된 자료 준비 완료일 초과, 단순 변심, 작업일정 변경 등의 사유로 주문 취소 시 위약금 10%를 제외한 90% 금액만 환불 가능합니다.</p></details><details><summary>추가 수정은 불가능한가요?</summary><p>포함된 수정 횟수와 추가 수정 비용은 제작 타입과 작업 범위에 따라 견적 및 문의 단계에서 안내합니다.</p></details><details><summary>약관 외 내용으로 계약을 진행하고 싶습니다.</summary><p>별도 계약서 작성이나 서명이 필요한 경우 아트머그의 작가 문의로 내용을 알려 주세요.</p></details><details><summary>이 페이지에서 바로 주문할 수 있나요?</summary><p>이 작성기에서 양식을 복사해 아트머그 작가 문의로 보내 주세요. 일정과 견적을 협의한 뒤 아트머그 주문 절차를 진행합니다.</p></details></div>
     <section class="contact-terms" aria-labelledby="contact-terms-heading">
       <h2 id="contact-terms-heading">이용약관</h2>
-      <div id="contact-terms-scroll" class="contact-terms-scroll" role="region" aria-labelledby="contact-terms-heading" tabindex="0"><section><h3>용역 제공과 저작권리</h3><p>모든 주문 건에 대하여 Studio DW는 작업에 필요한 인력을 제공하는 것으로, 모든 작업물에 대한 저작권은 Studio DW에 귀속됩니다. 수령 완료한 작업물의 편집권 및 저작권 양도는 제공되지 않으며, 별도 라이선스 구매 시에만 해당 권리가 이전됩니다.</p></section><section><h3>표기 의무</h3><p>작업물을 온라인에 업로드할 경우, Studio DW를 명시해야 합니다. 이를 이행하지 않을 경우, Studio DW는 사용 중지 요청 및 손해배상 청구(최대 주문 체결 금액의 10배) 등의 법적 조치를 취할 수 있습니다.</p></section><section><h3>작업물 사용 제한 (방송용)</h3><p>Studio DW에서 제공한 방송용 PV 영상은 [수익창출이 되지 않는 형태의 온라인 업로드(X(구 twitter)제외) / 1회성 라이브스트리밍] 용도로만 사용 가능합니다. 그 외 기타용도로 사용하고자 할 경우 사전 협의가 필요합니다.</p></section><section><h3>수익 창출 라이선스</h3><p>수익 창출 목적의 활용 [컨텐츠 또는 리액션 영상 등의 활용 등 2차 소비 / Super Thanks 및 후원 기능 / 지속적 스트리밍 / 오프라인 상영 등] 에는 반드시 수익 창출 라이선스가 필요합니다.</p></section><section><h3>비허가된 수정 및 사용 금지(공통)</h3><p>사전 협의 없이 작업물을 2차 가공, 협의 내용외 사용 적발시 무단 사용 및 저작권리 침해로 간주하며, Studio DW는 사용 중지 요청 및 손해배상 청구(최대 주문 체결 금액의 10배) 등의 법적 조치를 취할 수 있습니다.</p></section><section><h3>실적 활용 권한</h3><p>모든 작업물은 게시물 업로드 및 삭제 여부와 관계없이 Studio DW의 실적 증명 목적으로 사용될 수 있습니다.</p></section><section><h3>제3자 및 작가 동의 간주</h3><p>Studio DW는 영상 작업 시 진행하는 보정 및 완성된 작업물의 실적 증명 자료 활용에 대하여, 작업물에 포함된 자료를 작업한 일러스트/음원 작가의 동의를 받은 것으로 간주합니다.</p></section><section><h3>주문단계 절차 준수</h3><p>Studio DW는 상호 권익 보호와 행정업무 효율화를 위하여 &quot;신청양식&quot; 작성 시스템을 도입하고 있습니다. Studio DW는 &quot;신청양식&quot;없이 진행하는 문의 및 주문에 대한 작업 문의는 무대응 또는 반려할 수 있습니다.</p></section><section><h3>예약 및 환불</h3><p>본 페이지를 통해 진행되는 모든 주문 건은 작업 일정에 따라 예약을 진행할 수 있습니다. 예약은 주문 및 입금이 모두 완료된 주문건에 한하여 진행되며, 영상 작업에 필요한 자료가 준비되지 않은 상태에서 예약을 진행할 경우 의뢰자는 Studio DW가 안내하는 작업 시작일 이전까지 영상 작업에 필요한 모든 자료를 전달해야합니다. 작업시작일 당일까지 자료전달이 진행되지 않을 경우 ①작업순번 최후순위 배정 ②위약금(전체견적의 10%) 등 불이익이 있을 수 있습니다. 또한 예약 이후 단순 변심 또는 일정 변동 등의 사유로 예약을 취소 및 환불을 신청할 경우 위약금(전체금액의 10%)를 제외한 금액만 환불 가능합니다.</p></section><section><h3>수정 및 피드백 조건</h3><p>① 스탠다드/디자인세트 : 오탈자 또는 작업 간 실수로 발생한 문제 외에는 피드백 없이 진행합니다.
-② 시그니처 : 오탈자 또는 작업 간 실수로 발생한 문제 외에 1회 무료 수정이 가능하며, 이후 수정 작업은 회당 별도 요금이 부과됩니다. [시그니처: 50,000KRW]
-③ 작업물 전달 이후 24시간 이내 피드백 전달, 또는 의사 전달이 진행되지 않으면 &#x27;수정사항 없음&#x27;으로 간주합니다.</p></section><section><h3>음원(오디오파일)</h3><p>오디오 파일 변경은 보컬 싱크에 변동이 없는 경우에 한해 1회 무료 제공됩니다. 보컬 싱크 변동으로 인한 수정요청은 무료 피드백 횟수에 포함되지 않습니다. Mix 작업이 완료되지 않아 원곡 음원으로 작업을 희망하시는 경우 원곡음원을 전달해주셔야 합니다.</p></section><section><h3>PV 영상 규정</h3><p>① 커버곡 PV 영상은 보컬 1인을 기준으로 제작되며, 추가 인원이 필요한 경우 별도 옵션 추가가 필요합니다.
-② 기본제공 타임라인은 오디오 파일 기준 3분 30초로, 초과시 별도 옵션추가가 필요합니다.
-③ 배경이 없는 인물 단일 일러스트의 경우 2D/3D 배경 추가 옵션이 견적에 포함될 수 있습니다. (기본 컴포시팅 외 배경)</p></section><section><h3>마감 기한</h3><p>타입별 마감 기한은 평균 작업 기간 기준이며, 작업 난이도 또는 일정에 따라 1-2일의 지연이 발생할 수 있습니다. 최초 피드백 진행 시 마감 기간이 초과될 수 있으며, 주문 또는 피드백 과정에서 전달 누락 또는 작성하지 않은 요청으로 인한 수정 요청은 작업 진행도에 따라 반려될 수 있습니다.</p></section><section><h3>유사 작업물 구성</h3><p>유사한 곡 또는 비슷한 구성의 작업물은 연출 및 디자인이 비슷할 수 있습니다. 음원의 동일 구간에 대한 별도의 연출 작업은 진행하지 않습니다.</p></section><section><h3>작업물 전달 보관 기한</h3><p>모든 작업물의 보관 기한은 수령완료 처리 이후 30일입니다. 납품 당시 생성된 링크는 30일이 지난 후에 삭제되며, 완성된 작업물은 상시 백업해두고 있으나 프로젝트 파일은 삭제 또는 작업 불가 상태일 수 있습니다.</p></section><section><h3>책임 한계</h3><p>모든 주문 건에 대해 본 안내문을 충분히 숙지하고 동의한 것으로 간주되며, 이를 확인하지 않아 발생하는 문제에 대해서는 Studio DW는 일절 책임지지 않습니다.</p></section></div>
+      <div id="contact-terms-scroll" class="contact-terms-scroll" role="region" aria-labelledby="contact-terms-heading" tabindex="0">
+<section><h3>1. 용역 제공과 저작권</h3><p>Studio DW는 주문에 필요한 영상 제작 용역을 제공합니다. Studio DW가 제작하고 적법하게 보유한 부분의 저작재산권은 별도 합의가 없는 한 Studio DW에 귀속됩니다. 의뢰인이 제공한 음원·일러스트 등 기존 자료의 권리는 각 권리자에게 귀속됩니다. 의뢰인은 주문 시 합의한 범위에서 완성본을 사용할 수 있습니다. 완성본의 편집·재가공, 프로젝트 파일 제공 및 저작재산권 양도는 별도 합의에 따릅니다.</p></section>
+<section><h3>2. 제작자 표기 의무</h3><p>작업물을 온라인에 업로드할 경우 영상 설명란 등 시청자가 확인할 수 있는 위치에 Video by Studio DW를 표기해 주세요. 표기가 누락되거나 잘못된 경우 Studio DW는 해당 게시물, 정정 방법 및 상당한 정정 기한을 안내합니다. 기한 내에 정정하지 않으면 Studio DW는 약정한 표기의 이행을 청구할 수 있으며, 미이행으로 발생한 손해에 대해서는 관계 법령에 따라 배상을 청구할 수 있습니다.</p></section>
+<section><h3>3. 작업물 사용 제한 — 방송용</h3><p>Studio DW에서 제공한 방송용 PV 영상은 비수익 형태의 온라인 업로드(X 제외) 및 1회성 라이브 스트리밍 용도로 사용할 수 있습니다. X 게시, 다시보기, 재방송 등 그 밖의 용도로 사용하려면 사전에 협의해 주세요.</p></section>
+<section><h3>4. 수익 창출 라이선스</h3><p>광고 수익, Super Thanks, 후원 등 수익 창출 목적의 활용에는 수익 창출 라이선스가 필요합니다. 리액션 영상 등 다른 콘텐츠에 삽입하거나 지속적으로 스트리밍하거나 오프라인에서 상영하는 경우에는 수익 발생 여부와 관계없이 사전에 사용 범위를 협의해 주세요. 오리지널의 수익화 조건은 개별 견적에서 확정합니다.</p></section>
+<section><h3>5. 허가되지 않은 수정 및 사용 금지 — 공통</h3><p>작업물을 사전 협의 없이 재가공하거나 합의한 범위를 벗어나 사용할 수 없습니다. 이러한 사용이 확인되면 Studio DW는 정정 또는 해당 사용의 중단을 요청할 수 있습니다. 실제 손해가 발생하거나 저작권 침해가 성립하는 경우에는 관계 법령에 따라 손해배상이나 침해 정지 등 필요한 조치를 청구할 수 있습니다.</p></section>
+<section><h3>6. 실적 활용 권한</h3><p>Studio DW는 주문 시 안내하고 합의한 범위에서 작업물을 제작 실적 및 포트폴리오 자료로 사용할 수 있습니다. 해당 범위에서 의뢰인이 게시물을 삭제한 뒤에도 실적 자료로 사용할 수 있습니다. 비공개 프로젝트 또는 공개 유예가 필요한 경우에는 주문 전에 협의해 주세요. 제3자 자료가 포함된 경우에는 해당 자료의 이용허락 범위 안에서 사용합니다.</p></section>
+<section><h3>7. 제3자 자료의 이용 권한</h3><p>의뢰인은 제공하는 음원·일러스트 등 자료를 합의된 영상 제작 및 게시에 사용할 권한을 확보해야 합니다. 보정이나 실적 공개에 별도 허락이 필요한 경우에는 해당 용도에 대한 권리자의 허락을 확보한 범위에서 진행합니다. 권한이 확인되지 않은 경우 Studio DW는 자료 교체 또는 사용 범위 조정을 요청할 수 있습니다.</p></section>
+<section><h3>8. 주문 단계 및 신청양식</h3><p>Studio DW는 작업 조건을 확인하기 위해 신청양식 작성 시스템을 운영합니다. 신청양식이 제출되지 않은 작업 문의는 양식 제출을 요청하거나 접수를 보류·반려할 수 있습니다. 이미 체결된 주문과 관련한 취소, 환불, 하자 통지 등은 관계 법령과 아트머그 주문 절차에 따라 처리합니다.</p></section>
+<section><h3>9. 예약 및 환불</h3><p>예약은 아트머그에서 전체 주문금액을 결제하는 것을 원칙으로 합니다. 일부 금액으로 예약하는 경우에는 아트머그의 예약금 결제 절차를 따라 주세요. 자료가 준비되기 전에 예약한 경우에는 안내된 기한까지 제작에 필요한 자료를 전달해야 합니다. 자료 전달이 늦어지면 작업 순번을 조정하고 변경 일정을 안내할 수 있습니다.</p><p>작업 시작 전에 의뢰인이 예약을 해지하는 경우, Studio DW는 검토 시간 등을 고려하여 결제 대금의 5~10% 범위에서 위약금을 청구할 수 있습니다. 위약금 기준은 게시물에 명시하고, 해당 주문에 적용되는 위약금은 결제 전 상담에서 별도로 안내합니다.</p></section>
+<section><h3>10. 수정 및 피드백 조건</h3><p>① 스탠다드/디자인세트 : 오탈자 또는 작업 간 실수로 발생한 문제 외에는 피드백 없이 진행합니다.<br>② 시그니처 : 오탈자 또는 작업 간 실수로 발생한 문제 외에 1회 무료 수정이 가능하며, 이후 수정 작업은 회당 별도 요금이 부과됩니다. [시그니처: 50,000KRW]<br>③ 작업물 전달 이후 24시간 이내 피드백 전달, 또는 의사 전달이 진행되지 않으면 '수정사항 없음'으로 간주합니다.</p></section>
+<section><h3>11. 음원 교체</h3><p>오디오 파일 변경은 보컬 싱크에 변동이 없는 경우에 한해 1회 무료로 제공합니다. 보컬 싱크 변동으로 인한 수정은 무료 피드백 횟수에 포함되지 않으며, 추가 비용이 필요한 경우 진행 전에 안내합니다. 믹스가 완료되기 전에 원곡 음원으로 작업을 시작하려면 원곡 음원을 전달해 주세요.</p></section>
+<section><h3>12. PV 영상 규정</h3><p>커버곡 PV 영상은 보컬 1인과 음원 길이 3분 30초를 기본으로 제작합니다. 보컬 인원 또는 음원 길이가 기본 범위를 초과하는 경우 별도 옵션이 적용됩니다. 배경이 없는 인물 단일 일러스트에 기본 합성 범위를 넘어서는 배경이 필요한 경우, 2D·3D 배경 옵션이 견적에 포함될 수 있습니다. 적용되는 추가 비용은 주문 확정 전에 안내합니다.</p></section>
+<section><h3>13. 마감 기한</h3><p>타입별 마감 안내는 평균 작업 기간을 기준으로 합니다. 작업 난이도, 자료 전달 또는 피드백 일정에 따라 작업이 1~2일 지연되거나 마감일이 조정될 수 있습니다. 변경이 필요한 경우 Studio DW는 사유와 예상 일정을 안내하고 협의합니다. 주문 또는 피드백 단계에서 전달되지 않은 추가 요청은 작업 진행 상태에 따라 별도 견적을 안내하거나 반려할 수 있습니다. 합의한 제작 범위의 누락이나 Studio DW의 작업 오류는 제10항에 따라 처리합니다.</p></section>
+<section><h3>14. 유사 작업물 구성</h3><p>유사한 곡 또는 비슷한 구성의 작업물은 연출과 디자인이 비슷할 수 있습니다. 동일한 음원 구간의 별도 연출은 기본 제작 범위에 포함되지 않으며, 필요한 경우 주문 전에 협의해 주세요.</p></section>
+<section><h3>15. 납품 파일 보관 기한</h3><p>납품 파일의 다운로드 링크는 아트머그 수령 완료 처리일로부터 30일간 유지됩니다. 기한 내에 파일을 내려받아 보관해 주세요. 기한이 지나면 백업 상태에 따라 완성본을 다시 전달하기 어려울 수 있으며, 프로젝트 파일은 삭제되거나 다시 작업할 수 없는 상태일 수 있습니다.</p></section>
+<section><h3>16. 약관 안내 및 책임</h3><p>Studio DW는 주문 확정 전에 사용 범위, 수정 비용, 예약 취소 및 환불 등 중요한 조건을 안내합니다. 제작 또는 이용 과정에서 문제가 발생하면 양측은 원인과 진행 상황을 확인하여 필요한 조치를 협의합니다. 각 당사자의 책임은 관계 법령과 계약에 따라 판단하며, 본 약관은 의뢰인에게 법령이 보장하는 권리를 제한하지 않습니다.</p></section>
+</div>
     </section>
   </aside>
   </div>
 
-  <dialog class="quote-dialog inquiry-dialog inquiry-error-dialog" id="inquiry-error-dialog" aria-labelledby="inquiry-error-title">
-    <h2 id="inquiry-error-title" data-page-copy="validationTitle">신청양식을 확인해 주세요</h2>
-    <ul id="inquiry-error-list"></ul>
-    <form method="dialog"><button type="submit" class="commerce-action" data-page-copy="closeDialog" autofocus>닫기</button></form>
-  </dialog>
   <dialog class="quote-dialog inquiry-dialog" id="inquiry-complete-dialog" aria-labelledby="inquiry-complete-title">
     <h2 id="inquiry-complete-title">신청양식을 작성했습니다</h2>
     <p>아래 양식을 복사해 아트머그 주문페이지의 ‘작가에게 문의’에 붙여넣어 주세요.</p>
-    <div class="inquiry-dialog-links"><a href="https://artmug.kr/index.php?channel=view&amp;uid=32541#ankerQ" target="_blank" rel="noopener">아트머그 문의로 이동 ↗</a></div>
+    <form method="dialog" class="inquiry-close-form"><button type="submit" class="inquiry-close" aria-label="닫기" autofocus>×</button></form>
     <label class="inquiry-dialog-draft"><span id="inquiry-draft-status" role="status" data-page-copy="selectDraft">작성한 양식을 선택해 복사할 수 있습니다.</span><textarea id="inquiry-message" rows="5" readonly></textarea></label>
-    <form method="dialog" class="inquiry-dialog-actions"><button type="button" class="commerce-action" id="inquiry-copy-draft" data-page-copy="copyDraft">복사</button><button type="submit" class="commerce-action secondary" data-page-copy="closeDialog" autofocus>닫기</button></form>
+    <form method="dialog" class="inquiry-dialog-actions"><button type="button" class="commerce-action" id="inquiry-copy-draft" data-page-copy="copyDraft">양식 복사</button></form>
   </dialog>
 </section></div>
 </template><template data-section="footer">
@@ -1481,6 +1592,57 @@ function mountPortfolio(section) {
   let player = null;
   let imageObserver = null;
   let scrolling = false;
+  const desktop = matchMedia('(min-width:901px)');
+  const browse = section.querySelector('.pf-browse');
+  const thumbnails = browse.querySelector('.pf-thumbnails');
+  const dots = browse.querySelector('.pf-dots');
+  let destination = null;
+
+  function updatePreview() {
+    if (browse.hidden) return;
+    for (const [index, button] of Array.from(thumbnails.children).entries()) {
+      button.setAttribute('aria-pressed', String(index === current));
+      dots.children[index].classList.toggle('is-current', index === current);
+    }
+    const selected = thumbnails.children[current];
+    const strip = thumbnails.getBoundingClientRect();
+    const item = selected.getBoundingClientRect();
+    if (item.left < strip.left) thumbnails.scrollLeft += item.left - strip.left;
+    else if (item.right > strip.right) thumbnails.scrollLeft += item.right - strip.right;
+  }
+
+  function renderPreviews() {
+    browse.hidden = !desktop.matches || !list.length;
+    thumbnails.replaceChildren();
+    dots.replaceChildren();
+    thumbnails.scrollLeft = 0;
+    if (browse.hidden) return;
+    for (const [index, work] of list.entries()) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'pf-thumbnail';
+      button.setAttribute('aria-label', (index + 1) + '번 작품 · ' + work.title);
+      const image = document.createElement('img');
+      image.alt = '';
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      image.src = 'https://i.ytimg.com/vi/' + work.id + '/mqdefault.jpg';
+      image.addEventListener('error', () => { image.style.visibility = 'hidden'; }, {once:true});
+      button.append(image);
+      const dot = document.createElement('span');
+      dot.className = 'pf-dot';
+      dots.append(dot);
+      button.addEventListener('click', () => move(index));
+      thumbnails.append(button);
+    }
+    updatePreview();
+  }
+
+  desktop.addEventListener('change', () => {
+    destination = null;
+    renderPreviews();
+    if (list.length) track.scrollTo({left:track.children[current].offsetLeft, behavior:'instant'});
+  });
 
   function requestImage(slide) {
     const image = slide.querySelector('img');
@@ -1518,11 +1680,16 @@ function mountPortfolio(section) {
       child.querySelector('button').tabIndex = i === current ? 0 : -1;
       child.setAttribute('aria-hidden', String(i !== current));
     }
+    updatePreview();
   }
   function move(index) {
     if (!list.length) return;
     const bounded = Math.max(0, Math.min(index, list.length - 1));
     const slide = track.children[bounded];
+    if (desktop.matches) {
+      destination = bounded;
+      select(bounded);
+    }
     requestImage(slide);
     track.scrollTo({left:slide.offsetLeft, behavior:motionPreference.matches ? 'instant' : 'smooth'});
   }
@@ -1571,7 +1738,9 @@ function mountPortfolio(section) {
     current = 0;
     list = works.filter(work => mood === '전체' || work.moods.includes(mood));
     filters.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.mood === mood)));
+    destination = null;
     track.replaceChildren(...list.map(slideFor));
+    renderPreviews();
     track.scrollLeft = 0;
     track.hidden = !list.length;
     empty.hidden = Boolean(list.length);
@@ -1603,12 +1772,18 @@ function mountPortfolio(section) {
     track.focus({preventScroll:true});
     move(current + (event.key === 'ArrowLeft' ? -1 : 1));
   });
+  track.addEventListener('pointerdown', () => { destination = null; });
+  track.addEventListener('wheel', () => { destination = null; }, {passive:true});
   track.addEventListener('scroll', () => {
     if (scrolling || !track.clientWidth) return;
     scrolling = true;
     requestAnimationFrame(() => {
       scrolling = false;
       if (track.clientWidth && list.length) {
+        if (destination !== null) {
+          if (Math.abs(track.scrollLeft - track.children[destination].offsetLeft) > 1) return;
+          destination = null;
+        }
         select(Math.round(track.scrollLeft / track.clientWidth));
         requestImage(track.children[current]);
       }
@@ -1760,6 +1935,8 @@ function renderQuoteCalculator() {
   }).join('');
   const addons=Object.entries(quoteAddons).map(([key,[label,rate]])=>workRow(key,copy[label],rate,switchControl(key),key==='live2d')).join('');
   calculator.innerHTML='<p class="eyebrow">'+copy.eyebrow+'</p><h2 id="quote-heading">'+safeText(copy.title)+'</h2><p class="quote-lead">'+safeText(copy.lead)+'</p>'+
+    '<div class="quote-compact"><div><span>'+safeText(copy.estimate)+'</span><strong id="quote-compact-total"></strong></div>'+
+    '<a href="#quote-summary-panel" id="quote-summary-jump">'+({ko:'견적 내역 보기 ↓',ja:'見積もり明細を見る ↓',en:'View estimate details ↓'}[homeLocale])+'</a></div>'+
     '<div class="quote-layout"><div class="quote-fields"><div class="quote-selected"><span>'+safeText(copy.package)+'</span><strong>'+q.tier.toUpperCase()+'</strong></div>'+
     '<section class="quote-group quote-basics"><h3>'+labels.basics+'</h3><div class="quote-row">'+
     '<label class="quote-select-row"><span class="quote-option-copy"><strong>'+copy.vocalist+'</strong><small>'+safeText(copy.vocalistHint)+'</small></span><input type="number" inputmode="numeric" min="1" max="20" step="1" data-quote="vocalists" value="'+q.vocalists+'"></label>'+
@@ -1768,7 +1945,7 @@ function renderQuoteCalculator() {
     '<section class="quote-group"><h3>'+copy.additional+'</h3><div class="quote-row quote-addons">'+addons+'</div></section>'+
     '<section class="quote-group"><h3>'+copy.usage+'</h3><div class="quote-row quote-usage">'+checkbox('commercial',copy.license,q.tier==='original')+checkbox('rush',copy.rush)+
     '<label class="quote-select-row" id="quote-rush-row"'+(q.rush?'':' hidden')+'><span>'+labels.rushRate+'</span><select data-quote="multiplier"><option value="1.5"'+(q.multiplier===1.5?' selected':'')+'>×1.5</option><option value="2"'+(q.multiplier===2?' selected':'')+'>×2.0</option></select></label></div></section></div>'+
-    '<aside class="quote-summary"><p class="eyebrow">'+copy.estimate+'</p><p class="quote-total quote-number" id="quote-total" aria-live="polite"></p><p>'+copy.estimateNote+'</p>'+
+    '<aside class="quote-summary" id="quote-summary-panel" tabindex="-1" aria-labelledby="quote-summary-label"><p id="quote-summary-label" class="eyebrow">'+copy.estimate+'</p><p class="quote-total quote-number" id="quote-total" aria-live="polite"></p><p>'+copy.estimateNote+'</p><p class="quote-original-note" id="quote-original-note" hidden></p>'+
     '<section class="quote-review" aria-labelledby="quote-review-title"><h3 id="quote-review-title">'+labels.selected+'</h3>'+
     '<dl class="quote-review-settings" id="quote-review-settings"></dl><dl class="quote-review-lines" id="quote-review-lines"></dl>'+
     '<p id="quote-review-empty" hidden>'+labels.noAddons+'</p></section>'+
@@ -1780,7 +1957,17 @@ function renderQuoteCalculator() {
 function updateQuoteTotal() {
   const q=quoteOptions, copy=quoteCopy[homeLocale], labels=quoteUi[homeLocale];
   const result=buildQuote(q,copy,labels);
-  calculator.querySelector('#quote-total').textContent=quoteMoney(result.total);
+  const originalNote = {
+    ko:'오리지널의 최종 제작비와 수익화 조건은 상담에서 확정됩니다.',
+    ja:'Originalの最終料金と収益化条件はご相談時に確定します。',
+    en:'Final Original pricing and monetization terms are confirmed during consultation.'
+  };
+  const total = quoteMoney(result.total);
+  calculator.querySelector('#quote-total').textContent = total;
+  calculator.querySelector('#quote-compact-total').textContent = total;
+  const note = calculator.querySelector('#quote-original-note');
+  note.hidden = q.tier !== 'original';
+  note.textContent = originalNote[homeLocale];
   const reviewRow=(label,value)=>'<div><dt>'+safeText(label)+'</dt><dd>'+safeText(value)+'</dd></div>';
   calculator.querySelector('#quote-review-settings').innerHTML=
     reviewRow(copy.vocalist,String(q.vocalists))+reviewRow(copy.duration,durationLabel(q.duration));
@@ -1835,6 +2022,12 @@ calculator.addEventListener('input',event=>{
     return true;
   });
   calculator.addEventListener('click', event => {
+    if (event.target.closest('#quote-summary-jump')) {
+      event.preventDefault();
+      const summary = calculator.querySelector('#quote-summary-panel');
+      summary.focus({preventScroll:true});
+      summary.scrollIntoView({block:'start'});
+    }
     if (event.target.closest('#quote-to-contact')) visitSection('contact', {...quoteOptions, background:{...quoteOptions.background}});
   });
   renderQuoteCalculator();
@@ -1845,7 +2038,7 @@ function mountContact(inquiry) {
   const inquiryMessage = document.getElementById('inquiry-message');
   let inquiryQuoteTier, inquiryQuote;
 const inquiryQuoteCopy = {
-  ko: {title:'PRICE에서 가져온 추가 옵션', empty:'PRICE에서 견적을 구성하고 ‘이 구성으로 문의 작성’을 누르면 여기에서 확인할 수 있습니다.', mismatch:'PRICE에서 가져온 제작 타입은 {tier}입니다. 신청 타입을 {tier}로 선택하면 옵션이 반영됩니다.'},
+  ko: {title:'견적 구성 확인', empty:'PRICE에서 견적을 구성하고 ‘이 구성으로 문의 작성’을 누르면 여기에서 확인할 수 있습니다.', mismatch:'PRICE에서 가져온 제작 타입은 {tier}입니다. 신청 타입을 {tier}로 선택하면 옵션이 반영됩니다.'},
   ja: {title:'PRICEから引き継いだ追加オプション', empty:'PRICEで見積もりを作成し、「この内容で問い合わせる」を押すと、ここで確認できます。', mismatch:'PRICEから引き継いだプランは{tier}です。申込プランで{tier}を選択するとオプションが反映されます。'},
   en: {title:'Additional options from PRICE', empty:'Build an estimate in PRICE and choose “Continue to contact with this quote” to see your options here.', mismatch:'The imported quote is for {tier}. Select {tier} as your inquiry tier to apply its options.'}
 };
@@ -1856,27 +2049,37 @@ function hasInquiryQuote(service) {
   return Boolean(inquiryQuoteTier && inquiryQuote && service?.toLowerCase() === inquiryQuoteTier);
 }
 
+const inquirySavedQuantities = {};
 function renderInquiryQuote() {
-  const messages = inquiryQuoteCopy[homeLocale];
-  inquiryQuoteTitle.textContent = messages.title;
-  if (!hasInquiryQuote(inquiryService.value)) {
-    const message = inquiryQuoteTier
-      ? messages.mismatch.replaceAll('{tier}', inquiryQuoteTier.toUpperCase())
-      : messages.empty;
-    inquiryQuoteDetails.innerHTML = '<p>'+safeText(message)+'</p>';
+  inquiryQuoteTitle.textContent = inquiryQuoteCopy[homeLocale].title;
+  const tier = inquiryService.value.toLowerCase();
+  if (!workTypes.includes(tier)) {
+    inquiryQuoteDetails.innerHTML = '<p>신청 타입을 선택하면 추가 옵션을 설정할 수 있습니다.</p>';
     return;
   }
-  const copy = quoteCopy[homeLocale], labels = quoteUi[homeLocale];
-  const {items, notes} = buildQuote(inquiryQuote, copy, labels);
-  const options = items.slice(1);
-  inquiryQuoteDetails.innerHTML =
-    '<p>'+safeText([inquiryQuoteTier.toUpperCase(), copy.vocalist+' '+inquiryQuote.vocalists, copy.duration+' '+durationLabel(inquiryQuote.duration)].join(' · '))+'</p>'+
-    (options.length
-      ? '<ul>'+options.map(({label}) => '<li>'+safeText(label)+'</li>').join('')+'</ul>'
-      : '<p>'+safeText(labels.noAddons)+'</p>')+
-    notes.map(note => '<p>'+safeText(note)+'</p>').join('');
+  if (!inquiryQuote || inquiryQuoteTier !== tier) {
+    inquiryQuoteTier = tier;
+    inquiryQuote = {tier,vocalists:1,duration:210,background:{twoD:0,threeD:0,ue5:0},live2d:false,thumbnailLogo:false,shorts:false,commercial:false,rush:false,multiplier:1.5};
+    Object.keys(inquirySavedQuantities).forEach(key=>delete inquirySavedQuantities[key]);
+  }
+  const q=inquiryQuote, copy=quoteCopy[homeLocale], labels=quoteUi[homeLocale];
+  const {notes,total}=buildQuote(q,copy,labels);
+  const button=(key,label,active,disabled=false)=>'<button type="button" class="inquiry-option" data-inquiry-option="'+key+'" aria-pressed="'+Boolean(active)+'"'+(disabled?' disabled':'')+'>'+safeText(label)+'</button>';
+  const backgrounds=Object.keys(quantityRates).map(key=>button(key,copy[key]+(q.background[key]?' × '+q.background[key]:''),q.background[key],tier==='standard'&&key!=='twoD')).join('');
+  const extras=Object.entries(quoteAddons).map(([key,[label]])=>button(key,copy[label],q[key])).join('');
+  inquiryQuoteDetails.innerHTML='<p>'+safeText([tier.toUpperCase(),copy.vocalist+' '+q.vocalists,copy.duration+' '+durationLabel(q.duration)].join(' · '))+'</p><div class="inquiry-option-grid">'+backgrounds+extras+button('commercial',copy.license,q.commercial,tier==='original')+button('rush',copy.rush+(q.rush?' × '+q.multiplier:''),q.rush)+'</div><p>'+safeText(copy.estimate+' / '+quoteMoney(total))+'</p>'+notes.map(note=>'<p>'+safeText(note)+'</p>').join('');
 }
-
+inquiryQuoteDetails.addEventListener('click',event=>{
+  const target=event.target.closest('[data-inquiry-option]');
+  if (!target || target.disabled || !hasInquiryQuote(inquiryService.value)) return;
+  const key=target.dataset.inquiryOption;
+  if (Object.hasOwn(quantityRates,key)) {
+    if (inquiryQuote.background[key]) { inquirySavedQuantities[key]=inquiryQuote.background[key]; inquiryQuote.background[key]=0; }
+    else inquiryQuote.background[key]=inquirySavedQuantities[key]||1;
+  } else inquiryQuote[key]=!inquiryQuote[key];
+  renderInquiryQuote();
+  inquiryQuoteDetails.querySelector('[data-inquiry-option="'+key+'"]').focus();
+});
 inquiryService.addEventListener('change', renderInquiryQuote);
 window.addEventListener('pageshow', renderInquiryQuote);
 
@@ -1907,13 +2110,12 @@ creditSelect.addEventListener('change',syncCreditField);
 window.addEventListener('pageshow',syncCreditField);
 syncCreditField();
 
-const inquirySubmit=inquiry.querySelector('.inquiry-complete');
 const validationHint=document.getElementById('inquiry-validation');
-const inquiryErrorDialog=document.getElementById('inquiry-error-dialog');
-const inquiryErrorList=document.getElementById('inquiry-error-list');
+let attemptedInquiry = false;
+const fieldErrors = new Map();
 const validationCopy={
   ko:{
-    summary:'작성완료 전에 다음 항목을 확인해 주세요.',
+    summary:'문의 양식을 만들기 전에 다음 항목을 확인해 주세요.',
     input:'필수 입력값이 비어 있습니다.',
     select:'필수 항목을 선택해 주세요.',
 
@@ -1947,40 +2149,58 @@ function collectInquiryIssues() {
   }
   return issues;
 }
-function inquiryIssueItems(issues) {
-  return issues.map(({label,reason})=>'<li><strong>'+safeText(label)+'</strong><span>'+safeText(reason)+'</span></li>').join('');
-}
 function syncInquiryValidity(issues=collectInquiryIssues()) {
-  const valid=issues.length===0;
-  //수정: The submit action is blocked while invalid, but the control can still explain the errors.//
-  inquirySubmit.setAttribute('aria-disabled',String(!valid));
-  validationHint.hidden=valid;
-  const message=valid?'':'<p>'+validationCopy[homeLocale].summary+'</p><ul>'+inquiryIssueItems(issues)+'</ul>';
-  if (validationHint.innerHTML!==message) validationHint.innerHTML=message;
-  if (inquiryErrorDialog.open) inquiryErrorList.innerHTML=inquiryIssueItems(issues);
-  return valid;
+  if (!attemptedInquiry) return issues.length === 0;
+  const activeIssues = new Map(issues.map(({field, reason}) => [field, reason]));
+  for (const [field, error] of fieldErrors) {
+    if (activeIssues.has(field)) continue;
+    field.removeAttribute('aria-invalid');
+    field.removeAttribute('aria-describedby');
+    error.remove();
+    fieldErrors.delete(field);
+  }
+  for (const [field, reason] of activeIssues) {
+    let error = fieldErrors.get(field);
+    if (!error) {
+      error = document.createElement('span');
+      error.className = 'inquiry-field-error';
+      error.id = 'inquiry-error-' + field.name;
+      field.after(error);
+      field.setAttribute('aria-invalid', 'true');
+      field.setAttribute('aria-describedby', error.id);
+      fieldErrors.set(field, error);
+    }
+    if (error.textContent !== reason) error.textContent = reason;
+  }
+  validationHint.hidden = issues.length === 0;
+  const message = issues.length ? validationCopy[homeLocale].summary : '';
+  if (validationHint.textContent !== message) validationHint.textContent = message;
+  return issues.length === 0;
 }
 function refreshInquiryValidity() { syncInquiryValidity(); }
 inquiry.addEventListener('input',refreshInquiryValidity);
 inquiry.addEventListener('change',refreshInquiryValidity);
 window.addEventListener('pageshow',refreshInquiryValidity);
-inquiryErrorDialog.addEventListener('close',()=>{
-  if (!document.getElementById('contact-page').hidden) collectInquiryIssues()[0]?.field.focus();
-});
-syncInquiryValidity();
 
 function draftInquiry() {
   const fields=new FormData(inquiry);
   const service=fields.get('service');
   const rows=[];
+  const addRow = (label, value) => {
+    const number = String.fromCodePoint(0x2474 + rows.length);
+    rows.push(number + " " + label + "\n\n" + value);
+  };
   for (const key of ['name','channel','song','service','subtitle','assets','date','reference','details','credits','creditText']) {
     let value=key==='credits' ? inquiryLabel(creditSelect.checked?'creditsYes':'creditsNo') : fields.get(key)?.trim();
-    if (!value) continue;
+    if (key === 'creditText' && !creditSelect.checked) continue;
     const field=inquiry.elements.namedItem(key);
-    if (field instanceof HTMLSelectElement) value=field.selectedOptions[0].textContent;
-    rows.push(inquiryLabel(key)+' / '+value);
+    if (value && field instanceof HTMLSelectElement) value=field.selectedOptions[0].textContent;
+    addRow(inquiryLabel(key), value ? '- ' + value : '-');
   }
-  if (hasInquiryQuote(service)) rows.push(quoteTransferText());
+  if (hasInquiryQuote(service)) {
+    const label = {ko:'견적 구성', ja:'見積もり内容', en:'Estimate details'}[homeLocale];
+    addRow(label, quoteTransferText().split('\n').map(line => '- ' + line).join('\n'));
+  }
   return rows.join('\n\n');
 }
 
@@ -1991,32 +2211,67 @@ const copySuccess={
   ja:'記入済みのフォームをコピーしました。',
   en:'Your completed form has been copied.'
 };
+function resizeInquiryDraft() {
+  if (!inquiryDialog.open) return;
+  inquiryMessage.style.height='auto';
+  inquiryMessage.style.height=(inquiryMessage.scrollHeight+inquiryMessage.offsetHeight-inquiryMessage.clientHeight+2)+'px';
+}
+window.addEventListener('resize',resizeInquiryDraft);
 let inquirySubmission=0;
+const copyButton = document.getElementById('inquiry-copy-draft');
+const copyButtonLabel = copyButton.textContent;
+let copyFeedbackTimer;
+let copyPressAnimation;
+function resetCopyFeedback() {
+  clearTimeout(copyFeedbackTimer);
+  copyButton.removeAttribute('data-copied');
+  copyButton.textContent = copyButtonLabel;
+}
+inquiryDialog.addEventListener('close', resetCopyFeedback);
 async function copyInquiryDraft(selectOnFailure=false) {
   const submission=inquirySubmission;
   try {
     await navigator.clipboard.writeText(inquiryMessage.value);
-    if (submission===inquirySubmission && inquiryDialog.open) inquiryDraftStatus.textContent=copySuccess[homeLocale];
+    if (submission !== inquirySubmission || !inquiryDialog.open) return;
+    inquiryDraftStatus.textContent = homeLocale === 'ko' ? '복사했습니다. 아트머그의 ‘작가에게 문의’에 붙여넣고 전송해 주세요.' : copySuccess[homeLocale];
+    if (selectOnFailure) {
+      copyButton.setAttribute('data-copied', '');
+      copyButton.textContent = {ko:'✓ 복사 완료', ja:'✓ コピーしました', en:'✓ Copied'}[homeLocale];
+      copyFeedbackTimer = setTimeout(resetCopyFeedback, 2000);
+    }
   } catch {
-    if (selectOnFailure && submission===inquirySubmission && inquiryDialog.open) {
+    if (submission !== inquirySubmission || !inquiryDialog.open) return;
+    if (homeLocale === 'ko') inquiryDraftStatus.textContent = '자동으로 복사할 수 없습니다. 아래 양식을 직접 복사해 주세요.';
+    if (selectOnFailure) {
       inquiryMessage.focus();
       inquiryMessage.select();
     }
   }
 }
-document.getElementById('inquiry-copy-draft').addEventListener('click', () => copyInquiryDraft(true));
+copyButton.addEventListener('click', () => {
+  resetCopyFeedback();
+  if (!motionPreference.matches && copyButton.animate) {
+    copyPressAnimation?.cancel();
+    copyPressAnimation = copyButton.animate(
+      [{transform:'scale(.97)'}, {transform:'scale(1)'}],
+      {duration:200, easing:'ease-out'}
+    );
+  }
+  copyInquiryDraft(true);
+});
 inquiry.addEventListener('submit', event => {
   event.preventDefault();
+  attemptedInquiry = true;
   const issues=collectInquiryIssues();
   if (!syncInquiryValidity(issues)) {
-    inquiryErrorList.innerHTML=inquiryIssueItems(issues);
-    if (!inquiryErrorDialog.open) inquiryErrorDialog.showModal();
+    issues[0].field.focus();
     return;
   }
   inquirySubmission++;
   inquiryMessage.value=draftInquiry();
   inquiryDraftStatus.textContent='작성한 양식을 선택해 복사할 수 있습니다.';
   inquiryDialog.showModal();
+  resizeInquiryDraft();
   copyInquiryDraft();
 });
 
@@ -2030,6 +2285,7 @@ inquiry.addEventListener('submit', event => {
         !Object.keys(quantityRates).every(key => integer(value.background[key],0,3)) ||
         ![...Object.keys(quoteAddons),'commercial','rush'].every(key => typeof value[key] === 'boolean') ||
         ![1.5,2].includes(value.multiplier)) return false;
+    Object.keys(inquirySavedQuantities).forEach(key=>delete inquirySavedQuantities[key]);
     inquiryQuoteTier=value.tier;
     inquiryQuote={...value,background:{...value.background}};
     inquiryService.value=value.tier[0].toUpperCase() + value.tier.slice(1);
